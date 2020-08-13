@@ -5,6 +5,7 @@ in
 pkgs.mkShell {
   pname = "MuonBDTPid";
   buildInputs = with pkgs; [
+    python2
     root5
   ];
 }
