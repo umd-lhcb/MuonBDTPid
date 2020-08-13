@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "root";
-  version = "5.34.09";
+  version = "5.34.38";
 
   src = fetchFromGitHub {
     owner = "root-project";
     repo = pname;
     rev = "v" + stdenv.lib.concatStringsSep "-" (stdenv.lib.splitString "." version);
-    sha256 = "1i9qwrximl5rxcws4yxwiii27w2nhsmvlny2m4sfinycvfw7p981";
+    sha256 = "1lyz4b2raql3fw4l1k05d5lsmidp3nrqr6x0ckafqllilaah6n0k";
   };
 
   nativeBuildInputs = [ pkgconfig ];
@@ -20,6 +20,7 @@ stdenv.mkDerivation rec {
     ;
 
   patches = [
+    # various fixes to ROOT build system
     ./sw_vers_root5.patch
 
     # prevents rootcint from looking in /usr/includes and such
@@ -87,7 +88,7 @@ stdenv.mkDerivation rec {
     homepage = "https://root.cern.ch/";
     description = "A data analysis framework";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    # maintainers = with maintainers; [ veprbl ];  # This is a local port, and is not maintained by Dmitry!
     license = licenses.lgpl21;
   };
 }
