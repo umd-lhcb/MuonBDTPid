@@ -1,0 +1,1423 @@
+diff --git a/tmva/CMakeLists.txt b/tmva/CMakeLists.txt
+index 5a1a12cec7..c7137d119b 100644
+--- a/tmva/CMakeLists.txt
++++ b/tmva/CMakeLists.txt
+@@ -2,6 +2,9 @@
+ # CMakeLists.txt file for building ROOT tmva package
+ # @author Pere Mato, CERN
+ ############################################################################
++#---The following is needed becuase client codes of TMVA (in ROOT itself) assumes to find header files under /TVMA
++#execute_process(COMMAND cmake -E create_symlink ${CMAKE_CURRENT_SOURCE_DIR}/inc ${CMAKE_CURRENT_SOURCE_DIR}/inc/TMVA)
++
+ if(NOT CMAKE_PROJECT_NAME STREQUAL ROOT)
+   cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+   project(TMVA)
+@@ -56,7 +59,7 @@ ROOT_GENERATE_DICTIONARY(G__TMVA4 ${theaders4} LINKDEF LinkDef4.h)
+ ROOT_GENERATE_ROOTMAP(TMVA LINKDEF LinkDef1.h LinkDef2.h LinkDef3.h LinkDef4.h
+                            DEPENDENCIES RIO Hist Matrix Tree Graf Gpad TreePlayer MLP Minuit MathCore XMLIO)
+ 
+-ROOT_LINKER_LIBRARY(TMVA *.cxx G__TMVA1.cxx G__TMVA2.cxx G__TMVA3.cxx G__TMVA4.cxx LIBRARIES Core Cint 
++ROOT_LINKER_LIBRARY(TMVA *.cxx G__TMVA1.cxx G__TMVA2.cxx G__TMVA3.cxx G__TMVA4.cxx LIBRARIES Core Cint
+                     DEPENDENCIES RIO Hist Tree MLP Minuit XMLIO)
+ 
+ install(DIRECTORY inc/TMVA/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/TMVA
+@@ -73,5 +76,3 @@ if(NOT gnuinstall)
+                  PATTERN "README"
+                  PATTERN "data" EXCLUDE)
+ endif()
+-
+-
+diff --git a/tmva/Makefile b/tmva/Makefile
+index 23f51f55d1..ffff44c97b 100644
+--- a/tmva/Makefile
++++ b/tmva/Makefile
+@@ -36,7 +36,7 @@ DICTO        := $(DICTO1) $(DICTO2) $(DICTO3) $(DICTO4)
+ DICTH1       := Configurable.h Event.h Factory.h MethodBase.h MethodCompositeBase.h \
+ 		MethodANNBase.h MethodTMlpANN.h MethodRuleFit.h MethodCuts.h MethodFisher.h \
+ 		MethodKNN.h MethodCFMlpANN.h MethodCFMlpANN_Utils.h MethodLikelihood.h \
+-		MethodHMatrix.h MethodPDERS.h MethodBDT.h MethodDT.h MethodSVM.h MethodBayesClassifier.h \
++		MethodHMatrix.h MethodPDERS.h MethodBDT.h MethodUBDT.h MethodDT.h MethodSVM.h MethodBayesClassifier.h \
+ 		MethodFDA.h MethodMLP.h MethodBoost.h \
+ 		MethodPDEFoam.h MethodLD.h MethodCategory.h
+ DICTH2       := TSpline2.h TSpline1.h PDF.h BinaryTree.h BinarySearchTreeNode.h BinarySearchTree.h \
+diff --git a/tmva/inc/LinkDef1.h b/tmva/inc/LinkDef1.h
+index 08df48a370..f723f386d8 100644
+--- a/tmva/inc/LinkDef1.h
++++ b/tmva/inc/LinkDef1.h
+@@ -29,6 +29,7 @@
+ #pragma link C++ class TMVA::MethodHMatrix+;
+ #pragma link C++ class TMVA::MethodPDERS+;
+ #pragma link C++ class TMVA::MethodBDT+;
++#pragma link C++ class TMVA::MethodUBDT+;
+ #pragma link C++ class TMVA::MethodDT+;
+ #pragma link C++ class TMVA::MethodSVM+;
+ #pragma link C++ class TMVA::MethodBayesClassifier+;
+diff --git a/tmva/inc/TMVA/MethodBDT.h b/tmva/inc/TMVA/MethodBDT.h
+index e8e0889199..3bc204ea72 100644
+--- a/tmva/inc/TMVA/MethodBDT.h
++++ b/tmva/inc/TMVA/MethodBDT.h
+@@ -55,10 +55,14 @@
+ #ifndef ROOT_TMVA_Event
+ #include "TMVA/Event.h"
+ #endif
++#ifndef ROOT_TMVA_MethodUBDT
++#include "TMVA/MethodUBDT.h"
++#endif
+ 
+ namespace TMVA {
+ 
+    class SeparationBase;
++   class MethodUBDT;
+ 
+    class MethodBDT : public MethodBase {
+ 
+@@ -201,6 +205,7 @@ namespace TMVA {
+       void UpdateTargets( std::vector<const TMVA::Event*>&, UInt_t cls = 0);
+       void UpdateTargetsRegression( std::vector<const TMVA::Event*>&,Bool_t first=kFALSE);
+       Double_t GetGradBoostMVA(const TMVA::Event *e, UInt_t nTrees);
++      void GetRandomSubSample();
+       void     GetBaggedSubSample(std::vector<const TMVA::Event*>&);
+       Double_t GetWeightedQuantile(std::vector<std::pair<Double_t, Double_t> > vec, const Double_t quantile, const Double_t SumOfWeights = 0.0);
+ 
+@@ -265,6 +270,19 @@ namespace TMVA {
+       Double_t                         fBoostWeight;     // ntuple var: boost weight
+       Double_t                         fErrorFraction;   // ntuple var: misclassification error fraction
+ 
++      // uBoost additions
++      void SetUBoostTargetEffic( Double_t t )  { fUBoostTargetEffic = t; }
++      void SetUBoostFlag( Int_t flag )         { fUBoostFlag = flag; }
++
++      Double_t fUBoostTargetEffic;             // target efficiency for uBoost
++      Int_t fUBoostFlag;                       // flag to turn on uBoost
++
++      void InitUBoost( std::vector<const TMVA::Event*> );
++      std::map< const TMVA::Event*, std::pair<Double_t, Double_t> > fUBoostMva;
++
++      void UBoost( std::vector<const TMVA::Event*> , Int_t itree );
++      std::vector< std::vector<UInt_t> >  fUBoostNN;
++
+       Double_t                         fCss;             // Cost factor
+       Double_t                         fCts_sb;          // Cost factor
+       Double_t                         fCtb_ss;          // Cost factor
+@@ -294,6 +312,8 @@ namespace TMVA {
+       // debugging flags
+       static const Int_t               fgDebugLevel;     // debug level determining some printout/control plots etc.
+ 
++      friend class MethodUBDT;
++
+       // for backward compatibility
+ 
+       ClassDef(MethodBDT,0)  // Analysis of Boosted Decision Trees
+diff --git a/tmva/inc/TMVA/MethodCategory.h b/tmva/inc/TMVA/MethodCategory.h
+index 4f4e74f360..74b115d2c2 100644
+--- a/tmva/inc/TMVA/MethodCategory.h
++++ b/tmva/inc/TMVA/MethodCategory.h
+@@ -55,6 +55,7 @@ namespace TMVA {
+    class Factory;  // DSMTEST
+    class Reader;   // DSMTEST
+    class MethodBoost;   // DSMTEST
++   class MethodUBDT;    // DSMTEST
+    class DataSetManager;  // DSMTEST
+ 
+    class MethodCategory : public MethodCompositeBase {
+@@ -135,6 +136,7 @@ namespace TMVA {
+       friend class Factory; // DSMTEST
+       friend class Reader;  // DSMTEST
+       friend class MethodBoost;  // DSMTEST
++      friend class MethodUBDT;  // DSMTEST
+ 
+       ClassDef(MethodCategory,0)
+    };
+diff --git a/tmva/inc/TMVA/MethodUBDT.h b/tmva/inc/TMVA/MethodUBDT.h
+new file mode 100644
+index 0000000000..395c08fcf3
+--- /dev/null
++++ b/tmva/inc/TMVA/MethodUBDT.h
+@@ -0,0 +1,197 @@
++// @(#)root/tmva $Id$
++// Author: Andreas Hoecker, Joerg Stelzer, Helge Voss, Kai Voss,Or Cohen, Jan Therhaag, Eckhard von Toerne
++
++/**********************************************************************************
++ * Project: TMVA - a Root-integrated toolkit for multivariate data analysis       *
++ * Package: TMVA                                                                  *
++ * Class  : MethodCompositeBase                                                   *
++ * Web    : http://tmva.sourceforge.net                                           *
++ *                                                                                *
++ * Description:                                                                   *
++ *      Virtual base class for all MVA method                                     *
++ *                                                                                *
++ * Authors (alphabetical):                                                        *
++ *      Andreas Hoecker    <Andreas.Hocker@cern.ch>   - CERN, Switzerland         *
++ *      Peter Speckmayer   <Peter.Speckmazer@cern.ch> - CERN, Switzerland         *
++ *      Joerg Stelzer      <Joerg.Stelzer@cern.ch>    - CERN, Switzerland         *
++ *      Helge Voss         <Helge.Voss@cern.ch>       - MPI-K Heidelberg, Germany *
++ *      Jan Therhaag       <Jan.Therhaag@cern.ch>     - U of Bonn, Germany        *
++ *      Eckhard v. Toerne  <evt@uni-bonn.de>          - U of Bonn, Germany        *
++ *                                                                                *
++ * Copyright (c) 2005-2011:                                                       *
++ *      CERN, Switzerland                                                         *
++ *      U. of Victoria, Canada                                                    *
++ *      MPI-K Heidelberg, Germany                                                 *
++ *      U. of Bonn, Germany                                                       *
++ *                                                                                *
++ * Redistribution and use in source and binary forms, with or without             *
++ * modification, are permitted according to the terms listed in LICENSE           *
++ * (http://tmva.sourceforge.net/LICENSE)                                          *
++ **********************************************************************************/
++
++#ifndef ROOT_TMVA_MethodUBDT
++#define ROOT_TMVA_MethodUBDT
++
++//////////////////////////////////////////////////////////////////////////
++//                                                                      //
++// MethodUBDT                                                           //
++//                                                                      //
++// Class for boosting a TMVA method                                     //
++//                                                                      //
++//////////////////////////////////////////////////////////////////////////
++
++#include <iosfwd>
++#include <vector>
++
++#ifndef ROOT_TMVA_MethodBase
++#include "TMVA/MethodBase.h"
++#endif
++
++#ifndef ROOT_TMVA_ModulekNN
++#include "TMVA/ModulekNN.h"
++#endif
++
++#ifndef ROOT_TMVA_MethodCompositeBase
++#include "TMVA/MethodCompositeBase.h"
++#endif
++
++namespace TMVA {
++
++   class Factory;  // DSMTEST
++   class Reader;   // DSMTEST
++   class DataSetManager;  // DSMTEST
++   class MethodBDT;
++
++   class MethodUBDT : public MethodCompositeBase {
++
++   public :
++
++      // constructors
++      MethodUBDT( const TString& jobName,
++                   const TString& methodTitle,
++                   DataSetInfo& theData,
++                   const TString& theOption = "",
++                   TDirectory* theTargetDir = NULL );
++
++      MethodUBDT( DataSetInfo& dsi,
++                   const TString& theWeightFile,
++                   TDirectory* theTargetDir = NULL );
++
++      virtual ~MethodUBDT( void );
++
++      virtual Bool_t HasAnalysisType( Types::EAnalysisType type, UInt_t numberClasses, UInt_t /*numberTargets*/ );
++
++      // build NN vector for training events
++      void MakeKNN();
++
++      // training and boosting all the classifiers
++      void Train( void );
++
++      // ranking of input variables
++      const Ranking* CreateRanking();
++
++      // saves the name and options string of the boosted classifier
++      Bool_t BookMethod( Types::EMVA theMethod, TString methodTitle, TString theOption );
++      void SetUBDTMethodName ( TString methodName )     { fUBDTMethodName  = methodName; }
++
++      Int_t          GetUBDTNum() { return fUBDTNum; }
++
++      void CleanBoostOptions();
++
++      Double_t GetMvaValue( Double_t* err=0, Double_t* errUpper = 0 );
++
++   private :
++      // clean up
++      void ClearAll();
++
++      // print fit results
++      void PrintResults( const TString&, std::vector<Double_t>&, const Double_t ) const;
++
++      // initializing mostly monitoring tools of the boost process
++      void Init();
++      void InitHistos();
++      void CheckSetup();
++
++      // the option handling methods
++      void DeclareOptions();
++      void ProcessOptions();
++
++      // training a single classifier
++      void SingleTrain();
++
++      // fill signal and background response histograms for a single classifier
++      void SingleFillHistograms();
++
++      // writing the monitoring histograms and tree to a file
++      void WriteMonitoringHistosToFile( void ) const;
++
++      // write evaluation histograms into target file
++      virtual void WriteEvaluationHistosToFile(Types::ETreeType treetype);
++
++      // performs the MethodBase testing + testing of each boosted classifier
++      virtual void TestClassification();
++
++      // finding the MVA to cut between sig and bgd
++      void FindMVACut(Float_t targetEffic);
++
++      // setting all the boost weights to 1
++      void ResetBoostWeights();
++
++      // creating the vectors of histogram for monitoring MVA response of each classifier
++      void CreateMVAHistorgrams();
++
++      // calculate MVA values of current trained method on training
++      // sample
++      void CalcMVAValues();
++
++      Int_t              fUBDTNum;             // Number efficiency steps used in UBDT
++      Double_t           fMinEffic, fMaxEffic; // Min and Max efficiency for training steps
++      Double_t           fEfficiencyStepSize;  // Step size for mu values
++
++      // needed for building kNN for each event
++      Int_t fnkNN;             // number of k-nearest neighbors
++      Int_t fBalanceDepth;     // number of binary tree levels used for balancing tree
++      kNN::ModulekNN     *fModule;            // building of kNN vector done here
++      std::vector< std::vector<UInt_t> >  fUBoostNN; // contains kNN for query event
++
++      // should remove these 3 later but seg faults on destructor!?
++      TString            fUBDTType;           // string specifying the boost type
++      Bool_t             fDetailedMonitoring; // produce detailed monitoring histograms (boost-wise)
++      std::vector<TH1*>* fMonitorHist;          // histograms to monitor values during the boosting
++
++      TString            fUBDTMethodName;    // details of the boosted classifier
++      TString            fUBDTMethodTitle;   // title
++      TString            fUBDTMethodOptions; // options
++      Bool_t             fMonitorUBDTMethod; // monitor the MVA response of every classifier
++
++      // MVA output from each classifier over the training hist, using orignal events weights
++      std::vector< TH1* >   fTrainSigMVAHist;
++      std::vector< TH1* >   fTrainBgdMVAHist;
++      // MVA output from each classifier over the training hist, using boosted events weights
++      std::vector< TH1* >   fBTrainSigMVAHist;
++      std::vector< TH1* >   fBTrainBgdMVAHist;
++      // MVA output from each classifier over the testing hist
++      std::vector< TH1* >   fTestSigMVAHist;
++      std::vector< TH1* >   fTestBgdMVAHist;
++      std::vector< TH1* >   fNLeavesHist;
++      std::vector< TH1* >   fNLeavesByTreeHist;
++
++      std::vector<Float_t> *fMVAvalues;       // mva values for the last trained method
++
++      Double_t fScaleFrac;     // fraction of events used to compute variable width
++
++      DataSetManager*    fDataSetManager;     // DSMTEST
++      friend class Factory;                   // DSMTEST
++      friend class Reader;                    // DSMTEST
++      friend class MethodBDT;
++
++   protected:
++
++      // get help message text
++      void GetHelpMessage() const;
++
++      ClassDef(MethodUBDT,0)
++   };
++}
++
++#endif
+diff --git a/tmva/inc/TMVA/ModulekNN.h b/tmva/inc/TMVA/ModulekNN.h
+index 1851491e40..bea19bd772 100644
+--- a/tmva/inc/TMVA/ModulekNN.h
++++ b/tmva/inc/TMVA/ModulekNN.h
+@@ -74,9 +74,11 @@ namespace TMVA {
+ 
+          VarType GetVar(UInt_t i) const;
+          VarType GetTgt(UInt_t i) const;
++         VarType GetSpec(UInt_t i) const;
+ 
+          UInt_t GetNVar() const;
+          UInt_t GetNTgt() const;
++         UInt_t GetNSpec() const;
+ 
+          Short_t GetType() const;
+ 
+@@ -85,8 +87,10 @@ namespace TMVA {
+          VarType GetDist(const Event &other) const;
+ 
+          void SetTargets(const VarVec &tvec);
++         void SetSpectators(const VarVec &svec);
+          const VarVec& GetTargets() const;
+          const VarVec& GetVars() const;
++         const VarVec& GetSpectators() const;
+ 
+          void Print() const;
+          void Print(std::ostream& os) const;
+@@ -95,6 +99,7 @@ namespace TMVA {
+ 
+          VarVec fVar; // coordinates (variables) for knn search
+          VarVec fTgt; // targets for regression analysis
++         VarVec fSpec; // spectators (variables) for knn search
+ 
+          Double_t fWeight; // event weight
+          Short_t fType; // event type ==0 or == 1, expand it to arbitrary class types? 
+@@ -188,6 +193,10 @@ namespace TMVA {
+       {
+          return fTgt[i];
+       }
++      inline VarType Event::GetSpec(const UInt_t i) const
++      {
++         return fSpec[i];
++      }
+ 
+       inline UInt_t Event::GetNVar() const
+       {
+@@ -197,6 +206,10 @@ namespace TMVA {
+       {
+          return fTgt.size();
+       }
++      inline UInt_t Event::GetNSpec() const
++      {
++         return fSpec.size();
++      }
+       inline Short_t Event::GetType() const
+       {
+          return fType;
+diff --git a/tmva/inc/TMVA/Types.h b/tmva/inc/TMVA/Types.h
+index cb5f45ce67..cfc6567bd6 100644
+--- a/tmva/inc/TMVA/Types.h
++++ b/tmva/inc/TMVA/Types.h
+@@ -81,6 +81,7 @@ namespace TMVA {
+          kCFMlpANN       ,
+          kTMlpANN        ,
+          kBDT            ,
++         kUBDT           ,
+          kDT             ,
+          kRuleFit        ,
+          kSVM            ,
+diff --git a/tmva/src/MethodBDT.cxx b/tmva/src/MethodBDT.cxx
+index a2c1a9c767..5fb98826ae 100644
+--- a/tmva/src/MethodBDT.cxx
++++ b/tmva/src/MethodBDT.cxx
+@@ -189,6 +189,8 @@ TMVA::MethodBDT::MethodBDT( const TString& jobName,
+    , fITree(0)
+    , fBoostWeight(0)
+    , fErrorFraction(0)
++   , fUBoostTargetEffic(0) 
++   , fUBoostFlag(0)
+    , fCss(0)
+    , fCts_sb(0)
+    , fCtb_ss(0)
+@@ -243,6 +245,8 @@ TMVA::MethodBDT::MethodBDT( DataSetInfo& theData,
+    , fITree(0)
+    , fBoostWeight(0)
+    , fErrorFraction(0)
++   , fUBoostTargetEffic(0) 
++   , fUBoostFlag(0)
+    , fCss(0)
+    , fCts_sb(0)
+    , fCtb_ss(0)
+@@ -412,6 +416,9 @@ void TMVA::MethodBDT::DeclareOptions()
+    DeclareOptionRef(fNNodesMax,"NNodesMax","deprecated: Use MaxDepth instead to limit the tree size" );
+ 
+ 
++   DeclareOptionRef(fUBoostTargetEffic=0.0, "uBoostTargetEffic", "Target efficiency for uBoost");
++   DeclareOptionRef(fUBoostFlag=0, "uBoostFlag", "Uniformity boosting flag");
++
+ }
+ 
+ //_______________________________________________________________________
+@@ -497,7 +504,7 @@ void TMVA::MethodBDT::ProcessOptions()
+       fUseYesNoLeaf = kFALSE;
+    } else if (fBoostType=="AdaCost"){
+       fUseYesNoLeaf = kFALSE;
+-   }
++   } else fBaggedGradBoost=kFALSE;
+ 
+    if (fFValidationEvents < 0.0) fFValidationEvents = 0.0;
+    if (fAutomatic && fFValidationEvents > 0.5) {
+@@ -691,6 +698,7 @@ void TMVA::MethodBDT::Reset( void )
+    //for (UInt_t iev=0; iev<fEventSample.size(); iev++) fEventSample[iev]->SetBoostWeight(1.);
+    if (Data()) Data()->DeleteResults(GetMethodName(), Types::kTraining, GetAnalysisType());
+    Log() << kDEBUG << " successfully(?) reset the method " << Endl;                                      
++   fUBoostMva.clear();
+ }
+ 
+ 
+@@ -703,6 +711,8 @@ TMVA::MethodBDT::~MethodBDT( void )
+    //   for (UInt_t i=0; i<fEventSample.size();      i++) delete fEventSample[i];
+    //   for (UInt_t i=0; i<fValidationSample.size(); i++) delete fValidationSample[i];
+    for (UInt_t i=0; i<fForest.size();           i++) delete fForest[i];
++   fUBoostNN.clear();
++   fUBoostMva.clear();
+ }
+ 
+ //_______________________________________________________________________
+@@ -1072,6 +1082,8 @@ void TMVA::MethodBDT::SetTuneParameters(std::map<TString,Double_t> tuneParameter
+       else if (it->first ==  "Shrinkage"      ) SetShrinkage       (it->second);
+       else if (it->first ==  "UseNvars"       ) SetUseNvars        ((Int_t)it->second);
+       else if (it->first ==  "BaggedSampleFraction" ) SetBaggedSampleFraction (it->second);
++      else if (it->first ==  "uBoostTargetEffic") SetUBoostTargetEffic (it->second);
++      else if (it->first ==  "uBoostFlag"       ) SetUBoostFlag        (it->second);
+       else Log() << kFATAL << " SetParameter for " << it->first << " not yet implemented " <<Endl;
+    }
+    
+@@ -1133,8 +1145,8 @@ void TMVA::MethodBDT::Train()
+    TH1* h = new TH1F("BoostWeight",hname,nBins,xMin,xMax);
+    TH1* nodesBeforePruningVsTree = new TH1I("NodesBeforePruning","nodes before pruning",fNTrees,0,fNTrees);
+    TH1* nodesAfterPruningVsTree = new TH1I("NodesAfterPruning","nodes after pruning",fNTrees,0,fNTrees);
+-
+-      
++   TH1* NLeavesHist = new TH1I("NLeavesHist","leaves in DT",20,0,20);
++   TH1* NLeavesByTreeHist = new TH1I("NLeavesByTreeHist","leaves per DT",fNTrees,0,fNTrees);
+ 
+    if(!DoMulticlass()){
+       Results* results = Data()->GetResults(GetMethodName(), Types::kTraining, GetAnalysisType());
+@@ -1177,6 +1189,8 @@ void TMVA::MethodBDT::Train()
+       nodesAfterPruningVsTree->SetYTitle("#tree nodes");
+       results->Store(nodesAfterPruningVsTree);
+ 
++      results->Store(NLeavesHist);
++      results->Store(NLeavesByTreeHist);
+    }
+    
+    fMonitorNtuple= new TTree("MonitorNtuple","BDT variables");
+@@ -1196,6 +1210,8 @@ void TMVA::MethodBDT::Train()
+       InitGradBoost(fEventSample);
+    }
+ 
++   if(fUBoostFlag) InitUBoost(fEventSample);
++
+    Int_t itree=0;
+    Bool_t continueBoost=kTRUE;
+    //for (int itree=0; itree<fNTrees; itree++) {
+@@ -1276,9 +1292,11 @@ void TMVA::MethodBDT::Train()
+             Log() << kWARNING << "stopped boosting at itree="<<itree << Endl;
+             continueBoost=kFALSE;
+          }
+-         
+-
+-         
++	    if(fUBoostFlag) UBoost(fEventSample,itree);
++            
++            if (fUseYesNoLeaf && !DoRegression() ){ // remove leaf nodes where both daughter nodes are of same type
++              fForest.back()->CleanTree();
++            }
+          // if fAutomatic == true, pruneStrength will be the optimal pruning strength
+          // determined by the pruning algorithm; otherwise, it is simply the strength parameter
+          // set by the user
+@@ -1323,7 +1341,121 @@ void TMVA::MethodBDT::Train()
+             << Endl;
+    }
+    TMVA::DecisionTreeNode::fgIsTraining=false;
++}
+ 
++//_______________________________________________________________________
++void TMVA::MethodBDT::InitUBoost( vector<const TMVA::Event*> eventSample )
++{
++  // initialize map to cache of previous evaluation of previous tress
++  for (vector<const TMVA::Event*>::iterator e=eventSample.begin(); e!=eventSample.end();e++) {
++    fUBoostMva[*e].first = 0.;
++    fUBoostMva[*e].second = 0.;
++  }
++}
++
++
++//_______________________________________________________________________
++void TMVA::MethodBDT::UBoost( vector<const TMVA::Event*> eventSample, Int_t itree )
++{
++
++  vector<Float_t> bdtAll;
++  vector<Float_t> bdtComputeEffic;
++
++  // determine minBDT cut for given target efficiency
++  for (vector<const TMVA::Event*>::iterator e=eventSample.begin(); e!=eventSample.end();e++) {
++    if(!DataInfo().IsSignal(*e)) continue; // only consider signal
++
++    // code from PrivateGetMvaValue() to get aggregate MVA response for N trees
++    fUBoostMva[*e].first += fBoostWeights[itree]*fForest.back()->CheckEvent(*e,fUseYesNoLeaf);
++    fUBoostMva[*e].second += fBoostWeights[itree];
++    Float_t bdt = ( fUBoostMva[*e].second > std::numeric_limits<double>::epsilon() ) ? fUBoostMva[*e].first/fUBoostMva[*e].second : 0;
++
++    if(0){ // slow method eval all trees just for cross check
++      Float_t bdtSlow = PrivateGetMvaValue(*e);
++      if(bdt != bdtSlow)
++        Log() << "Different BDT response: " << bdtSlow << " " << bdt << Endl;
++    }
++
++    bdtAll.push_back(bdt);
++    bdtComputeEffic.push_back(bdt);
++  }
++
++  Float_t minBDT = -1.0;
++  sort(bdtComputeEffic.begin(),bdtComputeEffic.end());
++  int index = bdtComputeEffic.size()*(1.-fUBoostTargetEffic);
++  minBDT = bdtComputeEffic.at(index);
++
++  // find overall uniformity error
++  Int_t jevt = 0;
++  Double_t uniformSumGlobalw=0, newUniformSumGlobalw=0;
++  for (vector<const TMVA::Event*>::iterator e=eventSample.begin(); e!=eventSample.end();e++) {
++    if(!DataInfo().IsSignal(*e)) continue; // only consider signal
++
++    uniformSumGlobalw+=(*e)->GetWeight();
++
++    float BDT = 0;
++    float total = 0; float pass = 0;
++    for (vector<UInt_t>::iterator evec=fUBoostNN[jevt].begin(); evec!=fUBoostNN[jevt].end();evec++){
++      BDT = bdtAll.at(*evec);
++      total++;
++      if(BDT>=minBDT) pass++;
++    }
++
++    float locEffic = pass/total;
++    newUniformSumGlobalw+=(*e)->GetWeight()*fabs(fUBoostTargetEffic-locEffic);
++    //newUniformSumGlobalw+=(*e)->GetWeight()*TMath::Power(fUBoostTargetEffic-locEffic,2);
++
++    jevt++;
++  }
++  float uniformityError = newUniformSumGlobalw/uniformSumGlobalw;
++
++  // adjust event weights for uniformity based on efficiency of NN events
++  Int_t ievt = 0;
++  Double_t sumGlobalw=0, newSumGlobalw=0;
++  for (vector<const TMVA::Event*>::iterator e=eventSample.begin(); e!=eventSample.end();e++) {
++    if(!DataInfo().IsSignal(*e)) continue; // only consider signal
++
++    sumGlobalw+=(*e)->GetWeight();
++
++    float BDT = 0;
++    float total = 0; float pass = 0;
++    for (vector<UInt_t>::iterator evec=fUBoostNN[ievt].begin(); evec!=fUBoostNN[ievt].end();evec++){
++      BDT = bdtAll.at(*evec);
++      total++;
++      if(BDT>=minBDT) pass++;
++    }
++
++    float locEffic = pass/total;
++
++    // similar exponential form as adaboost
++    float uBoostFactor = TMath::Power((1.-uniformityError)/uniformityError,fUBoostTargetEffic-locEffic); 
++
++    if ( (*e)->GetWeight() > 0 )
++      (*e)->SetBoostWeight( (*e)->GetBoostWeight() * uBoostFactor);
++
++    newSumGlobalw+=(*e)->GetWeight();
++    ievt++;
++  }
++
++  // re-normalise the signal weights
++  Double_t globalNormWeight=sumGlobalw/newSumGlobalw;
++  for (vector<const TMVA::Event*>::iterator e=eventSample.begin(); e!=eventSample.end();e++) {
++    if(!DataInfo().IsSignal(*e)) continue;
++    (*e)->ScaleBoostWeight( globalNormWeight );
++  } 
++
++  return;
++}
++
++
++//_______________________________________________________________________
++void TMVA::MethodBDT::GetRandomSubSample()
++{
++   // fills fEventSample with fSampleFraction*NEvents random training events
++   UInt_t nevents = fEventSample.size();
++   
++   if (!fSubSample.empty()) fSubSample.clear();
++   TRandom3 *trandom   = new TRandom3(fForest.size()+1);
+ 
+    // reset all previously stored/accumulated BOOST weights in the event sample
+    //   for (UInt_t iev=0; iev<fEventSample.size(); iev++) fEventSample[iev]->SetBoostWeight(1.);
+diff --git a/tmva/src/MethodCompositeBase.cxx b/tmva/src/MethodCompositeBase.cxx
+index 08bbe93654..c7ef0833d4 100644
+--- a/tmva/src/MethodCompositeBase.cxx
++++ b/tmva/src/MethodCompositeBase.cxx
+@@ -171,13 +171,15 @@ void TMVA::MethodCompositeBase::ReadWeightsFromXML( void* wghtnode )
+ 
+       //remove trailing "~" to signal that options have to be reused
+       optionString.ReplaceAll("~","");
+-      //ignore meta-options for method Boost
++      //ignore meta-options for method Boost and UBDT
+       optionString.ReplaceAll("Boost_","~Boost_");
++      optionString.ReplaceAll("UBDT_","~UBDT_");
+       optionString.ReplaceAll("!~","~!");
+ 
+       if (i==0){
+          // the cast on MethodBoost is ugly, but a similar line is also in ReadWeightsFromFile --> needs to be fixed later
+-         ((TMVA::MethodBoost*)this)->BookMethod( Types::Instance().GetMethodType( methodTypeName), methodName,  optionString );
++         if (GetMethodType() == Types::kBoost)
++            ((TMVA::MethodBoost*)this)->BookMethod( Types::Instance().GetMethodType( methodTypeName), methodName,  optionString );
+       }
+       fMethods.push_back(ClassifierFactory::Instance().Create(
+                                                               std::string(methodTypeName),jobName, methodName,DataInfo(),optionString));
+diff --git a/tmva/src/MethodUBDT.cxx b/tmva/src/MethodUBDT.cxx
+new file mode 100644
+index 0000000000..1b7570cbc3
+--- /dev/null
++++ b/tmva/src/MethodUBDT.cxx
+@@ -0,0 +1,737 @@
++// @(#)root/tmva $Id$
++// Author: Andreas Hoecker, Joerg Stelzer, Helge Voss, Kai Voss,Or Cohen, Jan Therhaag, Eckhard von Toerne
++
++/**********************************************************************************
++ * Project: TMVA - a Root-integrated toolkit for multivariate data analysis       *
++ * Package: TMVA                                                                  *
++ * Class  : MethodCompositeBase                                                   *
++ * Web    : http://tmva.sourceforge.net                                           *
++ *                                                                                *
++ * Description:                                                                   *
++ *      Virtual base class for all MVA method                                     *
++ *                                                                                *
++ * Authors (alphabetical):                                                        *
++ *      Andreas Hoecker    <Andreas.Hocker@cern.ch>   - CERN, Switzerland         *
++ *      Peter Speckmayer   <Peter.Speckmazer@cern.ch> - CERN, Switzerland         *
++ *      Joerg Stelzer      <Joerg.Stelzer@cern.ch>    - CERN, Switzerland         *
++ *      Helge Voss         <Helge.Voss@cern.ch>       - MPI-K Heidelberg, Germany *
++ *      Jan Therhaag       <Jan.Therhaag@cern.ch>     - U of Bonn, Germany        *
++ *      Eckhard v. Toerne  <evt@uni-bonn.de>          - U of Bonn, Germany        *
++ *                                                                                *
++ * Copyright (c) 2005-2011:                                                       *
++ *      CERN, Switzerland                                                         *
++ *      U. of Victoria, Canada                                                    *
++ *      MPI-K Heidelberg, Germany                                                 *
++ *      U. of Bonn, Germany                                                       *
++ *                                                                                *
++ * Redistribution and use in source and binary forms, with or without             *
++ * modification, are permitted according to the terms listed in LICENSE           *
++ * (http://tmva.sourceforge.net/LICENSE)                                          *
++ **********************************************************************************/
++
++//_______________________________________________________________________
++//
++// This class is meant to boost a single classifier. Boosting means    //
++// training the classifier a few times. Everytime the wieghts of the   //
++// events are modified according to how well the classifier performed  //
++// on the test sample.                                                 //
++//_______________________________________________________________________
++#include <algorithm>
++#include <iomanip>
++#include <vector>
++#include <cmath>
++
++#include "Riostream.h"
++#include "TRandom3.h"
++#include "TMath.h"
++#include "TObjString.h"
++#include "TH1F.h"
++#include "TGraph.h"
++#include "TSpline.h"
++#include "TDirectory.h"
++
++#include "TMVA/MethodCompositeBase.h"
++#include "TMVA/MethodBase.h"
++#include "TMVA/MethodBDT.h"
++#include "TMVA/MethodUBDT.h"
++#include "TMVA/MethodCategory.h"
++#include "TMVA/Tools.h"
++#include "TMVA/ClassifierFactory.h"
++#include "TMVA/Timer.h"
++#include "TMVA/Types.h"
++#include "TMVA/PDF.h"
++#include "TMVA/Results.h"
++#include "TMVA/Config.h"
++
++#include "TMVA/SeparationBase.h"
++#include "TMVA/MisClassificationError.h"
++#include "TMVA/GiniIndex.h"
++#include "TMVA/CrossEntropy.h"
++#include "TMVA/RegressionVariance.h"
++
++REGISTER_METHOD(UBDT)
++
++ClassImp(TMVA::MethodUBDT)
++
++//_______________________________________________________________________
++TMVA::MethodUBDT::MethodUBDT( const TString& jobName,
++                                const TString& methodTitle,
++                                DataSetInfo& theData,
++                                const TString& theOption,
++                                TDirectory* theTargetDir ) :
++   TMVA::MethodCompositeBase( jobName, Types::kUBDT, methodTitle, theData, theOption, theTargetDir )
++   , fUBDTNum(0)
++   , fMinEffic(0)
++   , fMaxEffic(0)
++   , fnkNN(0)
++   , fBalanceDepth(0)
++   , fModule(0)
++   , fUBDTMethodTitle(methodTitle)
++   , fUBDTMethodOptions(theOption)
++   , fMonitorUBDTMethod(kFALSE)
++   , fMVAvalues(0)
++   , fScaleFrac(0)
++{
++   fMVAvalues = new std::vector<Float_t>;
++}
++
++//_______________________________________________________________________
++TMVA::MethodUBDT::MethodUBDT( DataSetInfo& dsi,
++                                const TString& theWeightFile,
++                                TDirectory* theTargetDir )
++   : TMVA::MethodCompositeBase( Types::kUBDT, dsi, theWeightFile, theTargetDir )
++   , fUBDTNum(0)
++   , fMinEffic(0)
++   , fMaxEffic(0)
++   , fnkNN(0)
++   , fBalanceDepth(0)
++   , fModule(0)
++   , fUBDTMethodTitle("")
++   , fUBDTMethodOptions("")
++   , fMonitorUBDTMethod(kFALSE)
++   , fMVAvalues(0)
++   , fScaleFrac(0)
++{
++   fMVAvalues = new std::vector<Float_t>;
++}
++
++//_______________________________________________________________________
++TMVA::MethodUBDT::~MethodUBDT( void )
++{
++   // destructor
++   fMethodWeight.clear();
++
++   // the histogram themselves are deleted when the file is closed
++   fTrainSigMVAHist.clear();
++   fTrainBgdMVAHist.clear();
++   fBTrainSigMVAHist.clear();
++   fBTrainBgdMVAHist.clear();
++   fTestSigMVAHist.clear();
++   fTestBgdMVAHist.clear();
++   fNLeavesHist.clear();
++   fNLeavesByTreeHist.clear();
++   
++   if (fMVAvalues) {
++      delete fMVAvalues;
++      fMVAvalues = 0;
++   }
++   if (fModule) delete fModule;
++}
++
++//_______________________________________________________________________
++Bool_t TMVA::MethodUBDT::HasAnalysisType( Types::EAnalysisType type, UInt_t numberClasses, UInt_t /*numberTargets*/ )
++{
++   // Just classification for now
++   if (type == Types::kClassification && numberClasses == 2) return kTRUE;
++   return kFALSE;
++}
++
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::DeclareOptions()
++{
++   DeclareOptionRef( fUBDTNum = 1, "UBDT_Num",
++                     "Number of steps in efficiency for UBDT" );
++   DeclareOptionRef( fMinEffic = 0.0, "UBDT_MinEffic",
++                     "Lowest efficiency step considered for UBDT training" );
++   DeclareOptionRef( fMaxEffic = 1.0, "UBDT_MaxEffic",
++                     "Highest efficiency step considered for UBDT training" );
++
++
++   DeclareOptionRef( fnkNN = 100, "nkNN",
++		     "Number of k-nearest neighbors" );
++   DeclareOptionRef( fBalanceDepth = 6, "BalanceDepth",
++		     "Binary tree balance depth");
++   DeclareOptionRef( fScaleFrac = 0.80, "ScaleFrac",
++		     "Fraction of events used to compute variable width");
++
++   DeclareOptionRef( fMonitorUBDTMethod = kTRUE, "UBDT_MonitorMethod",
++                     "Write monitoring histograms for UBDT classifier" );
++
++   TMVA::MethodCompositeBase::fMethods.reserve(fUBDTNum);
++}
++
++//_______________________________________________________________________
++Bool_t TMVA::MethodUBDT::BookMethod( Types::EMVA theMethod, TString methodTitle, TString theOption )
++{
++   // just registering the string from which the boosted classifier will be created
++   fUBDTMethodName     = Types::Instance().GetMethodName( theMethod );
++   fUBDTMethodTitle    = methodTitle;
++   fUBDTMethodOptions  = theOption;
++   TString opts=theOption;
++   opts.ToLower();
++
++   return kTRUE;
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::Init()
++{ 
++
++  fModule = new kNN::ModulekNN();
++
++}
++
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::CheckSetup()
++{
++
++   Log() << kDEBUG << "CheckSetup: fUBDTNum="<<fUBDTNum<< Endl;
++   Log() << kDEBUG << "CheckSetup: fMinEffic="<<fMinEffic<<" fMaxEffic="<<fMaxEffic<< Endl;
++   Log() << kDEBUG << "CheckSetup: fTrainSigMVAHist.size()="<<fTrainSigMVAHist.size()<<Endl;
++   Log() << kDEBUG << "CheckSetup: fTestSigMVAHist.size()="<<fTestSigMVAHist.size()<<Endl;
++   Log() << kDEBUG << "CheckSetup: fMonitorUBDTMethod=" << (fMonitorUBDTMethod? "true" : "false") << Endl;
++   Log() << kDEBUG << "CheckSetup: MName=" << fUBDTMethodName << " Title="<< fUBDTMethodTitle<< Endl;
++   Log() << kDEBUG << "CheckSetup: MOptions="<< fUBDTMethodOptions << Endl;
++   Log() << kDEBUG << "CheckSetup: fCurrentMethodIdx=" <<fCurrentMethodIdx << Endl;
++   if (fMethods.size()>0) Log() << kDEBUG << "CheckSetup: fMethods[0]" <<fMethods[0]<<Endl;
++   Log() << kDEBUG << "CheckSetup: fMethodWeight.size()" << fMethodWeight.size() << Endl;
++   if (fMethodWeight.size()>0) Log() << kDEBUG << "CheckSetup: fMethodWeight[0]="<<fMethodWeight[0]<<Endl;
++   Log() << kDEBUG << "CheckSetup: trying to repair things" << Endl;
++
++}
++
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::MakeKNN( void )
++{
++
++   Log() << "Building tree of nearest neighboor events ... patience please" << Endl;
++
++   fModule->Clear();
++
++   // first loop over the training events to build binary search tree
++   for (UInt_t ievt = 0; ievt < GetNEvents(); ++ievt) {
++      const Event*   evt_   = GetTrainingEvent(ievt);
++
++      // only use signal events
++      if (!DataInfo().IsSignal(evt_)) continue;
++
++      if (evt_->GetNSpectators() < 1)
++	Log() << kFATAL << "MethodUBDT::MakeKNN() - No spectator variables given to build kNN vector" << Endl;
++      
++      // choose spectator variables to use in NN calculation
++      const UInt_t nvec = evt_->GetNSpectators();
++      kNN::VarVec vvec(nvec, 0.0);
++      for (UInt_t ivar = 0; ivar < nvec; ++ivar) {
++	vvec[ivar] = evt_->GetSpectator(ivar);
++      }
++      // store event index in kNN event spectator variable
++      kNN::VarVec svec(1, 0.0);
++      svec[0] = ievt; 
++
++      Double_t  weight = evt_->GetWeight();
++      Short_t   event_type = 1; //signal
++
++      // create event and add to tree for NN search
++      kNN::Event event_knn(vvec, weight, event_type);
++      event_knn.SetSpectators(svec);
++      event_knn.SetTargets(evt_->GetTargets());
++      fModule->Add(event_knn);
++   }
++   
++   std::string option;
++   fModule->Fill(static_cast<UInt_t>(fBalanceDepth),
++                 static_cast<UInt_t>(100.0*fScaleFrac),
++                 option);
++
++   // second loop over the training events to get nearest neighbors
++   for (UInt_t ievt = 0; ievt < GetNEvents(); ++ievt) {
++      const Event*   evt_   = GetTrainingEvent(ievt);
++
++      // only use signal events
++      if (!DataInfo().IsSignal(evt_)) continue;
++      
++      fnkNN = 100;
++      const Int_t nvar = evt_->GetNSpectators();
++      const Double_t weight = evt_->GetWeight();
++      const UInt_t knn = static_cast<UInt_t>(fnkNN);
++      kNN::VarVec vvec(static_cast<UInt_t>(nvar), 0.0);
++
++      for (Int_t ivar = 0; ivar < nvar; ++ivar) {
++	vvec[ivar] = evt_->GetSpectator(ivar);
++      }
++      
++      const kNN::Event event_knn(vvec, weight, 1);
++      fModule->Find(event_knn, knn + 1); // +1 since query event will be in NN list
++
++      vector<UInt_t> singleEvent;
++
++      // request list of NN
++      const kNN::List &rlist = fModule->GetkNNList();
++      if (rlist.size() != knn + 1) {
++	Log() << kFATAL << "kNN result list is empty" << Endl;
++      }
++
++      // loop on NN list
++      for (kNN::List::const_iterator lit = rlist.begin(); lit != rlist.end(); ++lit) {
++	const kNN::Node<kNN::Event> &node = *(lit->first);
++	
++	// skip same event 
++	if( ievt == node.GetEvent().GetSpec(0) ) continue;
++	
++	// check NN matching
++	//if(ievt == 1000) Log() << "neighboor event "<< node.GetEvent().GetSpec(0) << " " << node.GetEvent().GetVar(0) << " " << node.GetEvent().GetVar(1) << Endl;
++	
++	// fill vector of NN here
++	singleEvent.push_back(node.GetEvent().GetSpec(0));
++      }
++
++      fUBoostNN.push_back(singleEvent);
++   }
++}
++
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::Train()
++{
++   TDirectory* methodDir( 0 );
++   TString     dirName,dirTitle;
++
++   if (Data()->GetNTrainingEvents()==0) Log() << kFATAL << "<Train> Data() has zero events" << Endl;
++   Data()->SetCurrentType(Types::kTraining);
++
++   // initialize kNN vector
++   MakeKNN();
++
++   if (fMethods.size() > 0) fMethods.clear();
++   fMVAvalues->resize(Data()->GetNTrainingEvents(), 0.0);
++
++   Log() << kINFO << "Training "<< fUBDTNum << " " << fUBDTMethodName << " for efficiency from " << fMinEffic*100 << "-" << fMaxEffic*100 << "% with title " << fUBDTMethodTitle << " Classifiers and kNN = " << fnkNN << "... patience please" << Endl;
++   Timer timer( fUBDTNum, GetName() );
++
++   // clean boosted method options
++   CleanBoostOptions();
++
++   // remove transformations for individual boosting steps
++   // the transformation of the main method will be rerouted to each of the boost steps
++   Ssiz_t varTrafoStart=fUBDTMethodOptions.Index("~VarTransform=");
++   if (varTrafoStart >0) {
++      Ssiz_t varTrafoEnd  =fUBDTMethodOptions.Index(":",varTrafoStart);
++      if (varTrafoEnd<varTrafoStart)
++	 varTrafoEnd=fUBDTMethodOptions.Length();
++      fUBDTMethodOptions.Remove(varTrafoStart,varTrafoEnd-varTrafoStart);
++   }
++
++   // set efficiency points to train uBoost
++   fEfficiencyStepSize = (fMaxEffic-fMinEffic)/(fUBDTNum);
++   Float_t targetEfficiency = fMinEffic;
++
++   //
++   // training the classifiers
++   for (fCurrentMethodIdx=0;fCurrentMethodIdx<fUBDTNum;fCurrentMethodIdx++) {
++
++      // set boost weights to 1
++      ResetBoostWeights();
++
++      // set different uBoostTargetEffic for each method (ie. each BDT forest in UBDT)
++      targetEfficiency += fEfficiencyStepSize;
++      TString singleBDTMethodOptions = fUBDTMethodOptions; 
++      singleBDTMethodOptions += ":uBoostTargetEffic=";
++      singleBDTMethodOptions += targetEfficiency;
++      //cout<<singleBDTMethodOptions<<endl;
++
++      // the first classifier shows the option string output, the rest not
++      if (fCurrentMethodIdx>0) TMVA::MsgLogger::InhibitOutput();
++
++      IMethod* method = ClassifierFactory::Instance().Create(std::string(fUBDTMethodName),
++                                                             GetJobName(),
++                                                             Form("%s%03i", fUBDTMethodTitle.Data(),fCurrentMethodIdx),
++                                                             DataInfo(),
++                                                             singleBDTMethodOptions);
++      TMVA::MsgLogger::EnableOutput();
++
++      // supressing the rest of the classifier output the right way
++      MethodBase *meth = (dynamic_cast<MethodBase*>(method));
++
++      if (meth==0) continue;
++
++      // set fDataSetManager if MethodCategory (to enable Category to create datasetinfo objects) // DSMTEST
++      if (meth->GetMethodType() == Types::kCategory) { // DSMTEST
++         MethodCategory *methCat = (dynamic_cast<MethodCategory*>(meth)); // DSMTEST
++         if (!methCat) // DSMTEST
++            Log() << kFATAL << "Method with type kCategory cannot be casted to MethodCategory. /MethodUBDT" << Endl; // DSMTEST
++         methCat->fDataSetManager = fDataSetManager; // DSMTEST
++      } // DSMTEST
++
++      meth->SetMsgType(kWARNING);
++      meth->SetupMethod();
++      meth->ParseOptions();
++      // put SetAnalysisType here for the needs of MLP
++      meth->SetAnalysisType( GetAnalysisType() );
++      meth->ProcessSetup();
++      meth->CheckSetup();
++
++      // reroute transformationhandler
++      meth->RerouteTransformationHandler (&(this->GetTransformationHandler()));
++
++      // creating the directory of the classifier
++      if (fMonitorUBDTMethod) {
++         methodDir=MethodBaseDir()->GetDirectory(dirName=Form("%s_B%03i",fUBDTMethodName.Data(),fCurrentMethodIdx));
++         if (methodDir==0) {
++            methodDir=BaseDir()->mkdir(dirName,dirTitle=Form("Directory %s #%03i", fUBDTMethodName.Data(),fCurrentMethodIdx));
++         }
++         MethodBase* m = dynamic_cast<MethodBase*>(method);
++         if (m) {
++            m->SetMethodDir(methodDir);
++            m->BaseDir()->cd();
++         }
++      }
++
++      // training
++      TMVA::MethodCompositeBase::fMethods.push_back(method);
++      timer.DrawProgressBar( fCurrentMethodIdx );
++      TMVA::MsgLogger::InhibitOutput(); //supressing Logger outside the method
++      
++      // set NN vector to use in training individual BDT forest
++      MethodBDT* methodBDT = dynamic_cast<MethodBDT*>(method);
++      for(UInt_t i=0; i<GetNEvents(); i++){
++	const Event*   evt_   = GetTrainingEvent(i);
++	if (!DataInfo().IsSignal(evt_)) continue;
++	vector<UInt_t> singleEvent;
++	for(UInt_t j=0; j<fUBoostNN[i].size(); j++){
++	  singleEvent.push_back(fUBoostNN[i].at(j));
++	}
++	methodBDT->fUBoostNN.push_back(singleEvent);
++      } 
++
++      SingleTrain();
++      TMVA::MsgLogger::EnableOutput();
++      method->WriteMonitoringHistosToFile();
++      //TestClassification();
++      //WriteEvaluationHistosToFile(Types::kTraining);
++
++      // calculate MVA values of method on training sample
++      CalcMVAValues();
++
++      // find the MVA cut for target efficiency of this classifier
++      FindMVACut(targetEfficiency);
++
++      // monitoring histograms for composite method
++      if (fCurrentMethodIdx==0 && fMonitorUBDTMethod) CreateMVAHistorgrams();
++      
++      // fill monitoring histograms for single classifier
++      if (fMonitorUBDTMethod) SingleFillHistograms();
++
++      fMethodWeight.push_back(1.0); //needed by xml writer
++
++      methodBDT->fUBoostNN.clear();
++   }
++   ResetBoostWeights();
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::CleanBoostOptions()
++{
++   fUBDTMethodOptions=GetOptions(); 
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::CreateMVAHistorgrams()
++{
++   if (fUBDTNum <=0) Log() << kFATAL << "CreateHistorgrams called before fUBDTNum is initialized" << Endl;
++   // calculating histograms boundries and creating histograms..
++   // nrms = number of rms around the average to use for outline (of the 0 classifier)
++   Double_t meanS, meanB, rmsS, rmsB, xmin, xmax, nrms = 10;
++   Int_t signalClass = 0;
++   if (DataInfo().GetClassInfo("Signal") != 0) {
++      signalClass = DataInfo().GetClassInfo("Signal")->GetNumber();
++   }
++   gTools().ComputeStat( GetEventCollection( Types::kMaxTreeType ), fMVAvalues,
++                         meanS, meanB, rmsS, rmsB, xmin, xmax, signalClass );
++
++   fNbins = gConfig().fVariablePlotting.fNbinsXOfROCCurve;
++   xmin = TMath::Max( TMath::Min(meanS - nrms*rmsS, meanB - nrms*rmsB ), xmin );
++   xmax = TMath::Min( TMath::Max(meanS + nrms*rmsS, meanB + nrms*rmsB ), xmax ) + 0.00001;
++
++   // creating all the historgrams
++   for (Int_t imtd=0; imtd<fUBDTNum; imtd++) {
++      fTrainSigMVAHist .push_back( new TH1F( Form("MVA_Train_S%03i",imtd), "MVA_Train_S",        fNbins, xmin, xmax ) );
++      fTrainBgdMVAHist .push_back( new TH1F( Form("MVA_Train_B%03i", imtd), "MVA_Train_B",        fNbins, xmin, xmax ) );
++      fBTrainSigMVAHist.push_back( new TH1F( Form("MVA_BTrain_S%03i",imtd), "MVA_BoostedTrain_S", fNbins, xmin, xmax ) );
++      fBTrainBgdMVAHist.push_back( new TH1F( Form("MVA_BTrain_B%03i",imtd), "MVA_BoostedTrain_B", fNbins, xmin, xmax ) );
++      fTestSigMVAHist  .push_back( new TH1F( Form("MVA_Test_S%03i",  imtd), "MVA_Test_S",         fNbins, xmin, xmax ) );
++      fTestBgdMVAHist  .push_back( new TH1F( Form("MVA_Test_B%03i",  imtd), "MVA_Test_B",         fNbins, xmin, xmax ) );
++      fNLeavesHist     .push_back( new TH1F( Form("NLeaves%03i",  imtd), "NLeaves",         100, 0., 20. ) );
++      fNLeavesByTreeHist.push_back( new TH1F( Form("NLeavesByTree%03i",  imtd), "NLeaves by Tree",         100, 0., 100. ) );
++   }
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::ResetBoostWeights()
++{
++   // resetting back the boosted weights of the events to 1
++   for (UInt_t ievt=0; ievt<GetNEvents(); ievt++) {
++      const Event *ev = Data()->GetEvent(ievt);
++      ev->SetBoostWeight( 1.0 );
++   }
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::WriteMonitoringHistosToFile( void ) const
++{
++   TDirectory* dir=0;
++   if (fMonitorUBDTMethod) {
++      for (Int_t imtd=0;imtd<fUBDTNum;imtd++) {
++
++         //writing the histograms in the specific classifier's directory
++         MethodBase* m = dynamic_cast<MethodBase*>(fMethods[imtd]);
++         if (!m) continue;
++         dir = m->BaseDir();
++         dir->cd();
++         fTrainSigMVAHist[imtd]->SetDirectory(dir);
++         fTrainSigMVAHist[imtd]->Write();
++         fTrainBgdMVAHist[imtd]->SetDirectory(dir);
++         fTrainBgdMVAHist[imtd]->Write();
++         fBTrainSigMVAHist[imtd]->SetDirectory(dir);
++         fBTrainSigMVAHist[imtd]->Write();
++         fBTrainBgdMVAHist[imtd]->SetDirectory(dir);
++         fBTrainBgdMVAHist[imtd]->Write();
++	 fNLeavesHist[imtd]->SetDirectory(dir);
++	 fNLeavesHist[imtd]->Write();
++	 fNLeavesByTreeHist[imtd]->SetDirectory(dir);
++	 fNLeavesByTreeHist[imtd]->Write();
++      }
++   }
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::TestClassification()
++{
++   MethodBase::TestClassification();
++   if (fMonitorUBDTMethod) {
++      UInt_t nloop = fTestSigMVAHist.size();
++      if (fMethods.size()<nloop) nloop = fMethods.size();
++      //running over all the events and populating the test MVA histograms
++      Data()->SetCurrentType(Types::kTesting);
++      for (Long64_t ievt=0; ievt<GetNEvents(); ievt++) {
++         const Event* ev = GetEvent(ievt);
++         Float_t w = ev->GetWeight();
++         if (DataInfo().IsSignal(ev)) {
++            for (UInt_t imtd=0; imtd<nloop; imtd++) {
++               fTestSigMVAHist[imtd]->Fill(fMethods[imtd]->GetMvaValue(),w);
++            }
++         }
++         else {
++            for (UInt_t imtd=0; imtd<nloop; imtd++) {
++               fTestBgdMVAHist[imtd]->Fill(fMethods[imtd]->GetMvaValue(),w);
++            }
++         }
++      }
++      Data()->SetCurrentType(Types::kTraining);
++   }
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::WriteEvaluationHistosToFile(Types::ETreeType treetype)
++{
++   MethodBase::WriteEvaluationHistosToFile(treetype);
++   if (treetype==Types::kTraining) return;
++   UInt_t nloop = fTestSigMVAHist.size();
++   if (fMethods.size()<nloop) nloop = fMethods.size();
++   if (fMonitorUBDTMethod) {
++      TDirectory* dir=0;
++      for (UInt_t imtd=0;imtd<nloop;imtd++) {
++         //writing the histograms in the specific classifier's directory
++         MethodBase* mva = dynamic_cast<MethodBase*>(fMethods[imtd]);
++         if (!mva) continue;
++         dir = mva->BaseDir();
++         if (dir==0) continue;
++         dir->cd();
++         fTestSigMVAHist[imtd]->SetDirectory(dir);
++         fTestSigMVAHist[imtd]->Write();
++         fTestBgdMVAHist[imtd]->SetDirectory(dir);
++         fTestBgdMVAHist[imtd]->Write();
++      }
++   }
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::ProcessOptions()
++{
++
++   // process the options specified by the user
++   if (!(fnkNN > 0)) {
++      fnkNN = 10;
++      Log() << kWARNING << "kNN must be a positive integer: set kNN = " << fnkNN << Endl;
++   }
++#if 0
++   if (fScaleFrac < 0.0) {
++      fScaleFrac = 0.0;
++      Log() << kWARNING << "ScaleFrac can not be negative: set ScaleFrac = " << fScaleFrac << Endl;
++   }
++   if (fScaleFrac > 1.0) {
++      fScaleFrac = 1.0;
++   }
++#endif
++   if (!(fBalanceDepth > 0)) {
++      fBalanceDepth = 6;
++      Log() << kWARNING << "Optimize must be a positive integer: set Optimize = " << fBalanceDepth << Endl;
++   }
++
++   Log() << kVERBOSE
++         << "kNN options: \n"
++         << "  kNN = \n" << fnkNN
++     //<< "  ScaleFrac = \n" << fScaleFrac
++         << "  Optimize = " << fBalanceDepth << Endl;
++
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::SingleTrain()
++{
++   // initialization
++   Data()->SetCurrentType(Types::kTraining);
++   MethodBase* meth = dynamic_cast<MethodBase*>(GetLastMethod());
++   if (meth) meth->TrainMethod();
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::SingleFillHistograms()
++{
++   MethodBase* method =  dynamic_cast<MethodBase*>(fMethods.back());
++   if (!method) return;
++   Float_t w,v,wo; Bool_t sig=kTRUE;
++
++   // finding the wrong events and calculating their total weights
++   for (Long64_t ievt=0; ievt<GetNEvents(); ievt++) {
++      const Event* ev = GetTrainingEvent(ievt);
++      sig=DataInfo().IsSignal(ev);
++      v = fMVAvalues->at(ievt);
++      w = ev->GetWeight();
++      wo = ev->GetOriginalWeight();
++      if (sig && fMonitorUBDTMethod) {
++         fBTrainSigMVAHist[fCurrentMethodIdx]->Fill(v,w);
++         fTrainSigMVAHist[fCurrentMethodIdx]->Fill(v,ev->GetOriginalWeight());
++      }
++      else if (fMonitorUBDTMethod) {
++         fBTrainBgdMVAHist[fCurrentMethodIdx]->Fill(v,w);
++         fTrainBgdMVAHist[fCurrentMethodIdx]->Fill(v,ev->GetOriginalWeight());
++      }
++   }
++
++   MethodBDT* methodBDT =  dynamic_cast<MethodBDT*>(fMethods.back());
++   if (!methodBDT) return;
++   const vector<TMVA::DecisionTree*> Forest = methodBDT->GetForest();
++   for (UInt_t itree=0; itree<Forest.size(); itree++){
++     fNLeavesHist[fCurrentMethodIdx]->Fill(Forest[itree]->CountLeafNodes(NULL));
++     fNLeavesByTreeHist[fCurrentMethodIdx]->SetBinContent(itree+1,Forest[itree]->CountLeafNodes(NULL));
++   }
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::GetHelpMessage() const
++{
++   // Get help message text
++   //
++   // typical length of text line:
++   //         "|--------------------------------------------------------------|"
++   Log() << Endl;
++   Log() << gTools().Color("bold") << "--- Short description:" << gTools().Color("reset") << Endl;
++   Log() << Endl;
++   
++}
++
++//_______________________________________________________________________
++const TMVA::Ranking* TMVA::MethodUBDT::CreateRanking()
++{ 
++   return 0;
++}
++
++//_______________________________________________________________________
++Double_t TMVA::MethodUBDT::GetMvaValue( Double_t* err, Double_t* errUpper )
++{
++  // return boosted MVA response
++   Double_t mvaValue = 0;
++   for (UInt_t i=0;i< fMethods.size(); i++){
++      MethodBase* m = dynamic_cast<MethodBase*>(fMethods[i]);
++      if (m==0) continue;
++      Double_t val = fTmpEvent ? m->GetMvaValue(fTmpEvent) : m->GetMvaValue();
++
++      if(val > m->GetSignalReferenceCut()) {
++	mvaValue+=1./(int)fMethods.size(); 
++      }
++   }
++
++   // cannot determine error
++   NoErrorCalc(err, errUpper);
++
++   return mvaValue;
++}
++
++void TMVA::MethodUBDT::CalcMVAValues()
++{
++   // Calculate MVA values of current method fMethods.back() on
++   // training sample
++
++   Data()->SetCurrentType(Types::kTraining);
++   MethodBase* method = dynamic_cast<MethodBase*>(fMethods.back());
++   if (!method) {
++      Log() << kFATAL << "dynamic cast to MethodBase* failed" <<Endl;
++      return;
++   }
++   // calculate MVA values
++   for (Long64_t ievt=0; ievt<GetNEvents(); ievt++) {
++      GetEvent(ievt);
++      fMVAvalues->at(ievt) = method->GetMvaValue();
++   }
++}
++
++//_______________________________________________________________________
++void TMVA::MethodUBDT::FindMVACut(Float_t targetEfficiency)
++{
++
++   // find the CUT on the individual MVA that defines an event as
++   // correct or misclassified (to be used in the boosting process)
++ 
++   MethodBase* method = dynamic_cast<MethodBase*>(fMethods.back());
++   if (!method) {
++      Log() << kFATAL << "dynamic cast to MethodBase* failed" <<Endl;
++      return;
++   }
++  
++   // get signal MVA values
++   std::vector<Float_t> *fMVAvaluesSignal = new std::vector<Float_t>;
++   Data()->SetCurrentType(Types::kTraining);
++   for (Long64_t ievt=0; ievt<GetNEvents(); ievt++) {
++     if(!DataInfo().IsSignal(GetEvent(ievt))) continue;
++     fMVAvaluesSignal->push_back(fMVAvalues->at(ievt));
++   }
++
++   // set signal reference cut
++   sort(fMVAvaluesSignal->begin(),fMVAvaluesSignal->end());
++   Float_t sumSignal = 0.; 
++   Float_t minBDT = 1.0;
++   for(vector<Float_t>::iterator it = fMVAvaluesSignal->end(); it!=fMVAvaluesSignal->begin(); it--){
++     sumSignal++;
++     if(sumSignal/(Float_t)fMVAvaluesSignal->size() >= targetEfficiency) {
++       minBDT = *it; break;
++     }
++   }
++   method->SetSignalReferenceCut(minBDT);
++   
++   delete fMVAvaluesSignal;
++   
++   return;
++}
+diff --git a/tmva/src/ModulekNN.cxx b/tmva/src/ModulekNN.cxx
+index e911dcc42a..61ec2a2ce1 100644
+--- a/tmva/src/ModulekNN.cxx
++++ b/tmva/src/ModulekNN.cxx
+@@ -108,6 +108,18 @@ const TMVA::kNN::VarVec& TMVA::kNN::Event::GetVars() const
+    return fVar;
+ }
+ 
++//-------------------------------------------------------------------------------------------
++void TMVA::kNN::Event::SetSpectators(const VarVec &svec)
++{
++   fSpec = svec;
++}
++
++//-------------------------------------------------------------------------------------------
++const TMVA::kNN::VarVec& TMVA::kNN::Event::GetSpectators() const
++{
++   return fSpec;
++}
++
+ //-------------------------------------------------------------------------------------------
+ void TMVA::kNN::Event::Print() const
+ {

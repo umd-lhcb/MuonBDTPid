@@ -20,6 +20,9 @@ stdenv.mkDerivation rec {
     ;
 
   patches = [
+    # UBoost originally from: https://bitbucket.org/jrsteven/uboost.git
+    ./uboost.patch
+
     # various fixes to ROOT build system
     ./sw_vers_root5.patch
 
