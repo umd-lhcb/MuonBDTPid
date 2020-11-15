@@ -7,5 +7,6 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     python2
     root5
+    gdb
   ];
 }

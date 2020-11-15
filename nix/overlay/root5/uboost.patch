@@ -1,3 +1,45 @@
+diff --git a/.ccls b/.ccls
+new file mode 100644
+index 0000000000..3d2f42150d
+--- /dev/null
++++ b/.ccls
+@@ -0,0 +1,6 @@
++clang
++
++%h -x
++%h c++-header
++
++-Itmva/inc/
+diff --git a/.gitignore b/.gitignore
+index 3a08fc632e..f6edd98cae 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -24,6 +24,8 @@ rootcint_*.h
+ 
+ # Other Stuff
+ *.d
++.lvimrc
++.envrc
+ 
+ # /
+ /bin
+diff --git a/shell.nix b/shell.nix
+new file mode 100644
+index 0000000000..0445846266
+--- /dev/null
++++ b/shell.nix
+@@ -0,0 +1,11 @@
++let
++  pkgs = import <nixpkgs> {};
++in
++
++pkgs.mkShell {
++  pname = "root-uboost";
++  buildInputs = with pkgs; [
++    python2
++    root5
++  ];
++}
 diff --git a/tmva/CMakeLists.txt b/tmva/CMakeLists.txt
 index 5a1a12cec7..c7137d119b 100644
 --- a/tmva/CMakeLists.txt
@@ -400,6 +442,67 @@ index cb5f45ce67..cfc6567bd6 100644
           kDT             ,
           kRuleFit        ,
           kSVM            ,
+diff --git a/tmva/src/Factory.cxx b/tmva/src/Factory.cxx
+index d4290580f0..2017c8f50a 100644
+--- a/tmva/src/Factory.cxx
++++ b/tmva/src/Factory.cxx
+@@ -65,6 +65,7 @@
+ #include "TMVA/DataSetManager.h"
+ #include "TMVA/DataSetInfo.h"
+ #include "TMVA/MethodBoost.h"
++#include "TMVA/MethodUBDT.h"
+ #include "TMVA/MethodCategory.h"
+ 
+ #include "TMVA/VariableIdentityTransform.h"
+@@ -684,22 +685,25 @@ TMVA::MethodBase* TMVA::Factory::BookMethod( TString theMethodName, TString meth
+ 
+    // interpret option string with respect to a request for boosting (i.e., BostNum > 0)
+    Int_t    boostNum = 0;
++   Int_t    UBDTNum = 0;
+    TMVA::Configurable* conf = new TMVA::Configurable( theOption );
+    conf->DeclareOptionRef( boostNum = 0, "Boost_num",
+                            "Number of times the classifier will be boosted" );
++   conf->DeclareOptionRef( UBDTNum = 0, "UBDT_num",
++                           "Number of efficiency steps in uBDT" );
+    conf->ParseOptions();
+    delete conf;
+ 
+    // initialize methods
+    IMethod* im;
+-   if (!boostNum) {
++   if (!boostNum && !UBDTNum) {
+       im = ClassifierFactory::Instance().Create( std::string(theMethodName),
+                                                  fJobName,
+                                                  methodTitle,
+                                                  DefaultDataSetInfo(),
+                                                  theOption );
+    }
+-   else {
++   else if(boostNum){
+       // boosted classifier, requires a specific definition, making it transparent for the user
+       Log() << "Boost Number is " << boostNum << " > 0: train boosted classifier" << Endl;
+       im = ClassifierFactory::Instance().Create( std::string("Boost"),
+@@ -714,6 +718,20 @@ TMVA::MethodBase* TMVA::Factory::BookMethod( TString theMethodName, TString meth
+       methBoost->fDataSetManager = fDataSetManager; // DSMTEST
+ 
+    }
++   else if(UBDTNum){
++     // UBDT classifier, requires a specific definition, making it transparent for the user
++     Log() << "UBDT Number is " << UBDTNum << " > 0: train UBDT classifier" << Endl;
++     im = ClassifierFactory::Instance().Create( std::string("UBDT"),
++						                                    fJobName,
++						                                    methodTitle,
++						                                    DefaultDataSetInfo(),
++						                                    theOption );
++     MethodUBDT* methUBDT = dynamic_cast<MethodUBDT*>(im); // DSMTEST divided into two lines
++     if (!methUBDT) // DSMTEST
++       Log() << kFATAL << "Method with type kUBDT cannot be casted to MethodCategory. /Factory" << Endl; // DSMTEST
++     methUBDT->SetUBDTMethodName( theMethodName ); // DSMTEST divided into two lines
++     methUBDT->fDataSetManager = fDataSetManager; // DSMTEST
++   }
+ 
+    MethodBase *method = dynamic_cast<MethodBase*>(im);
+    if (method==0) return 0; // could not create method
 diff --git a/tmva/src/MethodBDT.cxx b/tmva/src/MethodBDT.cxx
 index a2c1a9c767..5fb98826ae 100644
 --- a/tmva/src/MethodBDT.cxx
@@ -657,10 +760,10 @@ index 08bbe93654..c7ef0833d4 100644
                                                                std::string(methodTypeName),jobName, methodName,DataInfo(),optionString));
 diff --git a/tmva/src/MethodUBDT.cxx b/tmva/src/MethodUBDT.cxx
 new file mode 100644
-index 0000000000..1b7570cbc3
+index 0000000000..0f4c6900eb
 --- /dev/null
 +++ b/tmva/src/MethodUBDT.cxx
-@@ -0,0 +1,737 @@
+@@ -0,0 +1,751 @@
 +// @(#)root/tmva $Id$
 +// Author: Andreas Hoecker, Joerg Stelzer, Helge Voss, Kai Voss,Or Cohen, Jan Therhaag, Eckhard von Toerne
 +
@@ -715,9 +818,9 @@ index 0000000000..1b7570cbc3
 +
 +#include "TMVA/MethodCompositeBase.h"
 +#include "TMVA/MethodBase.h"
-+#include "TMVA/MethodBDT.h"
 +#include "TMVA/MethodUBDT.h"
 +#include "TMVA/MethodCategory.h"
++#include "TMVA/MethodBDT.h"
 +#include "TMVA/Tools.h"
 +#include "TMVA/ClassifierFactory.h"
 +#include "TMVA/Timer.h"
@@ -1005,9 +1108,11 @@ index 0000000000..1b7570cbc3
 +   // training the classifiers
 +   for (fCurrentMethodIdx=0;fCurrentMethodIdx<fUBDTNum;fCurrentMethodIdx++) {
 +
++      Log() << "ResetBoostWeights" << Endl;
 +      // set boost weights to 1
 +      ResetBoostWeights();
 +
++      Log() << "set different uBoostTargetEffic" << Endl;
 +      // set different uBoostTargetEffic for each method (ie. each BDT forest in UBDT)
 +      targetEfficiency += fEfficiencyStepSize;
 +      TString singleBDTMethodOptions = fUBDTMethodOptions; 
@@ -1015,6 +1120,7 @@ index 0000000000..1b7570cbc3
 +      singleBDTMethodOptions += targetEfficiency;
 +      //cout<<singleBDTMethodOptions<<endl;
 +
++      Log() << "first classifier shows the option" << Endl;
 +      // the first classifier shows the option string output, the rest not
 +      if (fCurrentMethodIdx>0) TMVA::MsgLogger::InhibitOutput();
 +
@@ -1025,11 +1131,13 @@ index 0000000000..1b7570cbc3
 +                                                             singleBDTMethodOptions);
 +      TMVA::MsgLogger::EnableOutput();
 +
-+      // supressing the rest of the classifier output the right way
++      Log() << "supressing the rest" << Endl;
++      // suppressing the rest of the classifier output the right way
 +      MethodBase *meth = (dynamic_cast<MethodBase*>(method));
 +
 +      if (meth==0) continue;
 +
++      Log() << "set fDataSetManager if.." << Endl;
 +      // set fDataSetManager if MethodCategory (to enable Category to create datasetinfo objects) // DSMTEST
 +      if (meth->GetMethodType() == Types::kCategory) { // DSMTEST
 +         MethodCategory *methCat = (dynamic_cast<MethodCategory*>(meth)); // DSMTEST
@@ -1038,6 +1146,7 @@ index 0000000000..1b7570cbc3
 +         methCat->fDataSetManager = fDataSetManager; // DSMTEST
 +      } // DSMTEST
 +
++      Log() << "meth->..." << Endl;
 +      meth->SetMsgType(kWARNING);
 +      meth->SetupMethod();
 +      meth->ParseOptions();
@@ -1046,9 +1155,11 @@ index 0000000000..1b7570cbc3
 +      meth->ProcessSetup();
 +      meth->CheckSetup();
 +
++      Log() << "reroute..." << Endl;
 +      // reroute transformationhandler
 +      meth->RerouteTransformationHandler (&(this->GetTransformationHandler()));
 +
++      Log() << "creating the directory" << Endl;
 +      // creating the directory of the classifier
 +      if (fMonitorUBDTMethod) {
 +         methodDir=MethodBaseDir()->GetDirectory(dirName=Form("%s_B%03i",fUBDTMethodName.Data(),fCurrentMethodIdx));
@@ -1062,45 +1173,60 @@ index 0000000000..1b7570cbc3
 +         }
 +      }
 +
++      Log() << "training" << Endl;
 +      // training
 +      TMVA::MethodCompositeBase::fMethods.push_back(method);
 +      timer.DrawProgressBar( fCurrentMethodIdx );
-+      TMVA::MsgLogger::InhibitOutput(); //supressing Logger outside the method
++      //TMVA::MsgLogger::InhibitOutput(); //supressing Logger outside the method
 +      
++      Log() << "set NN vector" << Endl;
 +      // set NN vector to use in training individual BDT forest
 +      MethodBDT* methodBDT = dynamic_cast<MethodBDT*>(method);
 +      for(UInt_t i=0; i<GetNEvents(); i++){
++        Log() << "for line 1" << Endl;
 +	const Event*   evt_   = GetTrainingEvent(i);
 +	if (!DataInfo().IsSignal(evt_)) continue;
++        Log() << "for line 3" << Endl;
 +	vector<UInt_t> singleEvent;
++        Log() << "for line 4" << Endl;
 +	for(UInt_t j=0; j<fUBoostNN[i].size(); j++){
++        Log() << "for line 5" << Endl;
 +	  singleEvent.push_back(fUBoostNN[i].at(j));
 +	}
++        Log() << "for line 6" << Endl;
 +	methodBDT->fUBoostNN.push_back(singleEvent);
 +      } 
 +
++      Log() << "SingleTrain" << Endl;
 +      SingleTrain();
 +      TMVA::MsgLogger::EnableOutput();
 +      method->WriteMonitoringHistosToFile();
 +      //TestClassification();
 +      //WriteEvaluationHistosToFile(Types::kTraining);
 +
++      Log() << "calculate MVA" << Endl;
 +      // calculate MVA values of method on training sample
 +      CalcMVAValues();
 +
++      Log() << "fidn the MVA cut" << Endl;
 +      // find the MVA cut for target efficiency of this classifier
 +      FindMVACut(targetEfficiency);
 +
++      Log() << "monitoring histo" << Endl;
 +      // monitoring histograms for composite method
 +      if (fCurrentMethodIdx==0 && fMonitorUBDTMethod) CreateMVAHistorgrams();
 +      
++      Log() << "fill monitoring histo" << Endl;
 +      // fill monitoring histograms for single classifier
 +      if (fMonitorUBDTMethod) SingleFillHistograms();
 +
++      Log() << "fMethodWeight.push_back" << Endl;
 +      fMethodWeight.push_back(1.0); //needed by xml writer
 +
++      Log() << "fUBoostNN clear" << Endl;
 +      methodBDT->fUBoostNN.clear();
 +   }
++   Log() << "resetboostweight" << Endl;
 +   ResetBoostWeights();
 +}
 +
@@ -1239,15 +1365,6 @@ index 0000000000..1b7570cbc3
 +      fnkNN = 10;
 +      Log() << kWARNING << "kNN must be a positive integer: set kNN = " << fnkNN << Endl;
 +   }
-+#if 0
-+   if (fScaleFrac < 0.0) {
-+      fScaleFrac = 0.0;
-+      Log() << kWARNING << "ScaleFrac can not be negative: set ScaleFrac = " << fScaleFrac << Endl;
-+   }
-+   if (fScaleFrac > 1.0) {
-+      fScaleFrac = 1.0;
-+   }
-+#endif
 +   if (!(fBalanceDepth > 0)) {
 +      fBalanceDepth = 6;
 +      Log() << kWARNING << "Optimize must be a positive integer: set Optimize = " << fBalanceDepth << Endl;
