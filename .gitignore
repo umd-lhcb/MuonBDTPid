@@ -1,2 +1,4 @@
 .envrc
-*/weights/*
+
+test/TMVAUBDT.root
+test/weights
