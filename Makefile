@@ -1,8 +1,9 @@
 # Author: Yipeng Sun
-# Last Change: Mon Nov 16, 2020 at 01:53 AM +0100
+# Last Change: Mon Nov 16, 2020 at 01:55 AM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
+VPATH	:=	src:$(VPATH)
 
 export PATH	:=	$(BINPATH):$(PATH)
 
@@ -16,6 +17,11 @@ ADDLINKFLAGS	:=	-lTreePlayer -lMinuit -lFoam -lXMLIO -lTMVA
 
 # Executables
 AddUboostBranchRun2:
+
+# Helpers
+.PHONY: clean
+clean:
+	@rm -rf $(BINPATH)/*
 
 # General patterns
 %: %.cpp
