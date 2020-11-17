@@ -718,10 +718,10 @@ index 08bbe93654..c7ef0833d4 100644
                                                                std::string(methodTypeName),jobName, methodName,DataInfo(),optionString));
 diff --git a/tmva/src/MethodUBDT.cxx b/tmva/src/MethodUBDT.cxx
 new file mode 100644
-index 0000000000..6e0de7e101
+index 0000000000..322608e566
 --- /dev/null
 +++ b/tmva/src/MethodUBDT.cxx
-@@ -0,0 +1,736 @@
+@@ -0,0 +1,735 @@
 +// @(#)root/tmva $Id$
 +// Author: Andreas Hoecker, Joerg Stelzer, Helge Voss, Kai Voss,Or Cohen, Jan Therhaag, Eckhard von Toerne
 +
@@ -1136,14 +1136,13 @@ index 0000000000..6e0de7e101
 +        for(UInt_t j=0; j<fUBoostNN[i].size(); j++){
 +          singleEvent.push_back(fUBoostNN[i].at(j));
 +        }
-+        Log() << "for line 6" << Endl;
 +        fUBoostNN.push_back(singleEvent);
 +      } 
 +
 +      Log() << "SingleTrain" << Endl;
 +      SingleTrain();
 +      TMVA::MsgLogger::EnableOutput();
-+      method->WriteMonitoringHistosToFile();
++      WriteMonitoringHistosToFile();
 +      //TestClassification();
 +      //WriteEvaluationHistosToFile(Types::kTraining);
 +
