@@ -1,45 +1,3 @@
-diff --git a/.ccls b/.ccls
-new file mode 100644
-index 0000000000..3d2f42150d
---- /dev/null
-+++ b/.ccls
-@@ -0,0 +1,6 @@
-+clang
-+
-+%h -x
-+%h c++-header
-+
-+-Itmva/inc/
-diff --git a/.gitignore b/.gitignore
-index 3a08fc632e..f6edd98cae 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -24,6 +24,8 @@ rootcint_*.h
- 
- # Other Stuff
- *.d
-+.lvimrc
-+.envrc
- 
- # /
- /bin
-diff --git a/shell.nix b/shell.nix
-new file mode 100644
-index 0000000000..0445846266
---- /dev/null
-+++ b/shell.nix
-@@ -0,0 +1,11 @@
-+let
-+  pkgs = import <nixpkgs> {};
-+in
-+
-+pkgs.mkShell {
-+  pname = "root-uboost";
-+  buildInputs = with pkgs; [
-+    python2
-+    root5
-+  ];
-+}
 diff --git a/tmva/CMakeLists.txt b/tmva/CMakeLists.txt
 index 5a1a12cec7..c7137d119b 100644
 --- a/tmva/CMakeLists.txt
@@ -760,10 +718,10 @@ index 08bbe93654..c7ef0833d4 100644
                                                                std::string(methodTypeName),jobName, methodName,DataInfo(),optionString));
 diff --git a/tmva/src/MethodUBDT.cxx b/tmva/src/MethodUBDT.cxx
 new file mode 100644
-index 0000000000..0f4c6900eb
+index 0000000000..6e0de7e101
 --- /dev/null
 +++ b/tmva/src/MethodUBDT.cxx
-@@ -0,0 +1,751 @@
+@@ -0,0 +1,736 @@
 +// @(#)root/tmva $Id$
 +// Author: Andreas Hoecker, Joerg Stelzer, Helge Voss, Kai Voss,Or Cohen, Jan Therhaag, Eckhard von Toerne
 +
@@ -995,7 +953,7 @@ index 0000000000..0f4c6900eb
 +      if (!DataInfo().IsSignal(evt_)) continue;
 +
 +      if (evt_->GetNSpectators() < 1)
-+	Log() << kFATAL << "MethodUBDT::MakeKNN() - No spectator variables given to build kNN vector" << Endl;
++        Log() << kFATAL << "MethodUBDT::MakeKNN() - No spectator variables given to build kNN vector" << Endl;
 +      
 +      // choose spectator variables to use in NN calculation
 +      const UInt_t nvec = evt_->GetNSpectators();
@@ -1108,11 +1066,9 @@ index 0000000000..0f4c6900eb
 +   // training the classifiers
 +   for (fCurrentMethodIdx=0;fCurrentMethodIdx<fUBDTNum;fCurrentMethodIdx++) {
 +
-+      Log() << "ResetBoostWeights" << Endl;
 +      // set boost weights to 1
 +      ResetBoostWeights();
 +
-+      Log() << "set different uBoostTargetEffic" << Endl;
 +      // set different uBoostTargetEffic for each method (ie. each BDT forest in UBDT)
 +      targetEfficiency += fEfficiencyStepSize;
 +      TString singleBDTMethodOptions = fUBDTMethodOptions; 
@@ -1120,7 +1076,6 @@ index 0000000000..0f4c6900eb
 +      singleBDTMethodOptions += targetEfficiency;
 +      //cout<<singleBDTMethodOptions<<endl;
 +
-+      Log() << "first classifier shows the option" << Endl;
 +      // the first classifier shows the option string output, the rest not
 +      if (fCurrentMethodIdx>0) TMVA::MsgLogger::InhibitOutput();
 +
@@ -1131,35 +1086,30 @@ index 0000000000..0f4c6900eb
 +                                                             singleBDTMethodOptions);
 +      TMVA::MsgLogger::EnableOutput();
 +
-+      Log() << "supressing the rest" << Endl;
 +      // suppressing the rest of the classifier output the right way
-+      MethodBase *meth = (dynamic_cast<MethodBase*>(method));
++      fCurrentMethod = (dynamic_cast<MethodBase*>(method));
 +
-+      if (meth==0) continue;
++      if (fCurrentMethod==0) continue;
 +
-+      Log() << "set fDataSetManager if.." << Endl;
 +      // set fDataSetManager if MethodCategory (to enable Category to create datasetinfo objects) // DSMTEST
-+      if (meth->GetMethodType() == Types::kCategory) { // DSMTEST
-+         MethodCategory *methCat = (dynamic_cast<MethodCategory*>(meth)); // DSMTEST
++      if (fCurrentMethod->GetMethodType() == Types::kCategory) { // DSMTEST
++         MethodCategory *methCat = (dynamic_cast<MethodCategory*>(fCurrentMethod)); // DSMTEST
 +         if (!methCat) // DSMTEST
 +            Log() << kFATAL << "Method with type kCategory cannot be casted to MethodCategory. /MethodUBDT" << Endl; // DSMTEST
 +         methCat->fDataSetManager = fDataSetManager; // DSMTEST
 +      } // DSMTEST
 +
-+      Log() << "meth->..." << Endl;
-+      meth->SetMsgType(kWARNING);
-+      meth->SetupMethod();
-+      meth->ParseOptions();
++      fCurrentMethod->SetMsgType(kWARNING);
++      fCurrentMethod->SetupMethod();
++      fCurrentMethod->ParseOptions();
 +      // put SetAnalysisType here for the needs of MLP
-+      meth->SetAnalysisType( GetAnalysisType() );
-+      meth->ProcessSetup();
-+      meth->CheckSetup();
++      fCurrentMethod->SetAnalysisType( GetAnalysisType() );
++      fCurrentMethod->ProcessSetup();
++      fCurrentMethod->CheckSetup();
 +
-+      Log() << "reroute..." << Endl;
 +      // reroute transformationhandler
-+      meth->RerouteTransformationHandler (&(this->GetTransformationHandler()));
++      fCurrentMethod->RerouteTransformationHandler (&(this->GetTransformationHandler()));
 +
-+      Log() << "creating the directory" << Endl;
 +      // creating the directory of the classifier
 +      if (fMonitorUBDTMethod) {
 +         methodDir=MethodBaseDir()->GetDirectory(dirName=Form("%s_B%03i",fUBDTMethodName.Data(),fCurrentMethodIdx));
@@ -1173,28 +1123,21 @@ index 0000000000..0f4c6900eb
 +         }
 +      }
 +
-+      Log() << "training" << Endl;
 +      // training
 +      TMVA::MethodCompositeBase::fMethods.push_back(method);
 +      timer.DrawProgressBar( fCurrentMethodIdx );
 +      //TMVA::MsgLogger::InhibitOutput(); //supressing Logger outside the method
 +      
-+      Log() << "set NN vector" << Endl;
 +      // set NN vector to use in training individual BDT forest
-+      MethodBDT* methodBDT = dynamic_cast<MethodBDT*>(method);
 +      for(UInt_t i=0; i<GetNEvents(); i++){
-+        Log() << "for line 1" << Endl;
-+	const Event*   evt_   = GetTrainingEvent(i);
-+	if (!DataInfo().IsSignal(evt_)) continue;
-+        Log() << "for line 3" << Endl;
-+	vector<UInt_t> singleEvent;
-+        Log() << "for line 4" << Endl;
-+	for(UInt_t j=0; j<fUBoostNN[i].size(); j++){
-+        Log() << "for line 5" << Endl;
-+	  singleEvent.push_back(fUBoostNN[i].at(j));
-+	}
++        const Event*   evt_   = GetTrainingEvent(i);
++        if (!DataInfo().IsSignal(evt_)) continue;
++        vector<UInt_t> singleEvent;
++        for(UInt_t j=0; j<fUBoostNN[i].size(); j++){
++          singleEvent.push_back(fUBoostNN[i].at(j));
++        }
 +        Log() << "for line 6" << Endl;
-+	methodBDT->fUBoostNN.push_back(singleEvent);
++        fUBoostNN.push_back(singleEvent);
 +      } 
 +
 +      Log() << "SingleTrain" << Endl;
@@ -1224,7 +1167,7 @@ index 0000000000..0f4c6900eb
 +      fMethodWeight.push_back(1.0); //needed by xml writer
 +
 +      Log() << "fUBoostNN clear" << Endl;
-+      methodBDT->fUBoostNN.clear();
++      fUBoostNN.clear();
 +   }
 +   Log() << "resetboostweight" << Endl;
 +   ResetBoostWeights();
