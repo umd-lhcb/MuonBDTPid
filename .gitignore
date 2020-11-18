@@ -1,7 +1,8 @@
 .envrc
 
 test/TMVAUBDT.root
-test/weights
+weights/TMVA_BDT.class.C
+weights/TMVA_BDT.weights.xml
 
 bin
 filename.root
