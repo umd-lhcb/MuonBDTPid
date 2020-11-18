@@ -23,14 +23,14 @@ using namespace std;
 
 using namespace TMVA;
 
-void uBoostTrain() {
+int main() {
 
-  gSystem->Load("$TMVALOC/lib/libTMVA.1.so");
+  //gSystem->Load("$TMVALOC/lib/libTMVA.1.so");
 
   TMVA::Tools::Instance();
   TString weightName = "TMVA";
 
-  TFile *outFile = new TFile(weightName + "UBDT.root", "recreate");
+  TFile *outFile = new TFile("test/" + weightName + "UBDT.root", "recreate");
   TMVA::Factory *factory =
       new TMVA::Factory(weightName, outFile,
                         "!V:!Silent:Color:DrawProgressBar:Transformations=I");
@@ -45,8 +45,8 @@ void uBoostTrain() {
   factory->AddSpectator("M2AC", "M_{AC}^{2}", "GeV/c^{2}", 'F');
 
   // get data
-  TFile *fs = new TFile("signal.root");
-  TFile *fb = new TFile("bkgd.root");
+  TFile *fs = new TFile("test/signal.root");
+  TFile *fb = new TFile("test/bkgd.root");
   TTree *ts = (TTree *)fs->Get("T");
   TTree *tb = (TTree *)fb->Get("T");
 
@@ -79,5 +79,5 @@ void uBoostTrain() {
   outFile->Close();
   delete factory;
 
-  return;
+  return 0;
 }
