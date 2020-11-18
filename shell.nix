@@ -11,6 +11,7 @@ pkgs.mkShell {
     # Debug
     gdb
     cgdb
+    gdbgui
     valgrind
   ];
 }
