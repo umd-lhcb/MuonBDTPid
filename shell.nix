@@ -7,6 +7,10 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     python2
     root5
+
+    # Debug
     gdb
+    cgdb
+    valgrind
   ];
 }
