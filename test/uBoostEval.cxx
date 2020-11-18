@@ -35,7 +35,7 @@ void uBoostEval() {
 
   TMVA::Reader *reader;
   float m2ab, m2ac, y1, y2, y3, pmin, BDT;
-  TString weightName = "TMVA_UBDT.weights.xml";
+  TString weightName = "weights/TMVA_UBDT.weights.xml";
   TMVA::Tools::Instance();
   reader = new TMVA::Reader("!Color:Silent");
   reader->AddVariable("Y1", &y1);
@@ -46,7 +46,7 @@ void uBoostEval() {
   reader->BookMVA("UBDT method", weightName);
 
   // input signal training sample
-  TFile *inputS = new TFile("signal.root");
+  TFile *inputS = new TFile("test/signal.root");
   TTree *ts = (TTree *)inputS->Get("T");
   ts->SetBranchAddress("M2AB", &m2ab);
   ts->SetBranchAddress("M2AC", &m2ac);
@@ -57,7 +57,7 @@ void uBoostEval() {
   int ns = (int)ts->GetEntries();
 
   // input background training sample
-  TFile *inputB = new TFile("bkgd.root");
+  TFile *inputB = new TFile("test/bkgd.root");
   TTree *tb = (TTree *)inputB->Get("T");
   tb->SetBranchAddress("M2AB", &m2ab);
   tb->SetBranchAddress("M2AC", &m2ac);
@@ -68,7 +68,7 @@ void uBoostEval() {
   int nb = (int)tb->GetEntries();
 
   // input high statistics signal evaluation sample
-  TFile *input = new TFile("signal5e5.root");
+  TFile *input = new TFile("test/signal5e5.root");
   TTree *t5e5 = (TTree *)input->Get("T");
   t5e5->SetBranchAddress("M2AB", &m2ab);
   t5e5->SetBranchAddress("M2AC", &m2ac);
@@ -81,17 +81,17 @@ void uBoostEval() {
   cout << "Done loading input data" << endl;
 
   // write uBDT response values to trees
-  TFile *outputSignalResponse = new TFile("signalResp.root", "recreate");
+  TFile *outputSignalResponse = new TFile("test/signalResp.root", "recreate");
   TTree *tsResponse = new TTree("TResponse", "");
   float signalResponse;
   tsResponse->Branch("RESPONSE", &signalResponse);
 
-  TFile *outputBkgdResponse = new TFile("bkgdResp.root", "recreate");
+  TFile *outputBkgdResponse = new TFile("test/bkgdResp.root", "recreate");
   TTree *tbResponse = new TTree("TResponse", "");
   float bkgdResponse;
   tbResponse->Branch("RESPONSE", &bkgdResponse);
 
-  TFile *outputSignal5e5Response = new TFile("signal5e5Resp.root", "recreate");
+  TFile *outputSignal5e5Response = new TFile("test/signal5e5Resp.root", "recreate");
   TTree *ts5e5Response = new TTree("TResponse", "");
   float signal5e5Response;
   ts5e5Response->Branch("RESPONSE", &signal5e5Response);
