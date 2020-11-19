@@ -1,3 +1,76 @@
+diff --git a/.ccls b/.ccls
+new file mode 100644
+index 0000000000..3d2f42150d
+--- /dev/null
++++ b/.ccls
+@@ -0,0 +1,6 @@
++clang
++
++%h -x
++%h c++-header
++
++-Itmva/inc/
+diff --git a/.gitignore b/.gitignore
+index 3a08fc632e..f6edd98cae 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -24,6 +24,8 @@ rootcint_*.h
+ 
+ # Other Stuff
+ *.d
++.lvimrc
++.envrc
+ 
+ # /
+ /bin
+diff --git a/etc/gdb-backtrace.sh b/etc/gdb-backtrace.sh
+index 692182b8aa..6e1f1c3eb9 100755
+--- a/etc/gdb-backtrace.sh
++++ b/etc/gdb-backtrace.sh
+@@ -40,7 +40,7 @@ if [ `uname -s` = "Darwin" ]; then
+ 
+    # Run GDB, strip out unwanted noise.
+    $GDB -q -batch -n -x $TMPFILE $1 $2 2>&1  < /dev/null |
+-   /usr/bin/sed -n \
++   sed -n \
+     -e 's/^(gdb) //' \
+     -e '/^#/p' \
+     -e 's/\(^Thread.*\)/@\1/p' | tr "@" "\n" > $OUTFILE
+@@ -86,7 +86,7 @@ else
+    have_eval_command=`gdb --help 2>&1 |grep eval-command`
+    if ! test "x$have_eval_command" = "x"; then
+       $GDB --batch --eval-command="$backtrace" /proc/$1/exe $1 2>&1 < /dev/null |
+-      /bin/sed -n \
++      sed -n \
+          -e 's/^(gdb) //' \
+          -e '/^#/p' \
+          -e '/^   /p' \
+@@ -95,7 +95,7 @@ else
+       $GDB -q -n /proc/$1/exe $1 <<EOF 2>&1 |
+    $backtrace
+ EOF
+-      /bin/sed -n \
++      sed -n \
+          -e 's/^(gdb) //' \
+          -e '/^#/p' \
+          -e '/^   /p' \
+diff --git a/shell.nix b/shell.nix
+new file mode 100644
+index 0000000000..0445846266
+--- /dev/null
++++ b/shell.nix
+@@ -0,0 +1,11 @@
++let
++  pkgs = import <nixpkgs> {};
++in
++
++pkgs.mkShell {
++  pname = "root-uboost";
++  buildInputs = with pkgs; [
++    python2
++    root5
++  ];
++}
 diff --git a/tmva/CMakeLists.txt b/tmva/CMakeLists.txt
 index 5a1a12cec7..c7137d119b 100644
 --- a/tmva/CMakeLists.txt
@@ -694,6 +767,18 @@ index a2c1a9c767..5fb98826ae 100644
  
     // reset all previously stored/accumulated BOOST weights in the event sample
     //   for (UInt_t iev=0; iev<fEventSample.size(); iev++) fEventSample[iev]->SetBoostWeight(1.);
+diff --git a/tmva/src/MethodBase.cxx b/tmva/src/MethodBase.cxx
+index 43702239ab..18a3b10e52 100644
+--- a/tmva/src/MethodBase.cxx
++++ b/tmva/src/MethodBase.cxx
+@@ -660,6 +660,7 @@ void TMVA::MethodBase::TrainMethod()
+    Log() << kINFO << "Begin training" << Endl;
+    Long64_t nEvents = Data()->GetNEvents();
+    Timer traintimer( nEvents, GetName(), kTRUE );
++   std::cout <<"Before training" <<std::endl;
+    Train();
+    Log() << kINFO << "End of training                                              " << Endl;
+    SetTrainTime(traintimer.ElapsedSeconds());
 diff --git a/tmva/src/MethodCompositeBase.cxx b/tmva/src/MethodCompositeBase.cxx
 index 08bbe93654..c7ef0833d4 100644
 --- a/tmva/src/MethodCompositeBase.cxx
@@ -718,10 +803,10 @@ index 08bbe93654..c7ef0833d4 100644
                                                                std::string(methodTypeName),jobName, methodName,DataInfo(),optionString));
 diff --git a/tmva/src/MethodUBDT.cxx b/tmva/src/MethodUBDT.cxx
 new file mode 100644
-index 0000000000..322608e566
+index 0000000000..e17ca3956b
 --- /dev/null
 +++ b/tmva/src/MethodUBDT.cxx
-@@ -0,0 +1,735 @@
+@@ -0,0 +1,741 @@
 +// @(#)root/tmva $Id$
 +// Author: Andreas Hoecker, Joerg Stelzer, Helge Voss, Kai Voss,Or Cohen, Jan Therhaag, Eckhard von Toerne
 +
@@ -1141,7 +1226,9 @@ index 0000000000..322608e566
 +
 +      Log() << "SingleTrain" << Endl;
 +      SingleTrain();
++      Log() << "EnableOutput" << Endl;
 +      TMVA::MsgLogger::EnableOutput();
++      Log() << "WriteMonitoringHistosToFile" << Endl;
 +      WriteMonitoringHistosToFile();
 +      //TestClassification();
 +      //WriteEvaluationHistosToFile(Types::kTraining);
@@ -1324,8 +1411,12 @@ index 0000000000..322608e566
 +void TMVA::MethodUBDT::SingleTrain()
 +{
 +   // initialization
++   Log() << "initialization" << Endl;
 +   Data()->SetCurrentType(Types::kTraining);
++   Log() << "dynamic_cast" << Endl;
 +   MethodBase* meth = dynamic_cast<MethodBase*>(GetLastMethod());
++   Log() << "TrainMethod" << Endl;
++   Log() << meth->GetName() << Endl;
 +   if (meth) meth->TrainMethod();
 +}
 +
