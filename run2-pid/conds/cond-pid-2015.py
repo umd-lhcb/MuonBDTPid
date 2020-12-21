@@ -18,6 +18,6 @@ DaVinci().TupleFile = "pid.root"
 from GaudiConf import IOHelper
 
 IOHelper().inputFiles([
-    './data/data-2015/00050412_00000025_4.fullturbo.dst',
-    './data/data-2015/00050412_00000026_4.fullturbo.dst',
+    './data/data-2015-mu/00050412_00000001_4.fullturbo.dst',
+    './data/data-2015-mu/00050412_00000002_4.fullturbo.dst',
 ], clear=True)
