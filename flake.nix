@@ -21,6 +21,7 @@
       {
         devShell = pkgs.mkShell {
           pname = "MuonBDTPid";
+
           buildInputs = with pkgs; [
             python2
             root5
@@ -30,6 +31,11 @@
             cgdb
             gdbgui
             valgrind
+
+            # Dev
+            (python3.withPackages (ps: with ps; [
+              black
+            ]))
           ];
         };
       });
