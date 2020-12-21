@@ -13,3 +13,11 @@ DaVinci().TupleFile = "pid.root"
 #     sTableMagDownFile=os.environ["PIDCALIBROOT"]
 #     + "/sTables/sPlotTables-2015MagDown.root",
 # )
+
+
+from GaudiConf import IOHelper
+
+IOHelper().inputFiles([
+    './data/data-2015/00050412_00000025_4.fullturbo.dst',
+    './data/data-2015/00050412_00000026_4.fullturbo.dst',
+], clear=True)
