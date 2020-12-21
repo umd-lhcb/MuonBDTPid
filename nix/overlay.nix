@@ -1,8 +1,8 @@
-self: super:
+final: prev:
 
 {
-  root5 = super.callPackage ./root5 {
-    inherit (super.darwin.apple_sdk.frameworks) Cocoa OpenGL;
-    stdenv = if super.stdenv.cc.isClang then super.llvmPackages_5.stdenv else super.gcc8Stdenv;
+  root5 = prev.callPackage ./root5 {
+    inherit (prev.darwin.apple_sdk.frameworks) Cocoa OpenGL;
+    stdenv = if prev.stdenv.cc.isClang then prev.llvmPackages_5.stdenv else prev.gcc8Stdenv;
   };
 }
