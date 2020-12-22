@@ -1,0 +1,1407 @@
+# setting LC_ALL to "C"
+# --> Including file '/afs/cern.ch/work/s/suny/src/MuonBDTPid/run2-pid/reco_pp.py'
+self.cut = (NINTREE( ('p+'==ABSID) & (P<40000) )==1)
+self.cut = ((BPVIPCHI2()<9.0) & (VFASPF(VCHI2/VDOF)<9) & (NINTREE(('e-'==ABSID)&(BPVIPCHI2()>25) )==2))
+Input TES: 
+Phys/DSt_PiP/Particles
+Phys/LbLcMu_P/Particles
+Phys/Lam0LL_HPT_Pbar/Particles
+Phys/LbLcMu_Pbar/Particles
+Phys/B_Jpsi_MuP/Particles
+Phys/Lam0LL_VHPT_Pbar/Particles
+Phys/DSt_PiM/Particles
+Phys/Lam0LL_P/Particles
+Phys/B_Jpsi_EM/Particles
+Phys/KSLL_PiM/Particles
+Phys/KSLL_PiP/Particles
+Phys/Lam0LL_VHPT_P/Particles
+Phys/B_Jpsi_EP/Particles
+Phys/Lam0LL_HPT_P/Particles
+Phys/Lam0LL_Pbar/Particles
+Phys/Jpsinopt_MuP/Particles
+Phys/Jpsinopt_MuM/Particles
+Phys/DSt_KP/Particles
+Phys/Lam0LL_P_isMuon/Particles
+Phys/Jpsi_MuP/Particles
+Phys/DsPhi_KP/Particles
+Phys/Jpsi_MuM/Particles
+Phys/B_Jpsi_MuM/Particles
+Phys/Lam0LL_Pbar_isMuon/Particles
+Phys/DSt_KM/Particles
+Phys/DsPhi_KM/Particles
+# DaVinci                   INFO    Append to Main Sequence has been called
+# <-- End of file '/afs/cern.ch/work/s/suny/src/MuonBDTPid/run2-pid/reco_pp.py'
+# --> Including file '/afs/cern.ch/work/s/suny/src/MuonBDTPid/run2-pid/conds/cond-pid-2015-lxplus.py'
+# <-- End of file '/afs/cern.ch/work/s/suny/src/MuonBDTPid/run2-pid/conds/cond-pid-2015-lxplus.py'
+# applying configuration of DaVinci
+# DaVinci                   INFO    Applying DaVinci configuration
+# DaVinci                   INFO    /***** User DaVinci/DaVinci ************************************************************************
+|-MainOptions          = ''
+|-TupleFile            = 'pid.root'  (default: '')
+|-SkipEvents           = 0
+|-RootCompressionLevel = 'LZMA:6'
+|-Input                = []  (default: [])
+|-Turbo                = False
+|-DDDBtag              = ''
+|-UserAlgorithms       = []  (default: [])
+|-RootInTES            = ''
+|-DQFLAGStag           = ''
+|-Lumi                 = True  (default: False)
+|-MoniSequence         = []  (default: [])
+|-VerboseMessages      = False
+|-InputType            = 'DST'  (default: 'DST')
+|-ProductionType       = 'None'
+|-PrintFreq            = 1000
+|-Detectors            = ['Velo', 'PuVeto', 'Rich1', 'Rich2', 'TT', 'IT', 'OT', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'Magnet', 'Tr']
+|                      (default: ['Velo', 'PuVeto', 'Rich1', 'Rich2', 'TT', 'IT', 'OT', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'Magnet', 'Tr'])
+|-EvtMax               = -1  (default: -1)
+|-CondDBtag            = ''
+|-MergeGenFSR          = False
+|-Simulation           = False
+|-DataType             = '2015'  (default: '')
+|-RedoMCLinks          = False
+|-IgnoreDQFlags        = False
+|-HistogramFile        = ''
+|-WriteFSR             = True
+|-EnableUnpack         = None
+|-EventPreFilters      = []  (default: [])
+\----- (End of User DaVinci/DaVinci) ---------------------------------------------------------------
+# --> Including file '/cvmfs/lhcb.cern.ch/lib/lhcb/LHCB/LHCB_v50r6/GaudiConf/options/PreloadUnits.opts'
+# --> Including file '/cvmfs/lhcb.cern.ch/lib/lhcb/LHCB/LHCB_v50r6/GaudiConf/options/units.opts'
+# <-- End of file '/cvmfs/lhcb.cern.ch/lib/lhcb/LHCB/LHCB_v50r6/GaudiConf/options/units.opts'
+# <-- End of file '/cvmfs/lhcb.cern.ch/lib/lhcb/LHCB/LHCB_v50r6/GaudiConf/options/PreloadUnits.opts'
+# Apply CaloProcessor configuration for ['Digits', 'Clusters'] and ['InAcceptance', 'Match', 'Energy', 'Chi2', 'DLL', 'NeutralPID']
+# Configurabe : Counter level is 1 
+# CaloDigits onDemand for ['Ecal', 'Hcal', 'Prs', 'Spd']
+# ClusterReco onDemand
+# Configured Ecal Clusters Reco : ClusterReco 
+# Configured Calo PIDs           : CaloPIDsCaloPIDsForCaloProcessor 
+# CaloProcessor onDemand enabled
+# CaloReProcessing cannot be processed on reduced (m)DST data
+# DaVinci                   INFO    Creating Lumi Algorithms
+# DaVinci                   INFO    No MainOptions specified. DaVinci() will import no options file!
+# DaVinci                   INFO    Creating User Algorithms
+# DaVinci                   INFO    Append to Main Sequence has been called
+# DaVinci                   INFO    Creating Moni Algorithms
+# DaVinci                   INFO    Append to Moni Sequence has been called
+# /***** User DaVinci/DaVinci ************************************************************************
+# |-MainOptions          = ''
+# |-TupleFile            = 'pid.root'  (default: '')
+# |-SkipEvents           = 0
+# |-RootCompressionLevel = 'LZMA:6'
+# |-Input                = []  (default: [])
+# |-Turbo                = False
+# |-DDDBtag              = ''
+# |-UserAlgorithms       = []  (default: [])
+# |-RootInTES            = ''
+# |-DQFLAGStag           = ''
+# |-Lumi                 = True  (default: False)
+# |-MoniSequence         = []  (default: [])
+# |-VerboseMessages      = False
+# |-InputType            = 'DST'  (default: 'DST')
+# |-ProductionType       = 'None'
+# |-PrintFreq            = 1000
+# |-Detectors            = ['Velo', 'PuVeto', 'Rich1', 'Rich2', 'TT', 'IT', 'OT', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'Magnet', 'Tr']
+# |                      (default: ['Velo', 'PuVeto', 'Rich1', 'Rich2', 'TT', 'IT', 'OT', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'Magnet', 'Tr'])
+# |-EvtMax               = -1  (default: -1)
+# |-CondDBtag            = ''
+# |-MergeGenFSR          = False
+# |-Simulation           = False
+# |-DataType             = '2015'  (default: '')
+# |-RedoMCLinks          = False
+# |-IgnoreDQFlags        = False
+# |-HistogramFile        = ''
+# |-WriteFSR             = True
+# |-EnableUnpack         = None
+# |-EventPreFilters      = []  (default: [])
+# \----- (End of User DaVinci/DaVinci) ---------------------------------------------------------------
+# applying configuration of LumiAlgsConf
+# /***** User LumiAlgsConf/LumiAlgsConf **************************************************************
+# |-UseLumiLow        = False
+# |-ForceFullSequence = False
+# |-InputType         = 'DST'  (default: 'MDF')
+# |-DataType          = '2015'  (default: '2012')
+# |-SetFSRStatus      = ''
+# |-OutputLevel       = 3
+# |-MergeFSR          = False
+# |-BXTypes           = ['NoBeam', 'BeamCrossing', 'Beam1', 'Beam2']
+# |                   (default: ['NoBeam', 'BeamCrossing', 'Beam1', 'Beam2'])
+# |-Simulation        = False
+# |-Context           = 'Offline'
+# |-LumiSequencer     = GaudiSequencer('LumiSeq')  (default: None)
+# |-IgnoreDQFlags     = False
+# \----- (End of User LumiAlgsConf/LumiAlgsConf) -----------------------------------------------------
+# applying configuration of L0Conf
+# Applying L0Conf
+# L0 on demand activated (rootInTES : )
+# --> Including file '/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/TCK/L0TCK/v5r32/options/L0DUConfig.opts'
+# <-- End of file '/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/TCK/L0TCK/v5r32/options/L0DUConfig.opts'
+# /***** User L0Conf/L0Conf **************************************************************************
+# |-FullL0MuonDecoding         = True  (default: False)
+# |-verbose                    = False
+# |-ReplayL0DU                 = False
+# |-DecodeL0                   = False
+# |-ETCSequencer               = None
+# |-FakeHCL0Digits             = False
+# |-HCTriggerBitsFromADCs      = False
+# |-EmulateHC                  = False  (default: False)
+# |-RootInTESOnDemand          = ['']  (default: [''])
+# |-L0MuonUseTCKFromData       = None
+# |-ETCOutput                  = 'L0ETC.root'
+# |-EnsureKnownTCK             = True
+# |-L0HCAlgThresholdsB2        = [0, 0, 0, 0]  (default: [0, 0, 0, 0])
+# |-L0HCAlgThresholdsB0        = [0, 0, 0, 0]  (default: [0, 0, 0, 0])
+# |-L0HCAlgThresholdsB1        = [0, 0, 0, 0]  (default: [0, 0, 0, 0])
+# |-EnableL0DecodingOnDemand   = True  (default: False)
+# |-TCK                        = None
+# |-FastL0DUDecoding           = False
+# |-L0HCAlgThresholdsF2        = [0, 0, 0, 0]  (default: [0, 0, 0, 0])
+# |-L0HCAlgThresholdsF1        = [0, 0, 0, 0]  (default: [0, 0, 0, 0])
+# |-DecodeL0DU                 = False
+# |-EnableTAEOnDemand          = False
+# |-FilterSequencer            = None
+# |-L0Sequencer                = None
+# |-L0MuonForceLUTVersion      = None
+# |-L0EmulatorContext          = None
+# |-FilterL0                   = False
+# |-IgnoreL0MuonCondDB         = None
+# |-SimulateL0                 = False
+# |-FullPileUpSimulation       = False
+# |-ReplaceL0BanksWithEmulated = False
+# |-ForceSingleL0Configuration = False
+# |-MoniSequencer              = None
+# |-LinkSequencer              = None
+# |-MonitorL0                  = False
+# |-DataType                   = ''
+# |-FilterL0FromRaw            = False
+# |-RawEventLocations          = []  (default: [])
+# |-L0DecodingContext          = None
+# |-EmulateL0                  = False
+# \----- (End of User L0Conf/L0Conf) -----------------------------------------------------------------
+# applying configuration of SWeightsTableFiles
+# /***** User SWeightsTableFiles/SWeightsTableFiles **************************************************
+# |-sTableMagUpFile   = './splots/splot_tables-2015-mu.root'  (default: '')
+# |-sTableMagDownFile = './splots/splot_tables-2015-md.root'  (default: '')
+# \----- (End of User SWeightsTableFiles/SWeightsTableFiles) -----------------------------------------
+# applying configuration of RawEventFormatConf
+# /***** User RawEventFormatConf/RawEventFormatConf **************************************************
+# |-RecoDict               = {'Stripping17': 1.0, 'Reco12': 1.0, 'Reco14': 2.0, 'Reco15': 4.2, 'LHCb': 0.1, 'Reconstruction12': 1.0, 'Hlt': 0.1, 'S17': 1.0, 'R14': 2.0, 'Reconstruction14': 2.0, 'Boole': 0.0, 'S20': 2.0, 'S21': 4.0, 'Stripping20': 2.0, 'Moore': 0.3, 'L0': 0.0, 'R12': 1.0, 'Strip20': 2.0, 'Pit': 0.1, 'Strip17': 1.0}
+# |                        (default: None)
+# |-Locations              = {0.0: {'HltSelReports': 'DAQ/RawEvent', 'OTError': 'DAQ/RawEvent', 'VeloError': 'DAQ/RawEvent', 'UTFull': 'DAQ/RawEvent', 'UTPedestal': 'DAQ/RawEvent', 'PrsTrig': 'DAQ/RawEvent', 'HcalPackedError': 'DAQ/RawEvent', 'L0PUFull': 'DAQ/RawEvent', 'HltDecReports': 'DAQ/RawEvent', 'Rich': 'DAQ/RawEvent', 'VeloProcFull': 'DAQ/RawEvent', 'HltRoutingBits': 'DAQ/RawEvent', 'L0MuonError': 'DAQ/RawEvent', 'VL': 'DAQ/RawEvent', 'L0MuonProcCand': 'DAQ/RawEvent', 'TTPedestal': 'DAQ/RawEvent', 'L0DUError': 'DAQ/RawEvent', 'DstBank': 'DAQ/RawEvent', 'TT': 'DAQ/RawEvent', 'L0MuonProcData': 'DAQ/RawEvent', 'OTRaw': 'DAQ/RawEvent', 'EcalPacked': 'DAQ/RawEvent', 'PrsPacked': 'DAQ/RawEvent', 'VeloPedestal': 'DAQ/RawEvent', 'DAQ': 'DAQ/RawEvent', 'ITError': 'DAQ/RawEvent', 'FileID': 'DAQ/RawEvent', 'EcalTrig': 'DAQ/RawEvent', 'FTCluster': 'DAQ/RawEvent', 'L0PUError': 'DAQ/RawEvent', 'L0Calo': 'DAQ/RawEvent', 'VeloFull': 'DAQ/RawEvent', 'L0MuonCtrlAll': 'DAQ/RawEvent', 'HltVertexReports': 'DAQ/RawEvent', 'EcalE': 'DAQ/RawEvent', 'ITProcFull': 'DAQ/RawEvent', 'HltLumiSummary': 'DAQ/RawEvent', 'TestDet': 'DAQ/RawEvent', 'IT': 'DAQ/RawEvent', 'VP': 'DAQ/RawEvent', 'HcalTrig': 'DAQ/RawEvent', 'HcalE': 'DAQ/RawEvent', 'L0PU': 'DAQ/RawEvent', 'DstAddress': 'DAQ/RawEvent', 'UT': 'DAQ/RawEvent', 'TAEHeader': 'DAQ/RawEvent', 'ODIN': 'DAQ/RawEvent', 'PrsE': 'DAQ/RawEvent', 'PrsPackedError': 'DAQ/RawEvent', 'Velo': 'DAQ/RawEvent', 'Muon': 'DAQ/RawEvent', 'ITPedestal': 'DAQ/RawEvent', 'TTProcFull': 'DAQ/RawEvent', 'DstData': 'DAQ/RawEvent', 'GaudiSerialize': 'DAQ/RawEvent', 'TTFull': 'DAQ/RawEvent', 'L0MuonRaw': 'DAQ/RawEvent', 'UTError': 'DAQ/RawEvent', 'TTError': 'DAQ/RawEvent', 'EcalPackedError': 'DAQ/RawEvent', 'HcalPacked': 'DAQ/RawEvent', 'MuonFull': 'DAQ/RawEvent', 'L0CaloError': 'DAQ/RawEvent', 'GaudiHeader': 'DAQ/RawEvent', 'L0DU': 'DAQ/RawEvent', 'ITFull': 'DAQ/RawEvent', 'OT': 'DAQ/RawEvent', 'MuonError': 'DAQ/RawEvent', 'L0CaloFull': 'DAQ/RawEvent', 'L0Muon': 'DAQ/RawEvent'}, 1.0: {'HltSelReports': ['Trigger/RawEvent', 'DAQ/RawEvent'], 'OTError': 'DAQ/RawEvent', 'VeloError': 'DAQ/RawEvent', 'UTFull': 'DAQ/RawEvent', 'UTPedestal': 'DAQ/RawEvent', 'PrsTrig': 'DAQ/RawEvent', 'HcalPackedError': 'DAQ/RawEvent', 'L0PUFull': 'DAQ/RawEvent', 'HltDecReports': ['Trigger/RawEvent', 'DAQ/RawEvent'], 'Rich': 'DAQ/RawEvent', 'VeloProcFull': 'DAQ/RawEvent', 'HltRoutingBits': ['Trigger/RawEvent', 'DAQ/RawEvent'], 'L0MuonError': 'DAQ/RawEvent', 'VL': 'DAQ/RawEvent', 'L0MuonProcCand': ['Trigger/RawEvent', 'DAQ/RawEvent'], 'TTPedestal': 'DAQ/RawEvent', 'L0DUError': 'DAQ/RawEvent', 'DstBank': 'DAQ/RawEvent', 'TT': 'DAQ/RawEvent', 'L0MuonProcData': 'DAQ/RawEvent', 'OTRaw': 'DAQ/RawEvent', 'EcalPacked': 'DAQ/RawEvent', 'PrsPacked': 'DAQ/RawEvent', 'VeloPedestal': 'DAQ/RawEvent', 'DAQ': 'DAQ/RawEvent', 'ITError': 'DAQ/RawEvent', 'FileID': 'DAQ/RawEvent', 'EcalTrig': 'DAQ/RawEvent', 'FTCluster': 'DAQ/RawEvent', 'L0PUError': 'DAQ/RawEvent', 'L0Calo': ['Trigger/RawEvent', 'DAQ/RawEvent'], 'VeloFull': 'DAQ/RawEvent', 'L0MuonCtrlAll': 'DAQ/RawEvent', 'HltVertexReports': ['Trigger/RawEvent', 'DAQ/RawEvent'], 'EcalE': 'DAQ/RawEvent', 'ITProcFull': 'DAQ/RawEvent', 'HltLumiSummary': 'DAQ/RawEvent', 'TestDet': 'DAQ/RawEvent', 'IT': 'DAQ/RawEvent', 'VP': 'DAQ/RawEvent', 'HcalTrig': 'DAQ/RawEvent', 'HcalE': 'DAQ/RawEvent', 'L0PU': ['Trigger/RawEvent', 'DAQ/RawEvent'], 'DstAddress': 'DAQ/RawEvent', 'UT': 'DAQ/RawEvent', 'TAEHeader': 'DAQ/RawEvent', 'ODIN': ['Trigger/RawEvent', 'DAQ/RawEvent'], 'PrsE': 'DAQ/RawEvent', 'PrsPackedError': 'DAQ/RawEvent', 'Velo': 'DAQ/RawEvent', 'Muon': 'DAQ/RawEvent', 'ITPedestal': 'DAQ/RawEvent', 'TTProcFull': 'DAQ/RawEvent', 'DstData': 'DAQ/RawEvent', 'GaudiSerialize': 'DAQ/RawEvent', 'TTFull': 'DAQ/RawEvent', 'L0MuonRaw': 'DAQ/RawEvent', 'UTError': 'DAQ/RawEvent', 'TTError': 'DAQ/RawEvent', 'EcalPackedError': 'DAQ/RawEvent', 'HcalPacked': 'DAQ/RawEvent', 'MuonFull': 'DAQ/RawEvent', 'L0CaloError': 'DAQ/RawEvent', 'GaudiHeader': 'DAQ/RawEvent', 'L0DU': ['Trigger/RawEvent', 'DAQ/RawEvent'], 'ITFull': 'DAQ/RawEvent', 'OT': 'DAQ/RawEvent', 'MuonError': 'DAQ/RawEvent', 'L0CaloFull': ['Trigger/RawEvent', 'DAQ/RawEvent'], 'L0Muon': ['Trigger/RawEvent', 'DAQ/RawEvent']}, 2.0: {'HltSelReports': 'Trigger/RawEvent', 'OTError': 'Other/RawEvent', 'VeloError': 'Other/RawEvent', 'UTFull': 'Other/RawEvent', 'UTPedestal': 'Other/RawEvent', 'PrsTrig': 'Calo/RawEvent', 'HcalPackedError': 'Calo/RawEvent', 'L0PUFull': 'Other/RawEvent', 'HltDecReports': 'Trigger/RawEvent', 'Rich': 'Rich/RawEvent', 'VeloProcFull': 'Other/RawEvent', 'HltRoutingBits': 'Trigger/RawEvent', 'L0MuonError': 'Other/RawEvent', 'VL': 'Other/RawEvent', 'L0MuonProcCand': 'Trigger/RawEvent', 'TTPedestal': 'Other/RawEvent', 'L0DUError': 'Other/RawEvent', 'DstBank': 'Other/RawEvent', 'TT': 'Other/RawEvent', 'L0MuonProcData': 'Other/RawEvent', 'OTRaw': 'Other/RawEvent', 'EcalPacked': 'Calo/RawEvent', 'PrsPacked': 'Calo/RawEvent', 'VeloPedestal': 'Other/RawEvent', 'DAQ': 'Other/RawEvent', 'ITError': 'Other/RawEvent', 'FileID': 'Other/RawEvent', 'EcalTrig': 'Calo/RawEvent', 'FTCluster': 'Other/RawEvent', 'L0PUError': 'Other/RawEvent', 'L0Calo': 'Trigger/RawEvent', 'VeloFull': 'Other/RawEvent', 'L0MuonCtrlAll': 'Other/RawEvent', 'HltVertexReports': 'Trigger/RawEvent', 'EcalE': 'Calo/RawEvent', 'ITProcFull': 'Other/RawEvent', 'HltLumiSummary': 'Other/RawEvent', 'TestDet': 'Other/RawEvent', 'IT': 'Other/RawEvent', 'VP': 'Other/RawEvent', 'HcalTrig': 'Calo/RawEvent', 'HcalE': 'Calo/RawEvent', 'L0PU': 'Trigger/RawEvent', 'DstAddress': 'Other/RawEvent', 'UT': 'Other/RawEvent', 'TAEHeader': 'Other/RawEvent', 'ODIN': 'Trigger/RawEvent', 'PrsE': 'Calo/RawEvent', 'PrsPackedError': 'Calo/RawEvent', 'Velo': 'Other/RawEvent', 'Muon': 'Muon/RawEvent', 'ITPedestal': 'Other/RawEvent', 'TTProcFull': 'Other/RawEvent', 'DstData': 'Other/RawEvent', 'GaudiSerialize': 'Other/RawEvent', 'TTFull': 'Other/RawEvent', 'L0MuonRaw': 'Other/RawEvent', 'UTError': 'Other/RawEvent', 'TTError': 'Other/RawEvent', 'EcalPackedError': 'Calo/RawEvent', 'HcalPacked': 'Calo/RawEvent', 'MuonFull': 'Other/RawEvent', 'L0CaloError': 'Other/RawEvent', 'GaudiHeader': 'Other/RawEvent', 'L0DU': 'Trigger/RawEvent', 'ITFull': 'Other/RawEvent', 'OT': 'Other/RawEvent', 'MuonError': 'Other/RawEvent', 'L0CaloFull': 'Trigger/RawEvent', 'L0Muon': 'Trigger/RawEvent'}, 3.0: {'HltSelReports': 'Trigger/#TCK#/RawEvent', 'OTError': 'DAQ/RawEvent', 'VeloError': 'DAQ/RawEvent', 'UTFull': 'DAQ/RawEvent', 'UTPedestal': 'DAQ/RawEvent', 'PrsTrig': 'DAQ/RawEvent', 'HcalPackedError': 'DAQ/RawEvent', 'L0PUFull': 'DAQ/RawEvent', 'HltDecReports': 'Trigger/#TCK#/RawEvent', 'Rich': 'DAQ/RawEvent', 'VeloProcFull': 'DAQ/RawEvent', 'HltRoutingBits': 'Trigger/#TCK#/RawEvent', 'L0MuonError': 'DAQ/RawEvent', 'VL': 'DAQ/RawEvent', 'L0MuonProcCand': 'Trigger/#TCK#/RawEvent', 'TTPedestal': 'DAQ/RawEvent', 'L0DUError': 'DAQ/RawEvent', 'DstBank': 'DAQ/RawEvent', 'TT': 'DAQ/RawEvent', 'L0MuonProcData': 'DAQ/RawEvent', 'OTRaw': 'DAQ/RawEvent', 'EcalPacked': 'DAQ/RawEvent', 'PrsPacked': 'DAQ/RawEvent', 'VeloPedestal': 'DAQ/RawEvent', 'DAQ': 'DAQ/RawEvent', 'ITError': 'DAQ/RawEvent', 'FileID': 'DAQ/RawEvent', 'EcalTrig': 'DAQ/RawEvent', 'FTCluster': 'DAQ/RawEvent', 'L0PUError': 'DAQ/RawEvent', 'L0Calo': 'Trigger/#TCK#/RawEvent', 'VeloFull': 'DAQ/RawEvent', 'L0MuonCtrlAll': 'DAQ/RawEvent', 'HltVertexReports': 'Trigger/#TCK#/RawEvent', 'EcalE': 'DAQ/RawEvent', 'ITProcFull': 'DAQ/RawEvent', 'HltLumiSummary': 'DAQ/RawEvent', 'TestDet': 'DAQ/RawEvent', 'IT': 'DAQ/RawEvent', 'VP': 'DAQ/RawEvent', 'HcalTrig': 'DAQ/RawEvent', 'HcalE': 'DAQ/RawEvent', 'L0PU': 'Trigger/#TCK#/RawEvent', 'DstAddress': 'DAQ/RawEvent', 'UT': 'DAQ/RawEvent', 'TAEHeader': 'DAQ/RawEvent', 'ODIN': 'DAQ/RawEvent', 'PrsE': 'DAQ/RawEvent', 'PrsPackedError': 'DAQ/RawEvent', 'Velo': 'DAQ/RawEvent', 'Muon': 'DAQ/RawEvent', 'ITPedestal': 'DAQ/RawEvent', 'TTProcFull': 'DAQ/RawEvent', 'DstData': 'DAQ/RawEvent', 'GaudiSerialize': 'DAQ/RawEvent', 'TTFull': 'DAQ/RawEvent', 'L0MuonRaw': 'DAQ/RawEvent', 'UTError': 'DAQ/RawEvent', 'TTError': 'DAQ/RawEvent', 'EcalPackedError': 'DAQ/RawEvent', 'HcalPacked': 'DAQ/RawEvent', 'MuonFull': 'DAQ/RawEvent', 'L0CaloError': 'DAQ/RawEvent', 'GaudiHeader': 'DAQ/RawEvent', 'L0DU': 'Trigger/#TCK#/RawEvent', 'ITFull': 'DAQ/RawEvent', 'OT': 'DAQ/RawEvent', 'MuonError': 'DAQ/RawEvent', 'L0CaloFull': 'Trigger/#TCK#/RawEvent', 'L0Muon': 'Trigger/#TCK#/RawEvent'}, 4.0: {'HltSelReports': 'Trigger/RawEvent', 'OTError': 'Unstripped/RawEvent', 'VeloError': 'Unstripped/RawEvent', 'UTFull': 'Unstripped/RawEvent', 'UTPedestal': 'Unstripped/RawEvent', 'PrsTrig': 'Calo/RawEvent', 'HcalPackedError': 'Unstripped/RawEvent', 'L0PUFull': 'Unstripped/RawEvent', 'HltDecReports': 'Trigger/RawEvent', 'Rich': 'Rich/RawEvent', 'VeloProcFull': 'Unstripped/RawEvent', 'HltRoutingBits': 'Trigger/RawEvent', 'L0MuonError': 'Unstripped/RawEvent', 'VL': 'Unstripped/RawEvent', 'L0MuonProcCand': 'Trigger/RawEvent', 'TTPedestal': 'Unstripped/RawEvent', 'L0DUError': 'Unstripped/RawEvent', 'DstBank': 'Unstripped/RawEvent', 'TT': 'Tracker/RawEvent', 'L0MuonProcData': 'Unstripped/RawEvent', 'OTRaw': 'Unstripped/RawEvent', 'EcalPacked': 'Calo/RawEvent', 'PrsPacked': 'Calo/RawEvent', 'VeloPedestal': 'Unstripped/RawEvent', 'DAQ': 'Unstripped/RawEvent', 'ITError': 'Unstripped/RawEvent', 'FileID': 'Unstripped/RawEvent', 'EcalTrig': 'Calo/RawEvent', 'FTCluster': 'Tracker/RawEvent', 'L0PUError': 'Unstripped/RawEvent', 'L0Calo': 'Trigger/RawEvent', 'VeloFull': 'Unstripped/RawEvent', 'L0MuonCtrlAll': 'Unstripped/RawEvent', 'HltVertexReports': 'Trigger/RawEvent', 'EcalE': 'Calo/RawEvent', 'ITProcFull': 'Unstripped/RawEvent', 'HltLumiSummary': 'Unstripped/RawEvent', 'TestDet': 'Unstripped/RawEvent', 'IT': 'Tracker/RawEvent', 'VP': 'Velo/RawEvent', 'HcalTrig': 'Calo/RawEvent', 'HcalE': 'Calo/RawEvent', 'L0PU': 'Trigger/RawEvent', 'DstAddress': 'Unstripped/RawEvent', 'UT': 'Tracker/RawEvent', 'TAEHeader': 'Unstripped/RawEvent', 'ODIN': ['Trigger/RawEvent'], 'PrsE': 'Calo/RawEvent', 'PrsPackedError': 'Unstripped/RawEvent', 'Velo': 'Velo/RawEvent', 'Muon': 'Muon/RawEvent', 'ITPedestal': 'Unstripped/RawEvent', 'TTProcFull': 'Unstripped/RawEvent', 'DstData': 'Unstripped/RawEvent', 'GaudiSerialize': 'Unstripped/RawEvent', 'TTFull': 'Unstripped/RawEvent', 'L0MuonRaw': 'Unstripped/RawEvent', 'UTError': 'Unstripped/RawEvent', 'TTError': 'Unstripped/RawEvent', 'EcalPackedError': 'Unstripped/RawEvent', 'HcalPacked': 'Calo/RawEvent', 'MuonFull': 'Unstripped/RawEvent', 'L0CaloError': 'Unstripped/RawEvent', 'GaudiHeader': 'Unstripped/RawEvent', 'L0DU': 'Trigger/RawEvent', 'ITFull': 'Unstripped/RawEvent', 'OT': 'Tracker/RawEvent', 'MuonError': 'Unstripped/RawEvent', 'HltTrackReports': 'Trigger/RawEvent', 'L0CaloFull': 'Trigger/RawEvent', 'L0Muon': 'Trigger/RawEvent'}, 0.2: {'HltRoutingBits': 'DAQ/RawEvent', 'L0PUFull': 'DAQ/RawEvent', 'HltDecReports': 'DAQ/RawEvent', 'HltSelReports': 'DAQ/RawEvent', 'L0MuonError': 'DAQ/RawEvent', 'DstBank': 'DAQ/RawEvent', 'L0MuonProcCand': 'DAQ/RawEvent', 'L0CaloError': 'DAQ/RawEvent', 'TAEHeader': 'DAQ/RawEvent', 'L0MuonProcData': 'DAQ/RawEvent', 'DAQ': 'DAQ/RawEvent', 'DstAddress': 'DAQ/RawEvent', 'L0PUError': 'DAQ/RawEvent', 'L0Calo': 'DAQ/RawEvent', 'L0MuonCtrlAll': 'DAQ/RawEvent', 'HltVertexReports': 'DAQ/RawEvent', 'HltLumiSummary': 'DAQ/RawEvent', 'TestDet': 'DAQ/RawEvent', 'L0PU': 'DAQ/RawEvent', 'L0DUError': 'DAQ/RawEvent', 'ODIN': 'DAQ/RawEvent', 'FileID': 'DAQ/RawEvent', 'DstData': 'DAQ/RawEvent', 'GaudiSerialize': 'DAQ/RawEvent', 'L0MuonRaw': 'DAQ/RawEvent', 'GaudiHeader': 'DAQ/RawEvent', 'L0DU': 'DAQ/RawEvent', 'L0CaloFull': 'DAQ/RawEvent', 'L0Muon': 'DAQ/RawEvent'}, 0.1: {'HltSelReports': 'DAQ/RawEvent', 'OTError': 'DAQ/RawEvent', 'VeloError': 'DAQ/RawEvent', 'UTFull': 'DAQ/RawEvent', 'UTPedestal': 'DAQ/RawEvent', 'PrsTrig': 'DAQ/RawEvent', 'HcalPackedError': 'DAQ/RawEvent', 'L0PUFull': 'DAQ/RawEvent', 'HltDecReports': 'DAQ/RawEvent', 'Rich': 'DAQ/RawEvent', 'VeloProcFull': 'DAQ/RawEvent', 'HltRoutingBits': 'DAQ/RawEvent', 'L0MuonError': 'DAQ/RawEvent', 'VL': 'DAQ/RawEvent', 'L0MuonProcCand': 'DAQ/RawEvent', 'TTPedestal': 'DAQ/RawEvent', 'L0DUError': 'DAQ/RawEvent', 'DstBank': 'DAQ/RawEvent', 'TT': 'DAQ/RawEvent', 'L0MuonProcData': 'DAQ/RawEvent', 'OTRaw': 'DAQ/RawEvent', 'EcalPacked': 'DAQ/RawEvent', 'PrsPacked': 'DAQ/RawEvent', 'VeloPedestal': 'DAQ/RawEvent', 'DAQ': 'DAQ/RawEvent', 'ITError': 'DAQ/RawEvent', 'FileID': 'DAQ/RawEvent', 'EcalTrig': 'DAQ/RawEvent', 'FTCluster': 'DAQ/RawEvent', 'L0PUError': 'DAQ/RawEvent', 'L0Calo': 'DAQ/RawEvent', 'VeloFull': 'DAQ/RawEvent', 'L0MuonCtrlAll': 'DAQ/RawEvent', 'HltVertexReports': 'DAQ/RawEvent', 'EcalE': 'DAQ/RawEvent', 'ITProcFull': 'DAQ/RawEvent', 'HltLumiSummary': 'DAQ/RawEvent', 'TestDet': 'DAQ/RawEvent', 'IT': 'DAQ/RawEvent', 'VP': 'DAQ/RawEvent', 'HcalTrig': 'DAQ/RawEvent', 'HcalE': 'DAQ/RawEvent', 'L0PU': 'DAQ/RawEvent', 'DstAddress': 'DAQ/RawEvent', 'UT': 'DAQ/RawEvent', 'TAEHeader': 'DAQ/RawEvent', 'ODIN': 'DAQ/RawEvent', 'PrsE': 'DAQ/RawEvent', 'PrsPackedError': 'DAQ/RawEvent', 'Velo': 'DAQ/RawEvent', 'Muon': 'DAQ/RawEvent', 'ITPedestal': 'DAQ/RawEvent', 'TTProcFull': 'DAQ/RawEvent', 'DstData': 'DAQ/RawEvent', 'GaudiSerialize': 'DAQ/RawEvent', 'TTFull': 'DAQ/RawEvent', 'L0MuonRaw': 'DAQ/RawEvent', 'UTError': 'DAQ/RawEvent', 'TTError': 'DAQ/RawEvent', 'EcalPackedError': 'DAQ/RawEvent', 'HcalPacked': 'DAQ/RawEvent', 'MuonFull': 'DAQ/RawEvent', 'L0CaloError': 'DAQ/RawEvent', 'GaudiHeader': 'DAQ/RawEvent', 'L0DU': 'DAQ/RawEvent', 'ITFull': 'DAQ/RawEvent', 'OT': 'DAQ/RawEvent', 'MuonError': 'DAQ/RawEvent', 'HltTrackReports': 'DAQ/RawEvent', 'L0CaloFull': 'DAQ/RawEvent', 'L0Muon': 'DAQ/RawEvent'}, 2.2: {'HltSelReports': 'Trigger/RawEvent', 'OTError': 'Other/RawEvent', 'VeloError': 'Other/RawEvent', 'UTFull': 'Other/RawEvent', 'UTPedestal': 'Other/RawEvent', 'PrsTrig': 'Calo/RawEvent', 'HcalPackedError': 'Calo/RawEvent', 'L0PUFull': 'Other/RawEvent', 'HltDecReports': 'Trigger/RawEvent', 'Rich': 'Rich/RawEvent', 'VeloProcFull': 'Other/RawEvent', 'HltRoutingBits': 'Trigger/RawEvent', 'L0MuonError': 'Other/RawEvent', 'VL': 'Other/RawEvent', 'L0MuonProcCand': 'Trigger/RawEvent', 'TTPedestal': 'Other/RawEvent', 'L0DUError': 'Other/RawEvent', 'HC': 'Other/RawEvent', 'DstBank': 'Other/RawEvent', 'TT': 'Other/RawEvent', 'L0MuonProcData': 'Other/RawEvent', 'OTRaw': 'Other/RawEvent', 'EcalPacked': 'Calo/RawEvent', 'PrsPacked': 'Calo/RawEvent', 'VeloPedestal': 'Other/RawEvent', 'DAQ': 'Other/RawEvent', 'ITError': 'Other/RawEvent', 'FileID': 'Other/RawEvent', 'EcalTrig': 'Calo/RawEvent', 'FTCluster': 'Other/RawEvent', 'L0PUError': 'Other/RawEvent', 'L0Calo': 'Trigger/RawEvent', 'VeloFull': 'Other/RawEvent', 'L0MuonCtrlAll': 'Other/RawEvent', 'HltVertexReports': 'Trigger/RawEvent', 'EcalE': 'Calo/RawEvent', 'ITProcFull': 'Other/RawEvent', 'HltLumiSummary': 'Other/RawEvent', 'TestDet': 'Other/RawEvent', 'IT': 'Other/RawEvent', 'VP': 'Other/RawEvent', 'HcalTrig': 'Calo/RawEvent', 'HcalE': 'Calo/RawEvent', 'L0PU': 'Trigger/RawEvent', 'DstAddress': 'Other/RawEvent', 'UT': 'Other/RawEvent', 'TAEHeader': 'Other/RawEvent', 'ODIN': 'Trigger/RawEvent', 'PrsE': 'Calo/RawEvent', 'PrsPackedError': 'Calo/RawEvent', 'Velo': 'Other/RawEvent', 'Muon': 'Muon/RawEvent', 'ITPedestal': 'Other/RawEvent', 'TTProcFull': 'Other/RawEvent', 'DstData': 'Other/RawEvent', 'GaudiSerialize': 'Other/RawEvent', 'TTFull': 'Other/RawEvent', 'L0MuonRaw': 'Other/RawEvent', 'UTError': 'Other/RawEvent', 'TTError': 'Other/RawEvent', 'EcalPackedError': 'Calo/RawEvent', 'HcalPacked': 'Calo/RawEvent', 'MuonFull': 'Other/RawEvent', 'L0CaloError': 'Other/RawEvent', 'GaudiHeader': 'Other/RawEvent', 'L0DU': 'Trigger/RawEvent', 'ITFull': 'Other/RawEvent', 'OT': 'Other/RawEvent', 'MuonError': 'Other/RawEvent', 'HltTrackReports': 'Trigger/RawEvent', 'L0CaloFull': 'Trigger/RawEvent', 'L0Muon': 'Trigger/RawEvent'}, 3.1: {'HltSelReports': 'Trigger/#TCK#/RawEvent', 'OTError': 'Other/RawEvent', 'VeloError': 'Other/RawEvent', 'UTFull': 'Other/RawEvent', 'UTPedestal': 'Other/RawEvent', 'PrsTrig': 'Calo/RawEvent', 'HcalPackedError': 'Calo/RawEvent', 'L0PUFull': 'Other/RawEvent', 'HltDecReports': 'Trigger/#TCK#/RawEvent', 'Rich': 'Rich/RawEvent', 'VeloProcFull': 'Other/RawEvent', 'HltRoutingBits': 'Trigger/#TCK#/RawEvent', 'L0MuonError': 'Other/RawEvent', 'VL': 'Other/RawEvent', 'L0MuonProcCand': 'Trigger/#TCK#/RawEvent', 'TTPedestal': 'Other/RawEvent', 'L0DUError': 'Other/RawEvent', 'DstBank': 'Other/RawEvent', 'TT': 'Other/RawEvent', 'L0MuonProcData': 'Other/RawEvent', 'OTRaw': 'Other/RawEvent', 'EcalPacked': 'Calo/RawEvent', 'PrsPacked': 'Calo/RawEvent', 'VeloPedestal': 'Other/RawEvent', 'DAQ': 'Other/RawEvent', 'ITError': 'Other/RawEvent', 'FileID': 'Other/RawEvent', 'EcalTrig': 'Calo/RawEvent', 'FTCluster': 'Other/RawEvent', 'L0PUError': 'Other/RawEvent', 'L0Calo': 'Trigger/#TCK#/RawEvent', 'VeloFull': 'Other/RawEvent', 'L0MuonCtrlAll': 'Other/RawEvent', 'HltVertexReports': 'Trigger/#TCK#/RawEvent', 'EcalE': 'Calo/RawEvent', 'ITProcFull': 'Other/RawEvent', 'HltLumiSummary': 'Other/RawEvent', 'TestDet': 'Other/RawEvent', 'IT': 'Other/RawEvent', 'VP': 'Other/RawEvent', 'HcalTrig': 'Calo/RawEvent', 'HcalE': 'Calo/RawEvent', 'L0PU': 'Trigger/#TCK#/RawEvent', 'DstAddress': 'Other/RawEvent', 'UT': 'Other/RawEvent', 'TAEHeader': 'Other/RawEvent', 'ODIN': 'Trigger/#TCK#/RawEvent', 'PrsE': 'Calo/RawEvent', 'PrsPackedError': 'Calo/RawEvent', 'Velo': 'Other/RawEvent', 'Muon': 'Muon/RawEvent', 'ITPedestal': 'Other/RawEvent', 'TTProcFull': 'Other/RawEvent', 'DstData': 'Other/RawEvent', 'GaudiSerialize': 'Other/RawEvent', 'TTFull': 'Other/RawEvent', 'L0MuonRaw': 'Other/RawEvent', 'UTError': 'Other/RawEvent', 'TTError': 'Other/RawEvent', 'EcalPackedError': 'Calo/RawEvent', 'HcalPacked': 'Calo/RawEvent', 'MuonFull': 'Other/RawEvent', 'L0CaloError': 'Other/RawEvent', 'GaudiHeader': 'Other/RawEvent', 'L0DU': 'Trigger/#TCK#/RawEvent', 'ITFull': 'Other/RawEvent', 'OT': 'Other/RawEvent', 'MuonError': 'Other/RawEvent', 'L0CaloFull': 'Trigger/#TCK#/RawEvent', 'L0Muon': 'Trigger/#TCK#/RawEvent'}, 0.3: {'HltSelReports': 'DAQ/RawEvent', 'OTError': 'DAQ/RawEvent', 'VeloError': 'DAQ/RawEvent', 'UTFull': 'DAQ/RawEvent', 'UTPedestal': 'DAQ/RawEvent', 'PrsTrig': 'DAQ/RawEvent', 'HcalPackedError': 'DAQ/RawEvent', 'L0PUFull': 'DAQ/RawEvent', 'HltDecReports': 'DAQ/RawEvent', 'Rich': 'DAQ/RawEvent', 'VeloProcFull': 'DAQ/RawEvent', 'HltRoutingBits': 'DAQ/RawEvent', 'L0MuonError': 'DAQ/RawEvent', 'VL': 'DAQ/RawEvent', 'L0MuonProcCand': 'DAQ/RawEvent', 'TTPedestal': 'DAQ/RawEvent', 'L0DUError': 'DAQ/RawEvent', 'HC': 'DAQ/RawEvent', 'DstBank': 'DAQ/RawEvent', 'TT': 'DAQ/RawEvent', 'L0MuonProcData': 'DAQ/RawEvent', 'OTRaw': 'DAQ/RawEvent', 'EcalPacked': 'DAQ/RawEvent', 'PrsPacked': 'DAQ/RawEvent', 'VeloPedestal': 'DAQ/RawEvent', 'DAQ': 'DAQ/RawEvent', 'ITError': 'DAQ/RawEvent', 'FileID': 'DAQ/RawEvent', 'EcalTrig': 'DAQ/RawEvent', 'FTCluster': 'DAQ/RawEvent', 'L0PUError': 'DAQ/RawEvent', 'L0Calo': 'DAQ/RawEvent', 'VeloFull': 'DAQ/RawEvent', 'L0MuonCtrlAll': 'DAQ/RawEvent', 'HltVertexReports': 'DAQ/RawEvent', 'EcalE': 'DAQ/RawEvent', 'ITProcFull': 'DAQ/RawEvent', 'HltLumiSummary': 'DAQ/RawEvent', 'TestDet': 'DAQ/RawEvent', 'IT': 'DAQ/RawEvent', 'VP': 'DAQ/RawEvent', 'HcalTrig': 'DAQ/RawEvent', 'HcalE': 'DAQ/RawEvent', 'L0PU': 'DAQ/RawEvent', 'DstAddress': 'DAQ/RawEvent', 'UT': 'DAQ/RawEvent', 'TAEHeader': 'DAQ/RawEvent', 'ODIN': 'DAQ/RawEvent', 'PrsE': 'DAQ/RawEvent', 'PrsPackedError': 'DAQ/RawEvent', 'Velo': 'DAQ/RawEvent', 'Muon': 'DAQ/RawEvent', 'ITPedestal': 'DAQ/RawEvent', 'TTProcFull': 'DAQ/RawEvent', 'DstData': 'DAQ/RawEvent', 'GaudiSerialize': 'DAQ/RawEvent', 'TTFull': 'DAQ/RawEvent', 'L0MuonRaw': 'DAQ/RawEvent', 'UTError': 'DAQ/RawEvent', 'TTError': 'DAQ/RawEvent', 'EcalPackedError': 'DAQ/RawEvent', 'HcalPacked': 'DAQ/RawEvent', 'MuonFull': 'DAQ/RawEvent', 'L0CaloError': 'DAQ/RawEvent', 'GaudiHeader': 'DAQ/RawEvent', 'L0DU': 'DAQ/RawEvent', 'ITFull': 'DAQ/RawEvent', 'OT': 'DAQ/RawEvent', 'MuonError': 'DAQ/RawEvent', 'HltTrackReports': 'DAQ/RawEvent', 'L0CaloFull': 'DAQ/RawEvent', 'L0Muon': 'DAQ/RawEvent'}, 0.4: {'HltRoutingBits': 'DAQ/RawEvent', 'L0PUFull': 'DAQ/RawEvent', 'HltDecReports': 'DAQ/RawEvent', 'HC': 'DAQ/RawEvent', 'HltSelReports': 'DAQ/RawEvent', 'L0MuonError': 'DAQ/RawEvent', 'DstBank': 'DAQ/RawEvent', 'L0MuonProcCand': 'DAQ/RawEvent', 'L0CaloError': 'DAQ/RawEvent', 'TAEHeader': 'DAQ/RawEvent', 'L0MuonProcData': 'DAQ/RawEvent', 'DAQ': 'DAQ/RawEvent', 'DstAddress': 'DAQ/RawEvent', 'L0PUError': 'DAQ/RawEvent', 'L0Calo': 'DAQ/RawEvent', 'L0MuonCtrlAll': 'DAQ/RawEvent', 'HltVertexReports': 'DAQ/RawEvent', 'HltLumiSummary': 'DAQ/RawEvent', 'TestDet': 'DAQ/RawEvent', 'L0PU': 'DAQ/RawEvent', 'L0DUError': 'DAQ/RawEvent', 'ODIN': 'DAQ/RawEvent', 'FileID': 'DAQ/RawEvent', 'DstData': 'DAQ/RawEvent', 'GaudiSerialize': 'DAQ/RawEvent', 'L0MuonRaw': 'DAQ/RawEvent', 'GaudiHeader': 'DAQ/RawEvent', 'L0DU': 'DAQ/RawEvent', 'L0CaloFull': 'DAQ/RawEvent', 'L0Muon': 'DAQ/RawEvent'}, 4.3: {'HltSelReports': 'Trigger/RawEvent', 'OTError': 'Unstripped/RawEvent', 'VeloError': 'Unstripped/RawEvent', 'UTFull': 'Unstripped/RawEvent', 'UTPedestal': 'Unstripped/RawEvent', 'PrsTrig': 'Calo/RawEvent', 'HcalPackedError': 'Unstripped/RawEvent', 'L0PUFull': 'Unstripped/RawEvent', 'HltDecReports': 'Trigger/RawEvent', 'Rich': 'Rich/RawEvent', 'VeloProcFull': 'Unstripped/RawEvent', 'HltRoutingBits': 'Trigger/RawEvent', 'L0MuonError': 'Unstripped/RawEvent', 'VL': 'Unstripped/RawEvent', 'L0MuonProcCand': 'Trigger/RawEvent', 'TTPedestal': 'Unstripped/RawEvent', 'L0DUError': 'Unstripped/RawEvent', 'HC': 'HC/RawEvent', 'DstBank': 'Unstripped/RawEvent', 'TT': 'Tracker/RawEvent', 'L0MuonProcData': 'Unstripped/RawEvent', 'OTRaw': 'Unstripped/RawEvent', 'EcalPacked': 'Calo/RawEvent', 'PrsPacked': 'Calo/RawEvent', 'VeloPedestal': 'Unstripped/RawEvent', 'DAQ': 'Unstripped/RawEvent', 'ITError': 'Tracker/RawEvent', 'FileID': 'Unstripped/RawEvent', 'EcalTrig': 'Calo/RawEvent', 'FTCluster': 'Tracker/RawEvent', 'L0PUError': 'Unstripped/RawEvent', 'L0Calo': 'Trigger/RawEvent', 'VeloFull': 'Unstripped/RawEvent', 'L0MuonCtrlAll': 'Unstripped/RawEvent', 'HltVertexReports': 'Trigger/RawEvent', 'EcalE': 'Calo/RawEvent', 'ITProcFull': 'Unstripped/RawEvent', 'HltLumiSummary': 'Unstripped/RawEvent', 'TestDet': 'Unstripped/RawEvent', 'IT': 'Tracker/RawEvent', 'VP': 'Velo/RawEvent', 'HcalTrig': 'Calo/RawEvent', 'HcalE': 'Calo/RawEvent', 'L0PU': 'Trigger/RawEvent', 'DstAddress': 'Unstripped/RawEvent', 'UT': 'Tracker/RawEvent', 'TAEHeader': 'Unstripped/RawEvent', 'ODIN': ['Trigger/RawEvent'], 'PrsE': 'Calo/RawEvent', 'PrsPackedError': 'Unstripped/RawEvent', 'Velo': 'Velo/RawEvent', 'Muon': 'Muon/RawEvent', 'ITPedestal': 'Unstripped/RawEvent', 'TTProcFull': 'Unstripped/RawEvent', 'DstData': 'PersistReco/RawEvent', 'GaudiSerialize': 'Unstripped/RawEvent', 'TTFull': 'Unstripped/RawEvent', 'L0MuonRaw': 'Unstripped/RawEvent', 'UTError': 'Unstripped/RawEvent', 'TTError': 'Tracker/RawEvent', 'EcalPackedError': 'Unstripped/RawEvent', 'HcalPacked': 'Calo/RawEvent', 'MuonFull': 'Unstripped/RawEvent', 'L0CaloError': 'Unstripped/RawEvent', 'GaudiHeader': 'Unstripped/RawEvent', 'L0DU': 'Trigger/RawEvent', 'ITFull': 'Unstripped/RawEvent', 'OT': 'Tracker/RawEvent', 'MuonError': 'Unstripped/RawEvent', 'HltTrackReports': 'Trigger/RawEvent', 'L0CaloFull': 'Trigger/RawEvent', 'L0Muon': 'Trigger/RawEvent'}, 2.1: {'HltSelReports': 'Trigger/RawEvent', 'OTError': 'Other/RawEvent', 'VeloError': 'Other/RawEvent', 'UTFull': 'Other/RawEvent', 'UTPedestal': 'Other/RawEvent', 'PrsTrig': 'Calo/RawEvent', 'HcalPackedError': 'Calo/RawEvent', 'L0PUFull': 'Other/RawEvent', 'HltDecReports': 'Trigger/RawEvent', 'Rich': 'Rich/RawEvent', 'VeloProcFull': 'Other/RawEvent', 'HltRoutingBits': 'Trigger/RawEvent', 'L0MuonError': 'Other/RawEvent', 'VL': 'Other/RawEvent', 'L0MuonProcCand': 'Trigger/RawEvent', 'TTPedestal': 'Other/RawEvent', 'L0DUError': 'Other/RawEvent', 'DstBank': 'Other/RawEvent', 'TT': 'Other/RawEvent', 'L0MuonProcData': 'Other/RawEvent', 'OTRaw': 'Other/RawEvent', 'EcalPacked': 'Calo/RawEvent', 'PrsPacked': 'Calo/RawEvent', 'VeloPedestal': 'Other/RawEvent', 'DAQ': 'Other/RawEvent', 'ITError': 'Other/RawEvent', 'FileID': 'Other/RawEvent', 'EcalTrig': 'Calo/RawEvent', 'FTCluster': 'Other/RawEvent', 'L0PUError': 'Other/RawEvent', 'L0Calo': 'Trigger/RawEvent', 'VeloFull': 'Other/RawEvent', 'L0MuonCtrlAll': 'Other/RawEvent', 'HltVertexReports': 'Trigger/RawEvent', 'EcalE': 'Calo/RawEvent', 'ITProcFull': 'Other/RawEvent', 'HltLumiSummary': 'Other/RawEvent', 'TestDet': 'Other/RawEvent', 'IT': 'Other/RawEvent', 'VP': 'Other/RawEvent', 'HcalTrig': 'Calo/RawEvent', 'HcalE': 'Calo/RawEvent', 'L0PU': 'Trigger/RawEvent', 'DstAddress': 'Other/RawEvent', 'UT': 'Other/RawEvent', 'TAEHeader': 'Other/RawEvent', 'ODIN': 'Trigger/RawEvent', 'PrsE': 'Calo/RawEvent', 'PrsPackedError': 'Calo/RawEvent', 'Velo': 'Other/RawEvent', 'Muon': 'Muon/RawEvent', 'ITPedestal': 'Other/RawEvent', 'TTProcFull': 'Other/RawEvent', 'DstData': 'Other/RawEvent', 'GaudiSerialize': 'Other/RawEvent', 'TTFull': 'Other/RawEvent', 'L0MuonRaw': 'Other/RawEvent', 'UTError': 'Other/RawEvent', 'TTError': 'Other/RawEvent', 'EcalPackedError': 'Calo/RawEvent', 'HcalPacked': 'Calo/RawEvent', 'MuonFull': 'Other/RawEvent', 'L0CaloError': 'Other/RawEvent', 'GaudiHeader': 'Other/RawEvent', 'L0DU': 'Trigger/RawEvent', 'ITFull': 'Other/RawEvent', 'OT': 'Other/RawEvent', 'MuonError': 'Other/RawEvent', 'HltTrackReports': 'Trigger/RawEvent', 'L0CaloFull': 'Trigger/RawEvent', 'L0Muon': 'Trigger/RawEvent'}, 4.1: {'HltSelReports': 'Trigger/RawEvent', 'OTError': 'Unstripped/RawEvent', 'VeloError': 'Unstripped/RawEvent', 'UTFull': 'Unstripped/RawEvent', 'UTPedestal': 'Unstripped/RawEvent', 'PrsTrig': 'Calo/RawEvent', 'HcalPackedError': 'Unstripped/RawEvent', 'L0PUFull': 'Unstripped/RawEvent', 'HltDecReports': 'Trigger/RawEvent', 'Rich': 'Rich/RawEvent', 'VeloProcFull': 'Unstripped/RawEvent', 'HltRoutingBits': 'Trigger/RawEvent', 'L0MuonError': 'Unstripped/RawEvent', 'VL': 'Unstripped/RawEvent', 'L0MuonProcCand': 'Trigger/RawEvent', 'TTPedestal': 'Unstripped/RawEvent', 'L0DUError': 'Unstripped/RawEvent', 'HC': 'HC/RawEvent', 'DstBank': 'Unstripped/RawEvent', 'TT': 'Tracker/RawEvent', 'L0MuonProcData': 'Unstripped/RawEvent', 'OTRaw': 'Unstripped/RawEvent', 'EcalPacked': 'Calo/RawEvent', 'PrsPacked': 'Calo/RawEvent', 'VeloPedestal': 'Unstripped/RawEvent', 'DAQ': 'Unstripped/RawEvent', 'ITError': 'Unstripped/RawEvent', 'FileID': 'Unstripped/RawEvent', 'EcalTrig': 'Calo/RawEvent', 'FTCluster': 'Tracker/RawEvent', 'L0PUError': 'Unstripped/RawEvent', 'L0Calo': 'Trigger/RawEvent', 'VeloFull': 'Unstripped/RawEvent', 'L0MuonCtrlAll': 'Unstripped/RawEvent', 'HltVertexReports': 'Trigger/RawEvent', 'EcalE': 'Calo/RawEvent', 'ITProcFull': 'Unstripped/RawEvent', 'HltLumiSummary': 'Unstripped/RawEvent', 'TestDet': 'Unstripped/RawEvent', 'IT': 'Tracker/RawEvent', 'VP': 'Velo/RawEvent', 'HcalTrig': 'Calo/RawEvent', 'HcalE': 'Calo/RawEvent', 'L0PU': 'Trigger/RawEvent', 'DstAddress': 'Unstripped/RawEvent', 'UT': 'Tracker/RawEvent', 'TAEHeader': 'Unstripped/RawEvent', 'ODIN': ['Trigger/RawEvent'], 'PrsE': 'Calo/RawEvent', 'PrsPackedError': 'Unstripped/RawEvent', 'Velo': 'Velo/RawEvent', 'Muon': 'Muon/RawEvent', 'ITPedestal': 'Unstripped/RawEvent', 'TTProcFull': 'Unstripped/RawEvent', 'DstData': 'Unstripped/RawEvent', 'GaudiSerialize': 'Unstripped/RawEvent', 'TTFull': 'Unstripped/RawEvent', 'L0MuonRaw': 'Unstripped/RawEvent', 'UTError': 'Unstripped/RawEvent', 'TTError': 'Unstripped/RawEvent', 'EcalPackedError': 'Unstripped/RawEvent', 'HcalPacked': 'Calo/RawEvent', 'MuonFull': 'Unstripped/RawEvent', 'L0CaloError': 'Unstripped/RawEvent', 'GaudiHeader': 'Unstripped/RawEvent', 'L0DU': 'Trigger/RawEvent', 'ITFull': 'Unstripped/RawEvent', 'OT': 'Tracker/RawEvent', 'MuonError': 'Unstripped/RawEvent', 'HltTrackReports': 'Trigger/RawEvent', 'L0CaloFull': 'Trigger/RawEvent', 'L0Muon': 'Trigger/RawEvent'}, 3.3: {'HltSelReports': 'Trigger/#TCK#/RawEvent', 'OTError': 'Other/RawEvent', 'VeloError': 'Other/RawEvent', 'UTFull': 'Other/RawEvent', 'UTPedestal': 'Other/RawEvent', 'PrsTrig': 'Calo/RawEvent', 'HcalPackedError': 'Calo/RawEvent', 'L0PUFull': 'Other/RawEvent', 'HltDecReports': 'Trigger/#TCK#/RawEvent', 'Rich': 'Rich/RawEvent', 'VeloProcFull': 'Other/RawEvent', 'HltRoutingBits': 'Trigger/#TCK#/RawEvent', 'L0MuonError': 'Other/RawEvent', 'VL': 'Other/RawEvent', 'L0MuonProcCand': 'Trigger/#L0TCK#/RawEvent', 'TTPedestal': 'Other/RawEvent', 'L0DUError': 'Other/RawEvent', 'DstBank': 'Other/RawEvent', 'TT': 'Other/RawEvent', 'L0MuonProcData': 'Other/RawEvent', 'OTRaw': 'Other/RawEvent', 'EcalPacked': 'Calo/RawEvent', 'PrsPacked': 'Calo/RawEvent', 'VeloPedestal': 'Other/RawEvent', 'DAQ': 'Other/RawEvent', 'ITError': 'Other/RawEvent', 'FileID': 'Other/RawEvent', 'EcalTrig': 'Calo/RawEvent', 'FTCluster': 'Other/RawEvent', 'L0PUError': 'Other/RawEvent', 'L0Calo': 'Trigger/#L0TCK#/RawEvent', 'VeloFull': 'Other/RawEvent', 'L0MuonCtrlAll': 'Other/RawEvent', 'HltVertexReports': 'Trigger/#TCK#/RawEvent', 'EcalE': 'Calo/RawEvent', 'ITProcFull': 'Other/RawEvent', 'HltLumiSummary': 'Other/RawEvent', 'TestDet': 'Other/RawEvent', 'IT': 'Other/RawEvent', 'VP': 'Other/RawEvent', 'HcalTrig': 'Calo/RawEvent', 'HcalE': 'Calo/RawEvent', 'L0PU': 'Trigger/#L0TCK#/RawEvent', 'DstAddress': 'Other/RawEvent', 'UT': 'Other/RawEvent', 'TAEHeader': 'Other/RawEvent', 'ODIN': ['Trigger/#TCK#/RawEvent', 'Trigger/#L0TCK#/RawEvent'], 'PrsE': 'Calo/RawEvent', 'PrsPackedError': 'Calo/RawEvent', 'Velo': 'Other/RawEvent', 'Muon': 'Muon/RawEvent', 'ITPedestal': 'Other/RawEvent', 'TTProcFull': 'Other/RawEvent', 'DstData': 'Other/RawEvent', 'GaudiSerialize': 'Other/RawEvent', 'TTFull': 'Other/RawEvent', 'L0MuonRaw': 'Other/RawEvent', 'UTError': 'Other/RawEvent', 'TTError': 'Other/RawEvent', 'EcalPackedError': 'Calo/RawEvent', 'HcalPacked': 'Calo/RawEvent', 'MuonFull': 'Other/RawEvent', 'L0CaloError': 'Other/RawEvent', 'GaudiHeader': 'Other/RawEvent', 'L0DU': 'Trigger/#L0TCK#/RawEvent', 'ITFull': 'Other/RawEvent', 'OT': 'Other/RawEvent', 'MuonError': 'Other/RawEvent', 'L0CaloFull': 'Trigger/#L0TCK#/RawEvent', 'L0Muon': 'Trigger/#L0TCK#/RawEvent'}, 4.2: {'HltSelReports': 'Trigger/RawEvent', 'OTError': 'Unstripped/RawEvent', 'VeloError': 'Unstripped/RawEvent', 'UTFull': 'Unstripped/RawEvent', 'UTPedestal': 'Unstripped/RawEvent', 'PrsTrig': 'Calo/RawEvent', 'HcalPackedError': 'Unstripped/RawEvent', 'L0PUFull': 'Unstripped/RawEvent', 'HltDecReports': 'Trigger/RawEvent', 'Rich': 'Rich/RawEvent', 'VeloProcFull': 'Unstripped/RawEvent', 'HltRoutingBits': 'Trigger/RawEvent', 'L0MuonError': 'Unstripped/RawEvent', 'VL': 'Unstripped/RawEvent', 'L0MuonProcCand': 'Trigger/RawEvent', 'TTPedestal': 'Unstripped/RawEvent', 'L0DUError': 'Unstripped/RawEvent', 'HC': 'HC/RawEvent', 'DstBank': 'Unstripped/RawEvent', 'TT': 'Tracker/RawEvent', 'L0MuonProcData': 'Unstripped/RawEvent', 'OTRaw': 'Unstripped/RawEvent', 'EcalPacked': 'Calo/RawEvent', 'PrsPacked': 'Calo/RawEvent', 'VeloPedestal': 'Unstripped/RawEvent', 'DAQ': 'Unstripped/RawEvent', 'ITError': 'Tracker/RawEvent', 'FileID': 'Unstripped/RawEvent', 'EcalTrig': 'Calo/RawEvent', 'FTCluster': 'Tracker/RawEvent', 'L0PUError': 'Unstripped/RawEvent', 'L0Calo': 'Trigger/RawEvent', 'VeloFull': 'Unstripped/RawEvent', 'L0MuonCtrlAll': 'Unstripped/RawEvent', 'HltVertexReports': 'Trigger/RawEvent', 'EcalE': 'Calo/RawEvent', 'ITProcFull': 'Unstripped/RawEvent', 'HltLumiSummary': 'Unstripped/RawEvent', 'TestDet': 'Unstripped/RawEvent', 'IT': 'Tracker/RawEvent', 'VP': 'Velo/RawEvent', 'HcalTrig': 'Calo/RawEvent', 'HcalE': 'Calo/RawEvent', 'L0PU': 'Trigger/RawEvent', 'DstAddress': 'Unstripped/RawEvent', 'UT': 'Tracker/RawEvent', 'TAEHeader': 'Unstripped/RawEvent', 'ODIN': ['Trigger/RawEvent'], 'PrsE': 'Calo/RawEvent', 'PrsPackedError': 'Unstripped/RawEvent', 'Velo': 'Velo/RawEvent', 'Muon': 'Muon/RawEvent', 'ITPedestal': 'Unstripped/RawEvent', 'TTProcFull': 'Unstripped/RawEvent', 'DstData': 'Unstripped/RawEvent', 'GaudiSerialize': 'Unstripped/RawEvent', 'TTFull': 'Unstripped/RawEvent', 'L0MuonRaw': 'Unstripped/RawEvent', 'UTError': 'Unstripped/RawEvent', 'TTError': 'Tracker/RawEvent', 'EcalPackedError': 'Unstripped/RawEvent', 'HcalPacked': 'Calo/RawEvent', 'MuonFull': 'Unstripped/RawEvent', 'L0CaloError': 'Unstripped/RawEvent', 'GaudiHeader': 'Unstripped/RawEvent', 'L0DU': 'Trigger/RawEvent', 'ITFull': 'Unstripped/RawEvent', 'OT': 'Tracker/RawEvent', 'MuonError': 'Unstripped/RawEvent', 'HltTrackReports': 'Trigger/RawEvent', 'L0CaloFull': 'Trigger/RawEvent', 'L0Muon': 'Trigger/RawEvent'}, 3.2: {'OTError': 'Other/RawEvent', 'VeloError': 'Other/RawEvent', 'UTFull': 'Other/RawEvent', 'UTPedestal': 'Other/RawEvent', 'PrsTrig': 'Calo/RawEvent', 'HcalPackedError': 'Calo/RawEvent', 'L0PUFull': 'Other/RawEvent', 'UT': 'Other/RawEvent', 'Rich': 'Rich/RawEvent', 'VeloProcFull': 'Other/RawEvent', 'L0MuonError': 'Other/RawEvent', 'VL': 'Other/RawEvent', 'L0MuonProcCand': 'Trigger/#L0TCK#/RawEvent', 'TTPedestal': 'Other/RawEvent', 'L0DUError': 'Other/RawEvent', 'DstBank': 'Other/RawEvent', 'TT': 'Other/RawEvent', 'OTRaw': 'Other/RawEvent', 'EcalPacked': 'Calo/RawEvent', 'PrsPacked': 'Calo/RawEvent', 'VeloPedestal': 'Other/RawEvent', 'DAQ': 'Other/RawEvent', 'ITError': 'Other/RawEvent', 'FileID': 'Other/RawEvent', 'EcalTrig': 'Calo/RawEvent', 'FTCluster': 'Other/RawEvent', 'L0PUError': 'Other/RawEvent', 'L0Calo': 'Trigger/#L0TCK#/RawEvent', 'VeloFull': 'Other/RawEvent', 'L0MuonCtrlAll': 'Other/RawEvent', 'L0MuonProcData': 'Other/RawEvent', 'EcalE': 'Calo/RawEvent', 'ITProcFull': 'Other/RawEvent', 'HltLumiSummary': 'Other/RawEvent', 'TestDet': 'Other/RawEvent', 'IT': 'Other/RawEvent', 'VP': 'Other/RawEvent', 'HcalTrig': 'Calo/RawEvent', 'HcalE': 'Calo/RawEvent', 'L0PU': 'Trigger/#L0TCK#/RawEvent', 'DstAddress': 'Other/RawEvent', 'TAEHeader': 'Other/RawEvent', 'ODIN': 'Trigger/#L0TCK#/RawEvent', 'PrsE': 'Calo/RawEvent', 'PrsPackedError': 'Calo/RawEvent', 'Velo': 'Other/RawEvent', 'Muon': 'Muon/RawEvent', 'ITPedestal': 'Other/RawEvent', 'TTProcFull': 'Other/RawEvent', 'DstData': 'Other/RawEvent', 'GaudiSerialize': 'Other/RawEvent', 'TTFull': 'Other/RawEvent', 'L0MuonRaw': 'Other/RawEvent', 'UTError': 'Other/RawEvent', 'TTError': 'Other/RawEvent', 'EcalPackedError': 'Calo/RawEvent', 'HcalPacked': 'Calo/RawEvent', 'MuonFull': 'Other/RawEvent', 'L0CaloError': 'Other/RawEvent', 'GaudiHeader': 'Other/RawEvent', 'L0DU': 'Trigger/#L0TCK#/RawEvent', 'ITFull': 'Other/RawEvent', 'OT': 'Other/RawEvent', 'MuonError': 'Other/RawEvent', 'L0CaloFull': 'Trigger/#L0TCK#/RawEvent', 'L0Muon': 'Trigger/#L0TCK#/RawEvent'}}
+# |                        (default: None)
+# |-TCKReplacePattern      = '#TCK#'
+# |-GenericReplacePatterns = {}  (default: {})
+# |-TCK                    = None
+# \----- (End of User RawEventFormatConf/RawEventFormatConf) -----------------------------------------
+# applying configuration of LumiIntegratorConf
+# /***** User LumiIntegratorConf/LumiIntegratorConf **************************************************
+# |-TupleFile     = 'pid.root'  (default: '')
+# |-LumiSequencer = GaudiSequencer('IntegratorSeq')  (default: None)
+# |-UseOnline     = True
+# |-InputType     = 'DST'  (default: 'DST')
+# |-IgnoreDQFlags = False
+# \----- (End of User LumiIntegratorConf/LumiIntegratorConf) -----------------------------------------
+# applying configuration of LHCbApp
+# /***** User LHCbApp/LHCbApp ************************************************************************
+# |-Persistency    = None
+# |-XMLSummary     = None
+# |-OutputLevel    = 3
+# |-LocalDataTypes = []  (default: [])
+# |-DataType       = '2015'  (default: '2012')
+# |-TimeStamp      = False
+# |-ThreadPoolSize = 10
+# |-SkipEvents     = 0
+# |-EvtMax         = -1  (default: -1)
+# |-CondDBtag      = ''
+# |-DQFLAGStag     = ''
+# |-IgnoreDQFlags  = False
+# |-Monitors       = []  (default: [])
+# |-Detectors      = []  (default: [])
+# |-Scheduler      = 'AvalancheScheduler'
+# |-EnableHive     = False
+# |-Simulation     = False
+# |-DDDBtag        = ''
+# |-OnlineMode     = False
+# \----- (End of User LHCbApp/LHCbApp) ---------------------------------------------------------------
+# applying configuration of PhysConf
+# Applying Phys configuration
+# WARNING: file '/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/TCK/L0TCK/v5r32/options/L0DUConfig.opts' already included, ignored.
+# PhysConf: Configuring EventClockSvc to use RecHeader
+# /***** User PhysConf/PhysConf **********************************************************************
+# |-CaloReProcessing  = False
+# |-DataType          = '2015'  (default: '')
+# |-AllowPIDRecalib   = True
+# |-OutputLevel       = 3
+# |-Simulation        = False
+# |-UpdateCaloMCLinks = True
+# |-Detectors         = ['Velo', 'PuVeto', 'Rich1', 'Rich2', 'TT', 'IT', 'OT', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'Magnet', 'Tr']
+# |                   (default: ['Velo', 'PuVeto', 'Rich1', 'Rich2', 'TT', 'IT', 'OT', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'Magnet', 'Tr'])
+# |-EnableUnpack      = ['Reconstruction', 'Stripping']  (default: None)
+# |-InputType         = 'DST'  (default: 'DST')
+# |-AllowPIDRerunning = True
+# \----- (End of User PhysConf/PhysConf) -------------------------------------------------------------
+# applying configuration of AnalysisConf
+# Applying Analysis configuration
+# /***** User AnalysisConf/AnalysisConf **************************************************************
+# |-DataType    = '2015'  (default: '')
+# |-OutputLevel = 3
+# |-RedoMCLinks = False  (default: False)
+# |-RootInTES   = ''
+# |-Simulation  = False
+# |-InputType   = 'DST'  (default: '')
+# \----- (End of User AnalysisConf/AnalysisConf) -----------------------------------------------------
+# WARNING: Using default tag dddb-20190206-3 for partition DDDB
+# WARNING: Using default tag cond-20190606 for partition LHCBCOND
+# WARNING: Using default tag <latest:2015> for partition DQFLAGS
+# WARNING: something else configured a decoder already, Raw/Spd/Digits CaloDigitsFromRaw/SpdFromRaw
+# WARNING: something else configured a decoder already, Trig/L0/Calo L0CaloCandidatesFromRaw/L0CaloFromRaw
+# WARNING: something else configured a decoder already, Trig/L0/FullCalo L0CaloCandidatesFromRaw/L0CaloFromRaw
+# WARNING: something else configured a decoder already, Raw/Prs/Digits CaloDigitsFromRaw/PrsFromRaw
+# WARNING: something else configured a decoder already, Trig/L0/L0DUReport L0DUDecoder/L0DUFromRaw
+# WARNING: something else configured a decoder already, Raw/Ecal/Digits CaloZSupAlg/EcalZSup
+# WARNING: something else configured a decoder already, Raw/Hcal/Digits CaloZSupAlg/HcalZSup
+# WARNING: something else configured a decoder already, Trig/L0/MuonCtrl L0MuonCandidatesFromRaw/L0MuonFromRaw
+# WARNING: something else configured a decoder already, Trig/L0/MuonBCSU L0MuonCandidatesFromRaw/L0MuonFromRaw
+# WARNING: something else configured a decoder already, Trig/L0/MuonData L0MuonCandidatesFromRaw/L0MuonFromRaw
+# WARNING: Property 'DataType' is set in both 'DigiConf' and 'SimConf', using 'DigiConf.DataType'
+# No Writer defined for DIGI
+# WARNING: Data-On-Demand: replace action for location "Raw/Spd/Digits" from "/***** Algorithm CaloDigitsFromRaw/SpdFromRaw ******************************************************
+# WARNING: |-ErrorMax                   = 1
+# WARNING: |-StatTableHeader            = ' |    Counter                                      |     #     |    sum     | mean/eff^* | rms/err^*  |     min     |     max     |'
+# WARNING: |-AuditExecute               = False
+# WARNING: |-StatusOnTES                = True
+# WARNING: |-AuditReinitialize          = False
+# WARNING: |-VetoObjects                = []  (default: [])
+# WARNING: |-AuditRestart               = False
+# WARNING: |-StatEntityList             = []  (default: [])
+# WARNING: |-Enable                     = True
+# WARNING: |-Timeline                   = True
+# WARNING: |-OutputType                 = 'Digits'  (default: 'Digits')
+# WARNING: |-RootInTES                  = ''
+# WARNING: |-AuditFinalize              = False
+# WARNING: |-PrintEmptyCounters         = False
+# WARNING: |-AuditEndRun                = False
+# WARNING: |-ErrorsPrint                = True
+# WARNING: |-AuditBeginRun              = False
+# WARNING: |-Cardinality                = 1
+# WARNING: |-FilterCircularDependencies = True
+# WARNING: |-ErrorCount                 = 0
+# WARNING: |-ExtraOutputs               = []  (default: [])
+# WARNING: |-IsIOBound                  = False
+# WARNING: |-Extension                  = ''
+# WARNING: |-MonitorService             = 'MonitorSvc'
+# WARNING: |-AuditInitialize            = False
+# WARNING: |-RegularRowFormat           = ' | %|-48.48s|%|50t||%|10d| |%|11.7g| |%|#11.5g| |%|#11.5g| |%|#12.5g| |%|#12.5g| |'
+# WARNING: |-TypePrint                  = True
+# WARNING: |-StatPrint                  = True
+# WARNING: |-ExtraInputs                = []  (default: [])
+# WARNING: |-AuditStop                  = False
+# WARNING: |-Context                    = 'Offline'  (default: '')
+# WARNING: |-PropertiesPrint            = False
+# WARNING: |-NeededResources            = []  (default: [])
+# WARNING: |-RequireObjects             = []  (default: [])
+# WARNING: |-UseEfficiencyRowFormat     = True
+# WARNING: |-OutputLevel                = 3  (default: 0)
+# WARNING: |-AuditStart                 = False
+# WARNING: |-RegisterForContextService  = True
+# WARNING: |-AuditAlgorithms            = False
+# WARNING: |-PinContainer               = 'Raw/Ecal/PinAdcs'
+# WARNING: |-AdcsContainer              = 'Raw/Ecal/Adcs'
+# WARNING: |-DigitsContainer            = 'Raw/Spd/Digits'  (default: 'Raw/Ecal/Digits')
+# WARNING: |-EfficiencyRowFormat        = ' |*%|-48.48s|%|50t||%|10d| |%|11.5g| |(%|#9.6g| +- %|-#9.6g|)%%|   -------   |   -------   |'
+# WARNING: |-CounterList                = ['.*']  (default: ['.*'])
+# WARNING: \----- (End of Algorithm CaloDigitsFromRaw/SpdFromRaw) ---------------------------------------------" to "CaloDigitsFromRaw/SpdFromRaw" 
+# WARNING: Data-On-Demand: replace action for location "Raw/Prs/Digits" from "/***** Algorithm CaloDigitsFromRaw/PrsFromRaw ******************************************************
+# WARNING: |-ErrorMax                   = 1
+# WARNING: |-StatTableHeader            = ' |    Counter                                      |     #     |    sum     | mean/eff^* | rms/err^*  |     min     |     max     |'
+# WARNING: |-AuditExecute               = False
+# WARNING: |-StatusOnTES                = True
+# WARNING: |-AuditReinitialize          = False
+# WARNING: |-VetoObjects                = []  (default: [])
+# WARNING: |-AuditRestart               = False
+# WARNING: |-StatEntityList             = []  (default: [])
+# WARNING: |-Enable                     = True
+# WARNING: |-Timeline                   = True
+# WARNING: |-OutputType                 = 'Digits'  (default: 'Digits')
+# WARNING: |-RootInTES                  = ''
+# WARNING: |-AuditFinalize              = False
+# WARNING: |-PrintEmptyCounters         = False
+# WARNING: |-AuditEndRun                = False
+# WARNING: |-ErrorsPrint                = True
+# WARNING: |-AuditBeginRun              = False
+# WARNING: |-Cardinality                = 1
+# WARNING: |-FilterCircularDependencies = True
+# WARNING: |-ErrorCount                 = 0
+# WARNING: |-ExtraOutputs               = []  (default: [])
+# WARNING: |-IsIOBound                  = False
+# WARNING: |-Extension                  = ''
+# WARNING: |-MonitorService             = 'MonitorSvc'
+# WARNING: |-AuditInitialize            = False
+# WARNING: |-RegularRowFormat           = ' | %|-48.48s|%|50t||%|10d| |%|11.7g| |%|#11.5g| |%|#11.5g| |%|#12.5g| |%|#12.5g| |'
+# WARNING: |-TypePrint                  = True
+# WARNING: |-StatPrint                  = True
+# WARNING: |-ExtraInputs                = []  (default: [])
+# WARNING: |-AuditStop                  = False
+# WARNING: |-Context                    = 'Offline'  (default: '')
+# WARNING: |-PropertiesPrint            = False
+# WARNING: |-NeededResources            = []  (default: [])
+# WARNING: |-RequireObjects             = []  (default: [])
+# WARNING: |-UseEfficiencyRowFormat     = True
+# WARNING: |-OutputLevel                = 3  (default: 0)
+# WARNING: |-AuditStart                 = False
+# WARNING: |-RegisterForContextService  = True
+# WARNING: |-AuditAlgorithms            = False
+# WARNING: |-PinContainer               = 'Raw/Ecal/PinAdcs'
+# WARNING: |-AdcsContainer              = 'Raw/Ecal/Adcs'
+# WARNING: |-DigitsContainer            = 'Raw/Prs/Digits'  (default: 'Raw/Ecal/Digits')
+# WARNING: |-EfficiencyRowFormat        = ' |*%|-48.48s|%|50t||%|10d| |%|11.5g| |(%|#9.6g| +- %|-#9.6g|)%%|   -------   |   -------   |'
+# WARNING: |-CounterList                = ['.*']  (default: ['.*'])
+# WARNING: \----- (End of Algorithm CaloDigitsFromRaw/PrsFromRaw) ---------------------------------------------" to "CaloDigitsFromRaw/PrsFromRaw" 
+# WARNING: Data-On-Demand: replace action for location "Raw/Ecal/Digits" from "/***** Algorithm CaloZSupAlg/EcalZSup **************************************************************
+# WARNING: |-ErrorMax                   = 1
+# WARNING: |-StatTableHeader            = ' |    Counter                                      |     #     |    sum     | mean/eff^* | rms/err^*  |     min     |     max     |'
+# WARNING: |-OutputDigitData            = 'Raw/Ecal/Digits'  (default: '')
+# WARNING: |-AuditExecute               = False
+# WARNING: |-StatusOnTES                = True
+# WARNING: |-AuditReinitialize          = False
+# WARNING: |-VetoObjects                = []  (default: [])
+# WARNING: |-AuditRestart               = False
+# WARNING: |-StatEntityList             = []  (default: [])
+# WARNING: |-ZsupThreshold              = 0
+# WARNING: |-Enable                     = True
+# WARNING: |-Timeline                   = True
+# WARNING: |-OutputType                 = 'Digits'  (default: 'Digits')
+# WARNING: |-RootInTES                  = ''
+# WARNING: |-AuditFinalize              = False
+# WARNING: |-AuditEndRun                = False
+# WARNING: |-ErrorsPrint                = True
+# WARNING: |-AuditBeginRun              = False
+# WARNING: |-Cardinality                = 1
+# WARNING: |-FilterCircularDependencies = True
+# WARNING: |-ErrorCount                 = 0
+# WARNING: |-ExtraOutputs               = []  (default: [])
+# WARNING: |-IsIOBound                  = False
+# WARNING: |-Extension                  = ''
+# WARNING: |-MonitorService             = 'MonitorSvc'
+# WARNING: |-AuditInitialize            = False
+# WARNING: |-RegularRowFormat           = ' | %|-48.48s|%|50t||%|10d| |%|11.7g| |%|#11.5g| |%|#11.5g| |%|#12.5g| |%|#12.5g| |'
+# WARNING: |-DetectorName               = ''
+# WARNING: |-TypePrint                  = True
+# WARNING: |-StatPrint                  = True
+# WARNING: |-ZsupMethod                 = '1D'
+# WARNING: |-ExtraInputs                = []  (default: [])
+# WARNING: |-AuditStop                  = False
+# WARNING: |-Context                    = 'Offline'  (default: '')
+# WARNING: |-PropertiesPrint            = False
+# WARNING: |-NeededResources            = []  (default: [])
+# WARNING: |-UseEfficiencyRowFormat     = True
+# WARNING: |-OutputLevel                = 3  (default: 0)
+# WARNING: |-AuditStart                 = False
+# WARNING: |-OutputADCData              = ''
+# WARNING: |-RegisterForContextService  = True
+# WARNING: |-AuditAlgorithms            = False
+# WARNING: |-ZsupNeighbor               = -256
+# WARNING: |-PrintEmptyCounters         = False
+# WARNING: |-RequireObjects             = []  (default: [])
+# WARNING: |-EfficiencyRowFormat        = ' |*%|-48.48s|%|50t||%|10d| |%|11.5g| |(%|#9.6g| +- %|-#9.6g|)%%|   -------   |   -------   |'
+# WARNING: |-CounterList                = ['.*']  (default: ['.*'])
+# WARNING: \----- (End of Algorithm CaloZSupAlg/EcalZSup) -----------------------------------------------------" to "CaloZSupAlg/EcalZSup" 
+# WARNING: Data-On-Demand: replace action for location "Raw/Hcal/Digits" from "/***** Algorithm CaloZSupAlg/HcalZSup **************************************************************
+# WARNING: |-ErrorMax                   = 1
+# WARNING: |-StatTableHeader            = ' |    Counter                                      |     #     |    sum     | mean/eff^* | rms/err^*  |     min     |     max     |'
+# WARNING: |-OutputDigitData            = 'Raw/Hcal/Digits'  (default: '')
+# WARNING: |-AuditExecute               = False
+# WARNING: |-StatusOnTES                = True
+# WARNING: |-AuditReinitialize          = False
+# WARNING: |-VetoObjects                = []  (default: [])
+# WARNING: |-AuditRestart               = False
+# WARNING: |-StatEntityList             = []  (default: [])
+# WARNING: |-ZsupThreshold              = 0
+# WARNING: |-Enable                     = True
+# WARNING: |-Timeline                   = True
+# WARNING: |-OutputType                 = 'Digits'  (default: 'Digits')
+# WARNING: |-RootInTES                  = ''
+# WARNING: |-AuditFinalize              = False
+# WARNING: |-AuditEndRun                = False
+# WARNING: |-ErrorsPrint                = True
+# WARNING: |-AuditBeginRun              = False
+# WARNING: |-Cardinality                = 1
+# WARNING: |-FilterCircularDependencies = True
+# WARNING: |-ErrorCount                 = 0
+# WARNING: |-ExtraOutputs               = []  (default: [])
+# WARNING: |-IsIOBound                  = False
+# WARNING: |-Extension                  = ''
+# WARNING: |-MonitorService             = 'MonitorSvc'
+# WARNING: |-AuditInitialize            = False
+# WARNING: |-RegularRowFormat           = ' | %|-48.48s|%|50t||%|10d| |%|11.7g| |%|#11.5g| |%|#11.5g| |%|#12.5g| |%|#12.5g| |'
+# WARNING: |-DetectorName               = ''
+# WARNING: |-TypePrint                  = True
+# WARNING: |-StatPrint                  = True
+# WARNING: |-ZsupMethod                 = '1D'
+# WARNING: |-ExtraInputs                = []  (default: [])
+# WARNING: |-AuditStop                  = False
+# WARNING: |-Context                    = 'Offline'  (default: '')
+# WARNING: |-PropertiesPrint            = False
+# WARNING: |-NeededResources            = []  (default: [])
+# WARNING: |-UseEfficiencyRowFormat     = True
+# WARNING: |-OutputLevel                = 3  (default: 0)
+# WARNING: |-AuditStart                 = False
+# WARNING: |-OutputADCData              = ''
+# WARNING: |-RegisterForContextService  = True
+# WARNING: |-AuditAlgorithms            = False
+# WARNING: |-ZsupNeighbor               = -256
+# WARNING: |-PrintEmptyCounters         = False
+# WARNING: |-RequireObjects             = []  (default: [])
+# WARNING: |-EfficiencyRowFormat        = ' |*%|-48.48s|%|50t||%|10d| |%|11.5g| |(%|#9.6g| +- %|-#9.6g|)%%|   -------   |   -------   |'
+# WARNING: |-CounterList                = ['.*']  (default: ['.*'])
+# WARNING: \----- (End of Algorithm CaloZSupAlg/HcalZSup) -----------------------------------------------------" to "CaloZSupAlg/HcalZSup" 
+ApplicationMgr    SUCCESS 
+====================================================================================================================================
+                                                   Welcome to Castelao version v10r0
+                                          running on lxplus728.cern.ch on Wed Dec 23 00:26:18 2020
+====================================================================================================================================
+ApplicationMgr       INFO Application Manager Configured successfully
+ToolSvc.GitDDDB                                                INFO opening Git repository '/cvmfs/lhcb.cern.ch/lib/lhcb/git-conddb/DDDB.git'
+ToolSvc.GitDDDB                                                INFO using commit 'dddb-20190206-3' corresponding to 6ccfd930ebf64b2415358a84dd3ad48b8c4d83f7
+ToolSvc.GitLHCBCOND                                            INFO opening Git repository '/cvmfs/lhcb.cern.ch/lib/lhcb/git-conddb/LHCBCOND.git'
+ToolSvc.GitLHCBCOND                                            INFO using commit 'cond-20190606' corresponding to af8b496fa19c96f237b6464231573237242bc8ae
+ToolSvc.GitONLINE                                              INFO opening Git repository '/cvmfs/lhcb.cern.ch/lib/lhcb/git-conddb/ONLINE.git'
+ToolSvc.GitONLINE                                              INFO using commit 'HEAD' corresponding to e101018f0ee44eaa40ef460b0b32cd2b96bb449a
+ToolSvc.GitDQFLAGS                                             INFO opening Git repository '/cvmfs/lhcb.cern.ch/lib/lhcb/git-conddb/DQFLAGS.git'
+ToolSvc.GitDQFLAGS                                             INFO using commit 'dq-20160909' corresponding to c2c40232cd80e062dbefd895f1c5340620049271
+DetectorPersistencySvc                                         INFO Added successfully Conversion service:XmlCnvSvc
+DetectorDataSvc                                             SUCCESS Detector description database: git:/lhcb.xml
+RndmGenSvc.Engine                                              INFO Generator engine type:CLHEP::RanluxEngine
+RndmGenSvc.Engine                                              INFO Current Seed:1234567 Luxury:3
+RndmGenSvc                                                     INFO Using Random engine:HepRndm::Engine<CLHEP::RanluxEngine>
+TimingAuditor.TIMER                                            INFO This machine has a speed about   2.94 times the speed of a 2.8 GHz Xeon.
+NTupleSvc                                                      INFO Added stream file:pid.root as FILE1
+DaVinciEventSeq                                                INFO Member list: DaVinciInit/DaVinciInitAlg, GaudiSequencer/FilteredEventSeq, GaudiSequencer/LumiSeq, GaudiSequencer/IntegratorSeq
+DaVinciInitAlg                                              SUCCESS ==================================================================
+DaVinciInitAlg                                              SUCCESS Requested to process all events on input file(s)
+DaVinciInitAlg                                              SUCCESS ==================================================================
+RootHistSvc                                                    INFO Writing ROOT histograms to: UndefinedROOTOutputFileName
+HistogramPersistencySvc                                        INFO Added successfully Conversion service:RootHistSvc
+HistogramDataSvc                                               INFO Added stream file:/cvmfs/lhcb.cern.ch/lib/lhcb/PARAM/ParamFiles/v8r31/data/PhotonPdf.root as CaloNeutralPIDs
+HistogramDataSvc                                               INFO Added stream file:/cvmfs/lhcb.cern.ch/lib/lhcb/PARAM/ParamFiles/v8r31/data/CaloPIDs_DC09_v1.root as CaloPIDs
+HistogramDataSvc                                               INFO Added stream file:/cvmfs/lhcb.cern.ch/lib/lhcb/PARAM/ParamFiles/v8r31/data/JetEnergyCorrections_R05_v3.root as JEC14R05
+HistogramDataSvc                                               INFO Added stream file:/cvmfs/lhcb.cern.ch/lib/lhcb/PARAM/ParamFiles/v8r31/data/JetEnergyCorrections_R07_v3.root as JEC14R07
+FilteredEventSeq                                               INFO Member list: GaudiSequencer/DaVinciEventInitSeq, GaudiSequencer/DaVinciAnalysisSeq
+DaVinciEventInitSeq                                            INFO Member list: GaudiSequencer/PhysInitSeq, GaudiSequencer/AnalysisInitSeq
+PhysInitSeq                                                    INFO Member list: 
+AnalysisInitSeq                                                INFO Member list: 
+DaVinciAnalysisSeq                                             INFO Member list: GaudiSequencer/DaVinciUserSequence, GaudiSequencer/MonitoringSequence
+DaVinciUserSequence                                            INFO Member list: GaudiSequencer/fs_stdMuons, GaudiSequencer/fs_stdPions, GaudiSequencer/fs_stdKaons, GaudiSequencer/fs_stdProtons, GaudiSequencer/fs_stdElectrons, GaudiSequencer/fs_stdDownPions, GaudiSequencer/fs_stdDownKaons, GaudiSequencer/fs_stdDownProtons, GaudiSequencer/fs_stdDownElectrons, GaudiSequencer/fs_stdDownMuons, ApplySWeights/ApplySWDSt_PiP, ApplySWeights/ApplySWLbLcMu_P, ApplySWeights/ApplySWLam0LL_HPT_Pbar, ApplySWeights/ApplySWLbLcMu_Pbar, ApplySWeights/ApplySWB_Jpsi_MuP, ApplySWeights/ApplySWLam0LL_VHPT_Pbar, ApplySWeights/ApplySWDSt_PiM, ApplySWeights/ApplySWLam0LL_P, ApplySWeights/ApplySWB_Jpsi_EM, ApplySWeights/ApplySWKSLL_PiM, ApplySWeights/ApplySWKSLL_PiP, ApplySWeights/ApplySWLam0LL_VHPT_P, ApplySWeights/ApplySWB_Jpsi_EP, ApplySWeights/ApplySWLam0LL_HPT_P, ApplySWeights/ApplySWLam0LL_Pbar, ApplySWeights/ApplySWJpsinopt_MuP, ApplySWeights/ApplySWJpsinopt_MuM, ApplySWeights/ApplySWDSt_KP, ApplySWeights/ApplySWLam0LL_P_isMuon, ApplySWeights/ApplySWJpsi_MuP, ApplySWeights/ApplySWDsPhi_KP, ApplySWeights/ApplySWJpsi_MuM, ApplySWeights/ApplySWB_Jpsi_MuM, ApplySWeights/ApplySWLam0LL_Pbar_isMuon, ApplySWeights/ApplySWDSt_KM, ApplySWeights/ApplySWDsPhi_KM, GaudiSequencer/SeqDSt_PiP, GaudiSequencer/SeqLbLcMu_P, GaudiSequencer/SeqLam0LL_HPT_Pbar, GaudiSequencer/SeqLbLcMu_Pbar, GaudiSequencer/SeqB_Jpsi_MuP, GaudiSequencer/SeqLam0LL_VHPT_Pbar, GaudiSequencer/SeqDSt_PiM, GaudiSequencer/SeqLam0LL_P, GaudiSequencer/SeqB_Jpsi_EM, GaudiSequencer/SeqKSLL_PiM, GaudiSequencer/SeqKSLL_PiP, GaudiSequencer/SeqLam0LL_VHPT_P, GaudiSequencer/SeqB_Jpsi_EP, GaudiSequencer/SeqLam0LL_HPT_P, GaudiSequencer/SeqLam0LL_Pbar, GaudiSequencer/SeqJpsinopt_MuP, GaudiSequencer/SeqJpsinopt_MuM, GaudiSequencer/SeqDSt_KP, GaudiSequencer/SeqLam0LL_P_isMuon, GaudiSequencer/SeqJpsi_MuP, GaudiSequencer/SeqDsPhi_KP, GaudiSequencer/SeqJpsi_MuM, GaudiSequencer/SeqB_Jpsi_MuM, GaudiSequencer/SeqLam0LL_Pbar_isMuon, GaudiSequencer/SeqDSt_KM, GaudiSequencer/SeqDsPhi_KM, GaudiSequencer/SeqMatchDSt_PiP, GaudiSequencer/SeqMatchLbLcMu_P, GaudiSequencer/SeqMatchLam0LL_HPT_Pbar, GaudiSequencer/SeqMatchLbLcMu_Pbar, GaudiSequencer/SeqMatchB_Jpsi_MuP, GaudiSequencer/SeqMatchLam0LL_VHPT_Pbar, GaudiSequencer/SeqMatchDSt_PiM, GaudiSequencer/SeqMatchLam0LL_P, GaudiSequencer/SeqMatchB_Jpsi_EM, GaudiSequencer/SeqMatchKSLL_PiM, GaudiSequencer/SeqMatchKSLL_PiP, GaudiSequencer/SeqMatchLam0LL_VHPT_P, GaudiSequencer/SeqMatchB_Jpsi_EP, GaudiSequencer/SeqMatchLam0LL_HPT_P, GaudiSequencer/SeqMatchLam0LL_Pbar, GaudiSequencer/SeqMatchJpsinopt_MuP, GaudiSequencer/SeqMatchJpsinopt_MuM, GaudiSequencer/SeqMatchDSt_KP, GaudiSequencer/SeqMatchLam0LL_P_isMuon, GaudiSequencer/SeqMatchJpsi_MuP, GaudiSequencer/SeqMatchDsPhi_KP, GaudiSequencer/SeqMatchJpsi_MuM, GaudiSequencer/SeqMatchB_Jpsi_MuM, GaudiSequencer/SeqMatchLam0LL_Pbar_isMuon, GaudiSequencer/SeqMatchDSt_KM, GaudiSequencer/SeqMatchDsPhi_KM, DecayTreeTuple/DSt_PiPTuple, DecayTreeTuple/LbLcMu_PTuple, DecayTreeTuple/Lam0LL_HPT_PbarTuple, DecayTreeTuple/LbLcMu_PbarTuple, DecayTreeTuple/B_Jpsi_MuPTuple, DecayTreeTuple/Lam0LL_VHPT_PbarTuple, DecayTreeTuple/DSt_PiMTuple, DecayTreeTuple/Lam0LL_PTuple, DecayTreeTuple/B_Jpsi_EMTuple, DecayTreeTuple/KSLL_PiMTuple, DecayTreeTuple/KSLL_PiPTuple, DecayTreeTuple/Lam0LL_VHPT_PTuple, DecayTreeTuple/B_Jpsi_EPTuple, DecayTreeTuple/Lam0LL_HPT_PTuple, DecayTreeTuple/Lam0LL_PbarTuple, DecayTreeTuple/Jpsinopt_MuPTuple, DecayTreeTuple/Jpsinopt_MuMTuple, DecayTreeTuple/DSt_KPTuple, DecayTreeTuple/Lam0LL_P_isMuonTuple, DecayTreeTuple/Jpsi_MuPTuple, DecayTreeTuple/DsPhi_KPTuple, DecayTreeTuple/Jpsi_MuMTuple, DecayTreeTuple/B_Jpsi_MuMTuple, DecayTreeTuple/Lam0LL_Pbar_isMuonTuple, DecayTreeTuple/DSt_KMTuple, DecayTreeTuple/DsPhi_KMTuple
+fs_stdMuons                                                    INFO Member list: LoKi::VoidFilter/SELECT:Phys/StdAllNoPIDsMuons
+fs_stdPions                                                    INFO Member list: LoKi::VoidFilter/SELECT:Phys/StdAllNoPIDsPions
+fs_stdKaons                                                    INFO Member list: LoKi::VoidFilter/SELECT:Phys/StdAllNoPIDsKaons
+fs_stdProtons                                                  INFO Member list: LoKi::VoidFilter/SELECT:Phys/StdAllNoPIDsProtons
+fs_stdElectrons                                                INFO Member list: LoKi::VoidFilter/SELECT:Phys/StdAllNoPIDsElectrons
+fs_stdDownPions                                                INFO Member list: LoKi::VoidFilter/SELECT:Phys/StdNoPIDsDownPions
+fs_stdDownKaons                                                INFO Member list: LoKi::VoidFilter/SELECT:Phys/StdNoPIDsDownKaons
+fs_stdDownProtons                                              INFO Member list: LoKi::VoidFilter/SELECT:Phys/StdNoPIDsDownProtons
+fs_stdDownElectrons                                            INFO Member list: LoKi::VoidFilter/SELECT:Phys/StdNoPIDsDownElectrons
+fs_stdDownMuons                                                INFO Member list: LoKi::VoidFilter/SELECT:Phys/StdLooseDownMuons
+SeqDSt_PiP                                                     INFO Member list: GaudiSequencer/MERGED:inputDSt_PiP, FilterDesktop/DSt_PiP
+MERGED:inputDSt_PiP                                            INFO Member list: GaudiSequencer/MERGEDINPUTS:inputDSt_PiP, FilterDesktop/inputDSt_PiP
+MERGEDINPUTS:inputDSt_PiP                                      INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDD02KPiTagTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDD02KPiTagTurboCalib                  INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDD02KPiTagTurboCalib
+SeqLbLcMu_P                                                    INFO Member list: GaudiSequencer/MERGED:inputLbLcMu_P, FilterDesktop/LbLcMu_P
+MERGED:inputLbLcMu_P                                           INFO Member list: GaudiSequencer/MERGEDINPUTS:inputLbLcMu_P, FilterDesktop/inputLbLcMu_P
+MERGEDINPUTS:inputLbLcMu_P                                     INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDLb2LcMuNuTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDLb2LcMuNuTurboCalib                  INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDLb2LcMuNuTurboCalib
+SeqLam0LL_HPT_Pbar                                             INFO Member list: GaudiSequencer/MERGED:inputLam0LL_HPT_Pbar, FilterDesktop/Lam0LL_HPT_Pbar
+MERGED:inputLam0LL_HPT_Pbar                                    INFO Member list: GaudiSequencer/MERGEDINPUTS:inputLam0LL_HPT_Pbar, FilterDesktop/inputLam0LL_HPT_Pbar
+MERGEDINPUTS:inputLam0LL_HPT_Pbar                              INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLhighPTTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLhighPTTurboCalib         INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDLambda2PPiLLhighPTTurboCalib
+SeqLbLcMu_Pbar                                                 INFO Member list: GaudiSequencer/MERGED:inputLbLcMu_Pbar, FilterDesktop/LbLcMu_Pbar
+MERGED:inputLbLcMu_Pbar                                        INFO Member list: GaudiSequencer/MERGEDINPUTS:inputLbLcMu_Pbar, FilterDesktop/inputLbLcMu_Pbar
+MERGEDINPUTS:inputLbLcMu_Pbar                                  INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDLb2LcMuNuTurboCalib
+SeqB_Jpsi_MuP                                                  INFO Member list: GaudiSequencer/MERGED:inputB_Jpsi_MuP, FilterDesktop/B_Jpsi_MuP
+MERGED:inputB_Jpsi_MuP                                         INFO Member list: GaudiSequencer/MERGEDINPUTS:inputB_Jpsi_MuP, FilterDesktop/inputB_Jpsi_MuP
+MERGEDINPUTS:inputB_Jpsi_MuP                                   INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDB2KJPsiMuMuNegTaggedTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDB2KJPsiMuMuNegTaggedTurboCalib       INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDB2KJPsiMuMuNegTaggedTurboCalib
+SeqLam0LL_VHPT_Pbar                                            INFO Member list: GaudiSequencer/MERGED:inputLam0LL_VHPT_Pbar, FilterDesktop/Lam0LL_VHPT_Pbar
+MERGED:inputLam0LL_VHPT_Pbar                                   INFO Member list: GaudiSequencer/MERGEDINPUTS:inputLam0LL_VHPT_Pbar, FilterDesktop/inputLam0LL_VHPT_Pbar
+MERGEDINPUTS:inputLam0LL_VHPT_Pbar                             INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLveryhighPTTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLveryhighPTTurboCalib     INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDLambda2PPiLLveryhighPTTurboCalib
+SeqDSt_PiM                                                     INFO Member list: GaudiSequencer/MERGED:inputDSt_PiM, FilterDesktop/DSt_PiM
+MERGED:inputDSt_PiM                                            INFO Member list: GaudiSequencer/MERGEDINPUTS:inputDSt_PiM, FilterDesktop/inputDSt_PiM
+MERGEDINPUTS:inputDSt_PiM                                      INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDD02KPiTagTurboCalib
+SeqLam0LL_P                                                    INFO Member list: GaudiSequencer/MERGED:inputLam0LL_P, FilterDesktop/Lam0LL_P
+MERGED:inputLam0LL_P                                           INFO Member list: GaudiSequencer/MERGEDINPUTS:inputLam0LL_P, FilterDesktop/inputLam0LL_P
+MERGEDINPUTS:inputLam0LL_P                                     INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLTurboCalib               INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDLambda2PPiLLTurboCalib
+SeqB_Jpsi_EM                                                   INFO Member list: GaudiSequencer/MERGED:inputB_Jpsi_EM, FilterDesktop/B_Jpsi_EM
+MERGED:inputB_Jpsi_EM                                          INFO Member list: GaudiSequencer/MERGEDINPUTS:inputB_Jpsi_EM, FilterDesktop/inputB_Jpsi_EM
+MERGEDINPUTS:inputB_Jpsi_EM                                    INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDB2KJPsiEEPosTaggedTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDB2KJPsiEEPosTaggedTurboCalib         INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDB2KJPsiEEPosTaggedTurboCalib
+SeqKSLL_PiM                                                    INFO Member list: GaudiSequencer/MERGED:inputKSLL_PiM, FilterDesktop/KSLL_PiM
+MERGED:inputKSLL_PiM                                           INFO Member list: GaudiSequencer/MERGEDINPUTS:inputKSLL_PiM, FilterDesktop/inputKSLL_PiM
+MERGEDINPUTS:inputKSLL_PiM                                     INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDKs2PiPiLLTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDKs2PiPiLLTurboCalib                  INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDKs2PiPiLLTurboCalib
+SeqKSLL_PiP                                                    INFO Member list: GaudiSequencer/MERGED:inputKSLL_PiP, FilterDesktop/KSLL_PiP
+MERGED:inputKSLL_PiP                                           INFO Member list: GaudiSequencer/MERGEDINPUTS:inputKSLL_PiP, FilterDesktop/inputKSLL_PiP
+MERGEDINPUTS:inputKSLL_PiP                                     INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDKs2PiPiLLTurboCalib
+SeqLam0LL_VHPT_P                                               INFO Member list: GaudiSequencer/MERGED:inputLam0LL_VHPT_P, FilterDesktop/Lam0LL_VHPT_P
+MERGED:inputLam0LL_VHPT_P                                      INFO Member list: GaudiSequencer/MERGEDINPUTS:inputLam0LL_VHPT_P, FilterDesktop/inputLam0LL_VHPT_P
+MERGEDINPUTS:inputLam0LL_VHPT_P                                INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLveryhighPTTurboCalib
+SeqB_Jpsi_EP                                                   INFO Member list: GaudiSequencer/MERGED:inputB_Jpsi_EP, FilterDesktop/B_Jpsi_EP
+MERGED:inputB_Jpsi_EP                                          INFO Member list: GaudiSequencer/MERGEDINPUTS:inputB_Jpsi_EP, FilterDesktop/inputB_Jpsi_EP
+MERGEDINPUTS:inputB_Jpsi_EP                                    INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDB2KJPsiEENegTaggedTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDB2KJPsiEENegTaggedTurboCalib         INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDB2KJPsiEENegTaggedTurboCalib
+SeqLam0LL_HPT_P                                                INFO Member list: GaudiSequencer/MERGED:inputLam0LL_HPT_P, FilterDesktop/Lam0LL_HPT_P
+MERGED:inputLam0LL_HPT_P                                       INFO Member list: GaudiSequencer/MERGEDINPUTS:inputLam0LL_HPT_P, FilterDesktop/inputLam0LL_HPT_P
+MERGEDINPUTS:inputLam0LL_HPT_P                                 INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLhighPTTurboCalib
+SeqLam0LL_Pbar                                                 INFO Member list: GaudiSequencer/MERGED:inputLam0LL_Pbar, FilterDesktop/Lam0LL_Pbar
+MERGED:inputLam0LL_Pbar                                        INFO Member list: GaudiSequencer/MERGEDINPUTS:inputLam0LL_Pbar, FilterDesktop/inputLam0LL_Pbar
+MERGEDINPUTS:inputLam0LL_Pbar                                  INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLTurboCalib
+SeqJpsinopt_MuP                                                INFO Member list: GaudiSequencer/MERGED:inputJpsinopt_MuP, FilterDesktop/Jpsinopt_MuP
+MERGED:inputJpsinopt_MuP                                       INFO Member list: GaudiSequencer/MERGEDINPUTS:inputJpsinopt_MuP, FilterDesktop/inputJpsinopt_MuP
+MERGEDINPUTS:inputJpsinopt_MuP                                 INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDDetJPsiMuMuNegTaggedTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDDetJPsiMuMuNegTaggedTurboCalib       INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDDetJPsiMuMuNegTaggedTurboCalib
+MagneticFieldSvc                                               INFO Opened magnetic field file : /cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v5r7/cdf/field.v5r0.c1.down.cdf
+MagneticFieldSvc                                               INFO Opened magnetic field file : /cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v5r7/cdf/field.v5r0.c2.down.cdf
+MagneticFieldSvc                                               INFO Opened magnetic field file : /cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v5r7/cdf/field.v5r0.c3.down.cdf
+MagneticFieldSvc                                               INFO Opened magnetic field file : /cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v5r7/cdf/field.v5r0.c4.down.cdf
+MagneticFieldSvc                                               INFO Map scaled by factor 1 with polarity internally used: -1 signed relative current: -1
+SeqJpsinopt_MuM                                                INFO Member list: GaudiSequencer/MERGED:inputJpsinopt_MuM, FilterDesktop/Jpsinopt_MuM
+MERGED:inputJpsinopt_MuM                                       INFO Member list: GaudiSequencer/MERGEDINPUTS:inputJpsinopt_MuM, FilterDesktop/inputJpsinopt_MuM
+MERGEDINPUTS:inputJpsinopt_MuM                                 INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDDetJPsiMuMuPosTaggedTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDDetJPsiMuMuPosTaggedTurboCalib       INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDDetJPsiMuMuPosTaggedTurboCalib
+SeqDSt_KP                                                      INFO Member list: GaudiSequencer/MERGED:inputDSt_KP, FilterDesktop/DSt_KP
+MERGED:inputDSt_KP                                             INFO Member list: GaudiSequencer/MERGEDINPUTS:inputDSt_KP, FilterDesktop/inputDSt_KP
+MERGEDINPUTS:inputDSt_KP                                       INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDD02KPiTagTurboCalib
+SeqLam0LL_P_isMuon                                             INFO Member list: GaudiSequencer/MERGED:inputLam0LL_P_isMuon, FilterDesktop/Lam0LL_P_isMuon
+MERGED:inputLam0LL_P_isMuon                                    INFO Member list: GaudiSequencer/MERGEDINPUTS:inputLam0LL_P_isMuon, FilterDesktop/inputLam0LL_P_isMuon
+MERGEDINPUTS:inputLam0LL_P_isMuon                              INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLisMuonTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLisMuonTurboCalib         INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDLambda2PPiLLisMuonTurboCalib
+SeqJpsi_MuP                                                    INFO Member list: GaudiSequencer/MERGED:inputJpsi_MuP, FilterDesktop/Jpsi_MuP
+MERGED:inputJpsi_MuP                                           INFO Member list: GaudiSequencer/MERGEDINPUTS:inputJpsi_MuP, FilterDesktop/inputJpsi_MuP
+MERGEDINPUTS:inputJpsi_MuP                                     INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDDetJPsiMuMuNegTaggedTurboCalib
+SeqDsPhi_KP                                                    INFO Member list: GaudiSequencer/MERGED:inputDsPhi_KP, FilterDesktop/DsPhi_KP
+MERGED:inputDsPhi_KP                                           INFO Member list: GaudiSequencer/MERGEDINPUTS:inputDsPhi_KP, FilterDesktop/inputDsPhi_KP
+MERGEDINPUTS:inputDsPhi_KP                                     INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDDs2PiPhiKKNegTaggedTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDDs2PiPhiKKNegTaggedTurboCalib        INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDDs2PiPhiKKNegTaggedTurboCalib
+SeqJpsi_MuM                                                    INFO Member list: GaudiSequencer/MERGED:inputJpsi_MuM, FilterDesktop/Jpsi_MuM
+MERGED:inputJpsi_MuM                                           INFO Member list: GaudiSequencer/MERGEDINPUTS:inputJpsi_MuM, FilterDesktop/inputJpsi_MuM
+MERGEDINPUTS:inputJpsi_MuM                                     INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDDetJPsiMuMuPosTaggedTurboCalib
+SeqB_Jpsi_MuM                                                  INFO Member list: GaudiSequencer/MERGED:inputB_Jpsi_MuM, FilterDesktop/B_Jpsi_MuM
+MERGED:inputB_Jpsi_MuM                                         INFO Member list: GaudiSequencer/MERGEDINPUTS:inputB_Jpsi_MuM, FilterDesktop/inputB_Jpsi_MuM
+MERGEDINPUTS:inputB_Jpsi_MuM                                   INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDB2KJPsiMuMuPosTaggedTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDB2KJPsiMuMuPosTaggedTurboCalib       INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDB2KJPsiMuMuPosTaggedTurboCalib
+SeqLam0LL_Pbar_isMuon                                          INFO Member list: GaudiSequencer/MERGED:inputLam0LL_Pbar_isMuon, FilterDesktop/Lam0LL_Pbar_isMuon
+MERGED:inputLam0LL_Pbar_isMuon                                 INFO Member list: GaudiSequencer/MERGEDINPUTS:inputLam0LL_Pbar_isMuon, FilterDesktop/inputLam0LL_Pbar_isMuon
+MERGEDINPUTS:inputLam0LL_Pbar_isMuon                           INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDLambda2PPiLLisMuonTurboCalib
+SeqDSt_KM                                                      INFO Member list: GaudiSequencer/MERGED:inputDSt_KM, FilterDesktop/DSt_KM
+MERGED:inputDSt_KM                                             INFO Member list: GaudiSequencer/MERGEDINPUTS:inputDSt_KM, FilterDesktop/inputDSt_KM
+MERGEDINPUTS:inputDSt_KM                                       INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDD02KPiTagTurboCalib
+SeqDsPhi_KM                                                    INFO Member list: GaudiSequencer/MERGED:inputDsPhi_KM, FilterDesktop/DsPhi_KM
+MERGED:inputDsPhi_KM                                           INFO Member list: GaudiSequencer/MERGEDINPUTS:inputDsPhi_KM, FilterDesktop/inputDsPhi_KM
+MERGEDINPUTS:inputDsPhi_KM                                     INFO OR Member list: GaudiSequencer/INPUT:/Event/Turbo/Hlt2PIDDs2PiPhiKKPosTaggedTurboCalib
+INPUT:/Event/Turbo/Hlt2PIDDs2PiPhiKKPosTaggedTurboCalib        INFO Member list: LoKi::VoidFilter/SELECT:/Event/Turbo/Hlt2PIDDs2PiPhiKKPosTaggedTurboCalib
+SeqMatchDSt_PiP                                                INFO Member list: GaudiSequencer/MERGED:inputDSt_PiP, FilterDesktop/DSt_PiP, CopyAndMatchCombination/MatchDSt_PiP
+SeqMatchLbLcMu_P                                               INFO Member list: GaudiSequencer/MERGED:inputLbLcMu_P, FilterDesktop/LbLcMu_P, CopyAndMatchCombination/MatchLbLcMu_P
+SeqMatchLam0LL_HPT_Pbar                                        INFO Member list: GaudiSequencer/MERGED:inputLam0LL_HPT_Pbar, FilterDesktop/Lam0LL_HPT_Pbar, CopyAndMatchCombination/MatchLam0LL_HPT_Pbar
+SeqMatchLbLcMu_Pbar                                            INFO Member list: GaudiSequencer/MERGED:inputLbLcMu_Pbar, FilterDesktop/LbLcMu_Pbar, CopyAndMatchCombination/MatchLbLcMu_Pbar
+SeqMatchB_Jpsi_MuP                                             INFO Member list: GaudiSequencer/MERGED:inputB_Jpsi_MuP, FilterDesktop/B_Jpsi_MuP, CopyAndMatchCombination/MatchB_Jpsi_MuP
+SeqMatchLam0LL_VHPT_Pbar                                       INFO Member list: GaudiSequencer/MERGED:inputLam0LL_VHPT_Pbar, FilterDesktop/Lam0LL_VHPT_Pbar, CopyAndMatchCombination/MatchLam0LL_VHPT_Pbar
+SeqMatchDSt_PiM                                                INFO Member list: GaudiSequencer/MERGED:inputDSt_PiM, FilterDesktop/DSt_PiM, CopyAndMatchCombination/MatchDSt_PiM
+SeqMatchLam0LL_P                                               INFO Member list: GaudiSequencer/MERGED:inputLam0LL_P, FilterDesktop/Lam0LL_P, CopyAndMatchCombination/MatchLam0LL_P
+SeqMatchB_Jpsi_EM                                              INFO Member list: GaudiSequencer/MERGED:inputB_Jpsi_EM, FilterDesktop/B_Jpsi_EM, CopyAndMatchCombination/MatchB_Jpsi_EM
+SeqMatchKSLL_PiM                                               INFO Member list: GaudiSequencer/MERGED:inputKSLL_PiM, FilterDesktop/KSLL_PiM, CopyAndMatchCombination/MatchKSLL_PiM
+SeqMatchKSLL_PiP                                               INFO Member list: GaudiSequencer/MERGED:inputKSLL_PiP, FilterDesktop/KSLL_PiP, CopyAndMatchCombination/MatchKSLL_PiP
+SeqMatchLam0LL_VHPT_P                                          INFO Member list: GaudiSequencer/MERGED:inputLam0LL_VHPT_P, FilterDesktop/Lam0LL_VHPT_P, CopyAndMatchCombination/MatchLam0LL_VHPT_P
+SeqMatchB_Jpsi_EP                                              INFO Member list: GaudiSequencer/MERGED:inputB_Jpsi_EP, FilterDesktop/B_Jpsi_EP, CopyAndMatchCombination/MatchB_Jpsi_EP
+SeqMatchLam0LL_HPT_P                                           INFO Member list: GaudiSequencer/MERGED:inputLam0LL_HPT_P, FilterDesktop/Lam0LL_HPT_P, CopyAndMatchCombination/MatchLam0LL_HPT_P
+SeqMatchLam0LL_Pbar                                            INFO Member list: GaudiSequencer/MERGED:inputLam0LL_Pbar, FilterDesktop/Lam0LL_Pbar, CopyAndMatchCombination/MatchLam0LL_Pbar
+SeqMatchJpsinopt_MuP                                           INFO Member list: GaudiSequencer/MERGED:inputJpsinopt_MuP, FilterDesktop/Jpsinopt_MuP, CopyAndMatchCombination/MatchJpsinopt_MuP
+SeqMatchJpsinopt_MuM                                           INFO Member list: GaudiSequencer/MERGED:inputJpsinopt_MuM, FilterDesktop/Jpsinopt_MuM, CopyAndMatchCombination/MatchJpsinopt_MuM
+SeqMatchDSt_KP                                                 INFO Member list: GaudiSequencer/MERGED:inputDSt_KP, FilterDesktop/DSt_KP, CopyAndMatchCombination/MatchDSt_KP
+SeqMatchLam0LL_P_isMuon                                        INFO Member list: GaudiSequencer/MERGED:inputLam0LL_P_isMuon, FilterDesktop/Lam0LL_P_isMuon, CopyAndMatchCombination/MatchLam0LL_P_isMuon
+SeqMatchJpsi_MuP                                               INFO Member list: GaudiSequencer/MERGED:inputJpsi_MuP, FilterDesktop/Jpsi_MuP, CopyAndMatchCombination/MatchJpsi_MuP
+SeqMatchDsPhi_KP                                               INFO Member list: GaudiSequencer/MERGED:inputDsPhi_KP, FilterDesktop/DsPhi_KP, CopyAndMatchCombination/MatchDsPhi_KP
+SeqMatchJpsi_MuM                                               INFO Member list: GaudiSequencer/MERGED:inputJpsi_MuM, FilterDesktop/Jpsi_MuM, CopyAndMatchCombination/MatchJpsi_MuM
+SeqMatchB_Jpsi_MuM                                             INFO Member list: GaudiSequencer/MERGED:inputB_Jpsi_MuM, FilterDesktop/B_Jpsi_MuM, CopyAndMatchCombination/MatchB_Jpsi_MuM
+SeqMatchLam0LL_Pbar_isMuon                                     INFO Member list: GaudiSequencer/MERGED:inputLam0LL_Pbar_isMuon, FilterDesktop/Lam0LL_Pbar_isMuon, CopyAndMatchCombination/MatchLam0LL_Pbar_isMuon
+SeqMatchDSt_KM                                                 INFO Member list: GaudiSequencer/MERGED:inputDSt_KM, FilterDesktop/DSt_KM, CopyAndMatchCombination/MatchDSt_KM
+SeqMatchDsPhi_KM                                               INFO Member list: GaudiSequencer/MERGED:inputDsPhi_KM, FilterDesktop/DsPhi_KM, CopyAndMatchCombination/MatchDsPhi_KM
+DSt_PiPTuple                                                   INFO Will look for  ( ( D*(2010)+  -> ^( ( D0  -> K-  ^( pi+ )) ) pi+ ) || ( D*(2010)-  -> ^( ( D~0  -> K+  ^( pi- )) ) pi- ) ) 
+DSt_PiPTuple                                                   INFO Explicit sub decays :5
+DSt_PiPTuple.Dst                                               INFO DSt_PiPTuple.Dst : ^( ( ( D*(2010)+  -> ( D0  -> K-  pi+ )  pi+ ) || ( D*(2010)-  -> ( D~0  -> K+  pi- )  pi- ) ) )
+DSt_PiPTuple.Dz                                                INFO DSt_PiPTuple.Dz : ( ( D*(2010)+  -> ^( ( D0  -> K-  pi+ ) ) pi+ ) || ( D*(2010)-  -> ^( ( D~0  -> K+  pi- ) ) pi- ) ) 
+DSt_PiPTuple.K                                                 INFO DSt_PiPTuple.K : ( ( D*(2010)+  -> ( D0  -> ^( K- ) pi+ )  pi+ ) || ( D*(2010)-  -> ( D~0  -> ^( K+ ) pi- )  pi- ) ) 
+DSt_PiPTuple.pis                                               INFO DSt_PiPTuple.pis : ( ( D*(2010)+  -> ( D0  -> K-  pi+ )  ^( pi+ )) || ( D*(2010)-  -> ( D~0  -> K+  pi- )  ^( pi- )) ) 
+DSt_PiPTuple.probe                                             INFO DSt_PiPTuple.probe : ( ( D*(2010)+  -> ( D0  -> K-  ^( pi+ ))  pi+ ) || ( D*(2010)-  -> ( D~0  -> K+  ^( pi- ))  pi- ) ) 
+LbLcMu_PTuple                                                  INFO Will look for  ( ( Lambda_b0  -> ^( ( Lambda_c+  -> ^( p+ ) ^( K- ) ^( pi+ )) ) ^( mu- )) || ( Lambda_b~0  -> ^( ( Lambda_c~-  -> ^( p~- ) ^( K+ ) ^( pi- )) ) ^( mu+ )) ) 
+LbLcMu_PTuple                                                  INFO Explicit sub decays :6
+LbLcMu_PTuple.K                                                INFO LbLcMu_PTuple.K : ( ( Lambda_b0  -> ( Lambda_c+  -> p+  ^( K- ) pi+ )  mu- ) || ( Lambda_b~0  -> ( Lambda_c~-  -> p~-  ^( K+ ) pi- )  mu+ ) ) 
+LbLcMu_PTuple.Lb                                               INFO LbLcMu_PTuple.Lb : ^( ( ( Lambda_b0  -> ( Lambda_c+  -> p+  K-  pi+ )  mu- ) || ( Lambda_b~0  -> ( Lambda_c~-  -> p~-  K+  pi- )  mu+ ) ) )
+LbLcMu_PTuple.Lc                                               INFO LbLcMu_PTuple.Lc : ( ( Lambda_b0  -> ^( ( Lambda_c+  -> p+  K-  pi+ ) ) mu- ) || ( Lambda_b~0  -> ^( ( Lambda_c~-  -> p~-  K+  pi- ) ) mu+ ) ) 
+LbLcMu_PTuple.mu                                               INFO LbLcMu_PTuple.mu : ( ( Lambda_b0  -> ( Lambda_c+  -> p+  K-  pi+ )  ^( mu- )) || ( Lambda_b~0  -> ( Lambda_c~-  -> p~-  K+  pi- )  ^( mu+ )) ) 
+LbLcMu_PTuple.pi                                               INFO LbLcMu_PTuple.pi : ( ( Lambda_b0  -> ( Lambda_c+  -> p+  K-  ^( pi+ ))  mu- ) || ( Lambda_b~0  -> ( Lambda_c~-  -> p~-  K+  ^( pi- ))  mu+ ) ) 
+LbLcMu_PTuple.probe                                            INFO LbLcMu_PTuple.probe : ( ( Lambda_b0  -> ( Lambda_c+  -> ^( p+ ) K-  pi+ )  mu- ) || ( Lambda_b~0  -> ( Lambda_c~-  -> ^( p~- ) K+  pi- )  mu+ ) ) 
+Lam0LL_HPT_PbarTuple                                           INFO Will look for  ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+Lam0LL_HPT_PbarTuple                                           INFO Explicit sub decays :3
+Lam0LL_HPT_PbarTuple.L0                                        INFO Lam0LL_HPT_PbarTuple.L0 : ^( ( ( Lambda0  -> p+  pi- ) || ( Lambda~0  -> p~-  pi+ ) ) )
+Lam0LL_HPT_PbarTuple.pi                                        INFO Lam0LL_HPT_PbarTuple.pi : ( ( Lambda0  -> p+  ^( pi- )) || ( Lambda~0  -> p~-  ^( pi+ )) ) 
+Lam0LL_HPT_PbarTuple.probe                                     INFO Lam0LL_HPT_PbarTuple.probe : ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+LbLcMu_PbarTuple                                               INFO Will look for  ( ( Lambda_b0  -> ^( ( Lambda_c+  -> ^( p+ ) ^( K- ) ^( pi+ )) ) ^( mu- )) || ( Lambda_b~0  -> ^( ( Lambda_c~-  -> ^( p~- ) ^( K+ ) ^( pi- )) ) ^( mu+ )) ) 
+LbLcMu_PbarTuple                                               INFO Explicit sub decays :6
+LbLcMu_PbarTuple.K                                             INFO LbLcMu_PbarTuple.K : ( ( Lambda_b0  -> ( Lambda_c+  -> p+  ^( K- ) pi+ )  mu- ) || ( Lambda_b~0  -> ( Lambda_c~-  -> p~-  ^( K+ ) pi- )  mu+ ) ) 
+LbLcMu_PbarTuple.Lb                                            INFO LbLcMu_PbarTuple.Lb : ^( ( ( Lambda_b0  -> ( Lambda_c+  -> p+  K-  pi+ )  mu- ) || ( Lambda_b~0  -> ( Lambda_c~-  -> p~-  K+  pi- )  mu+ ) ) )
+LbLcMu_PbarTuple.Lc                                            INFO LbLcMu_PbarTuple.Lc : ( ( Lambda_b0  -> ^( ( Lambda_c+  -> p+  K-  pi+ ) ) mu- ) || ( Lambda_b~0  -> ^( ( Lambda_c~-  -> p~-  K+  pi- ) ) mu+ ) ) 
+LbLcMu_PbarTuple.mu                                            INFO LbLcMu_PbarTuple.mu : ( ( Lambda_b0  -> ( Lambda_c+  -> p+  K-  pi+ )  ^( mu- )) || ( Lambda_b~0  -> ( Lambda_c~-  -> p~-  K+  pi- )  ^( mu+ )) ) 
+LbLcMu_PbarTuple.pi                                            INFO LbLcMu_PbarTuple.pi : ( ( Lambda_b0  -> ( Lambda_c+  -> p+  K-  ^( pi+ ))  mu- ) || ( Lambda_b~0  -> ( Lambda_c~-  -> p~-  K+  ^( pi- ))  mu+ ) ) 
+LbLcMu_PbarTuple.probe                                         INFO LbLcMu_PbarTuple.probe : ( ( Lambda_b0  -> ( Lambda_c+  -> ^( p+ ) K-  pi+ )  mu- ) || ( Lambda_b~0  -> ( Lambda_c~-  -> ^( p~- ) K+  pi- )  mu+ ) ) 
+B_Jpsi_MuPTuple                                                INFO Will look for  ( [B+]cc  -> ^( ( J/psi(1S)  -> ^( mu+ ) ^( mu- )) ) ^( [K+]cc )) 
+B_Jpsi_MuPTuple                                                INFO Explicit sub decays :5
+B_Jpsi_MuPTuple.B                                              INFO B_Jpsi_MuPTuple.B : ^( ( [B+]cc  -> ( J/psi(1S)  -> mu+  mu- )  [K+]cc ) )
+B_Jpsi_MuPTuple.Jpsi                                           INFO B_Jpsi_MuPTuple.Jpsi : ( [B+]cc  -> ^( ( J/psi(1S)  -> mu+  mu- ) ) [K+]cc ) 
+B_Jpsi_MuPTuple.K                                              INFO B_Jpsi_MuPTuple.K : ( [B+]cc  -> ( J/psi(1S)  -> mu+  mu- )  ^( [K+]cc )) 
+B_Jpsi_MuPTuple.probe                                          INFO B_Jpsi_MuPTuple.probe : ( [B+]cc  -> ( J/psi(1S)  -> ^( mu+ ) mu- )  [K+]cc ) 
+B_Jpsi_MuPTuple.tag                                            INFO B_Jpsi_MuPTuple.tag : ( [B+]cc  -> ( J/psi(1S)  -> mu+  ^( mu- ))  [K+]cc ) 
+Lam0LL_VHPT_PbarTuple                                          INFO Will look for  ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+Lam0LL_VHPT_PbarTuple                                          INFO Explicit sub decays :3
+Lam0LL_VHPT_PbarTuple.L0                                       INFO Lam0LL_VHPT_PbarTuple.L0 : ^( ( ( Lambda0  -> p+  pi- ) || ( Lambda~0  -> p~-  pi+ ) ) )
+Lam0LL_VHPT_PbarTuple.pi                                       INFO Lam0LL_VHPT_PbarTuple.pi : ( ( Lambda0  -> p+  ^( pi- )) || ( Lambda~0  -> p~-  ^( pi+ )) ) 
+Lam0LL_VHPT_PbarTuple.probe                                    INFO Lam0LL_VHPT_PbarTuple.probe : ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+DSt_PiMTuple                                                   INFO Will look for  ( ( D*(2010)+  -> ^( ( D0  -> K-  ^( pi+ )) ) pi+ ) || ( D*(2010)-  -> ^( ( D~0  -> K+  ^( pi- )) ) pi- ) ) 
+DSt_PiMTuple                                                   INFO Explicit sub decays :5
+DSt_PiMTuple.Dst                                               INFO DSt_PiMTuple.Dst : ^( ( ( D*(2010)+  -> ( D0  -> K-  pi+ )  pi+ ) || ( D*(2010)-  -> ( D~0  -> K+  pi- )  pi- ) ) )
+DSt_PiMTuple.Dz                                                INFO DSt_PiMTuple.Dz : ( ( D*(2010)+  -> ^( ( D0  -> K-  pi+ ) ) pi+ ) || ( D*(2010)-  -> ^( ( D~0  -> K+  pi- ) ) pi- ) ) 
+DSt_PiMTuple.K                                                 INFO DSt_PiMTuple.K : ( ( D*(2010)+  -> ( D0  -> ^( K- ) pi+ )  pi+ ) || ( D*(2010)-  -> ( D~0  -> ^( K+ ) pi- )  pi- ) ) 
+DSt_PiMTuple.pis                                               INFO DSt_PiMTuple.pis : ( ( D*(2010)+  -> ( D0  -> K-  pi+ )  ^( pi+ )) || ( D*(2010)-  -> ( D~0  -> K+  pi- )  ^( pi- )) ) 
+DSt_PiMTuple.probe                                             INFO DSt_PiMTuple.probe : ( ( D*(2010)+  -> ( D0  -> K-  ^( pi+ ))  pi+ ) || ( D*(2010)-  -> ( D~0  -> K+  ^( pi- ))  pi- ) ) 
+Lam0LL_PTuple                                                  INFO Will look for  ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+Lam0LL_PTuple                                                  INFO Explicit sub decays :3
+Lam0LL_PTuple.L0                                               INFO Lam0LL_PTuple.L0 : ^( ( ( Lambda0  -> p+  pi- ) || ( Lambda~0  -> p~-  pi+ ) ) )
+Lam0LL_PTuple.pi                                               INFO Lam0LL_PTuple.pi : ( ( Lambda0  -> p+  ^( pi- )) || ( Lambda~0  -> p~-  ^( pi+ )) ) 
+Lam0LL_PTuple.probe                                            INFO Lam0LL_PTuple.probe : ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+B_Jpsi_EMTuple                                                 INFO Will look for  ( [B+]cc  -> ^( ( J/psi(1S)  -> ^( e+ ) ^( e- )) ) ^( [K+]cc )) 
+B_Jpsi_EMTuple                                                 INFO Explicit sub decays :5
+B_Jpsi_EMTuple.B                                               INFO B_Jpsi_EMTuple.B : ^( ( [B+]cc  -> ( J/psi(1S)  -> e+  e- )  [K+]cc ) )
+B_Jpsi_EMTuple.Jpsi                                            INFO B_Jpsi_EMTuple.Jpsi : ( [B+]cc  -> ^( ( J/psi(1S)  -> e+  e- ) ) [K+]cc ) 
+B_Jpsi_EMTuple.K                                               INFO B_Jpsi_EMTuple.K : ( [B+]cc  -> ( J/psi(1S)  -> e+  e- )  ^( [K+]cc )) 
+B_Jpsi_EMTuple.probe                                           INFO B_Jpsi_EMTuple.probe : ( [B+]cc  -> ( J/psi(1S)  -> e+  ^( e- ))  [K+]cc ) 
+B_Jpsi_EMTuple.tag                                             INFO B_Jpsi_EMTuple.tag : ( [B+]cc  -> ( J/psi(1S)  -> ^( e+ ) e- )  [K+]cc ) 
+KSLL_PiMTuple                                                  INFO Will look for  ( KS0  -> ^( pi+ ) ^( pi- )) 
+KSLL_PiMTuple                                                  INFO Explicit sub decays :3
+KSLL_PiMTuple.KS                                               INFO KSLL_PiMTuple.KS : ^( ( KS0  -> pi+  pi- ) )
+KSLL_PiMTuple.probe                                            INFO KSLL_PiMTuple.probe : ( KS0  -> pi+  ^( pi- )) 
+KSLL_PiMTuple.tag                                              INFO KSLL_PiMTuple.tag : ( KS0  -> ^( pi+ ) pi- ) 
+KSLL_PiPTuple                                                  INFO Will look for  ( KS0  -> ^( pi+ ) ^( pi- )) 
+KSLL_PiPTuple                                                  INFO Explicit sub decays :3
+KSLL_PiPTuple.KS                                               INFO KSLL_PiPTuple.KS : ^( ( KS0  -> pi+  pi- ) )
+KSLL_PiPTuple.probe                                            INFO KSLL_PiPTuple.probe : ( KS0  -> ^( pi+ ) pi- ) 
+KSLL_PiPTuple.tag                                              INFO KSLL_PiPTuple.tag : ( KS0  -> pi+  ^( pi- )) 
+Lam0LL_VHPT_PTuple                                             INFO Will look for  ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+Lam0LL_VHPT_PTuple                                             INFO Explicit sub decays :3
+Lam0LL_VHPT_PTuple.L0                                          INFO Lam0LL_VHPT_PTuple.L0 : ^( ( ( Lambda0  -> p+  pi- ) || ( Lambda~0  -> p~-  pi+ ) ) )
+Lam0LL_VHPT_PTuple.pi                                          INFO Lam0LL_VHPT_PTuple.pi : ( ( Lambda0  -> p+  ^( pi- )) || ( Lambda~0  -> p~-  ^( pi+ )) ) 
+Lam0LL_VHPT_PTuple.probe                                       INFO Lam0LL_VHPT_PTuple.probe : ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+B_Jpsi_EPTuple                                                 INFO Will look for  ( [B+]cc  -> ^( ( J/psi(1S)  -> ^( e+ ) ^( e- )) ) ^( [K+]cc )) 
+B_Jpsi_EPTuple                                                 INFO Explicit sub decays :5
+B_Jpsi_EPTuple.B                                               INFO B_Jpsi_EPTuple.B : ^( ( [B+]cc  -> ( J/psi(1S)  -> e+  e- )  [K+]cc ) )
+B_Jpsi_EPTuple.Jpsi                                            INFO B_Jpsi_EPTuple.Jpsi : ( [B+]cc  -> ^( ( J/psi(1S)  -> e+  e- ) ) [K+]cc ) 
+B_Jpsi_EPTuple.K                                               INFO B_Jpsi_EPTuple.K : ( [B+]cc  -> ( J/psi(1S)  -> e+  e- )  ^( [K+]cc )) 
+B_Jpsi_EPTuple.probe                                           INFO B_Jpsi_EPTuple.probe : ( [B+]cc  -> ( J/psi(1S)  -> ^( e+ ) e- )  [K+]cc ) 
+B_Jpsi_EPTuple.tag                                             INFO B_Jpsi_EPTuple.tag : ( [B+]cc  -> ( J/psi(1S)  -> e+  ^( e- ))  [K+]cc ) 
+Lam0LL_HPT_PTuple                                              INFO Will look for  ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+Lam0LL_HPT_PTuple                                              INFO Explicit sub decays :3
+Lam0LL_HPT_PTuple.L0                                           INFO Lam0LL_HPT_PTuple.L0 : ^( ( ( Lambda0  -> p+  pi- ) || ( Lambda~0  -> p~-  pi+ ) ) )
+Lam0LL_HPT_PTuple.pi                                           INFO Lam0LL_HPT_PTuple.pi : ( ( Lambda0  -> p+  ^( pi- )) || ( Lambda~0  -> p~-  ^( pi+ )) ) 
+Lam0LL_HPT_PTuple.probe                                        INFO Lam0LL_HPT_PTuple.probe : ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+Lam0LL_PbarTuple                                               INFO Will look for  ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+Lam0LL_PbarTuple                                               INFO Explicit sub decays :3
+Lam0LL_PbarTuple.L0                                            INFO Lam0LL_PbarTuple.L0 : ^( ( ( Lambda0  -> p+  pi- ) || ( Lambda~0  -> p~-  pi+ ) ) )
+Lam0LL_PbarTuple.pi                                            INFO Lam0LL_PbarTuple.pi : ( ( Lambda0  -> p+  ^( pi- )) || ( Lambda~0  -> p~-  ^( pi+ )) ) 
+Lam0LL_PbarTuple.probe                                         INFO Lam0LL_PbarTuple.probe : ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+Jpsinopt_MuPTuple                                              INFO Will look for  ( J/psi(1S)  -> ^( mu+ ) ^( mu- )) 
+Jpsinopt_MuPTuple                                              INFO Explicit sub decays :3
+Jpsinopt_MuPTuple.Jpsi                                         INFO Jpsinopt_MuPTuple.Jpsi : ^( ( J/psi(1S)  -> mu+  mu- ) )
+Jpsinopt_MuPTuple.probe                                        INFO Jpsinopt_MuPTuple.probe : ( J/psi(1S)  -> mu+  ^( mu- )) 
+Jpsinopt_MuPTuple.tag                                          INFO Jpsinopt_MuPTuple.tag : ( J/psi(1S)  -> ^( mu+ ) mu- ) 
+Jpsinopt_MuMTuple                                              INFO Will look for  ( J/psi(1S)  -> ^( mu+ ) ^( mu- )) 
+Jpsinopt_MuMTuple                                              INFO Explicit sub decays :3
+Jpsinopt_MuMTuple.Jpsi                                         INFO Jpsinopt_MuMTuple.Jpsi : ^( ( J/psi(1S)  -> mu+  mu- ) )
+Jpsinopt_MuMTuple.probe                                        INFO Jpsinopt_MuMTuple.probe : ( J/psi(1S)  -> mu+  ^( mu- )) 
+Jpsinopt_MuMTuple.tag                                          INFO Jpsinopt_MuMTuple.tag : ( J/psi(1S)  -> ^( mu+ ) mu- ) 
+DSt_KPTuple                                                    INFO Will look for  ( ( D*(2010)+  -> ^( ( D0  -> ^( K- ) pi+ ) ) pi+ ) || ( D*(2010)-  -> ^( ( D~0  -> ^( K+ ) pi- ) ) pi- ) ) 
+DSt_KPTuple                                                    INFO Explicit sub decays :5
+DSt_KPTuple.Dst                                                INFO DSt_KPTuple.Dst : ^( ( ( D*(2010)+  -> ( D0  -> K-  pi+ )  pi+ ) || ( D*(2010)-  -> ( D~0  -> K+  pi- )  pi- ) ) )
+DSt_KPTuple.Dz                                                 INFO DSt_KPTuple.Dz : ( ( D*(2010)+  -> ^( ( D0  -> K-  pi+ ) ) pi+ ) || ( D*(2010)-  -> ^( ( D~0  -> K+  pi- ) ) pi- ) ) 
+DSt_KPTuple.pi                                                 INFO DSt_KPTuple.pi : ( ( D*(2010)+  -> ( D0  -> K-  ^( pi+ ))  pi+ ) || ( D*(2010)-  -> ( D~0  -> K+  ^( pi- ))  pi- ) ) 
+DSt_KPTuple.pis                                                INFO DSt_KPTuple.pis : ( ( D*(2010)+  -> ( D0  -> K-  pi+ )  ^( pi+ )) || ( D*(2010)-  -> ( D~0  -> K+  pi- )  ^( pi- )) ) 
+DSt_KPTuple.probe                                              INFO DSt_KPTuple.probe : ( ( D*(2010)+  -> ( D0  -> ^( K- ) pi+ )  pi+ ) || ( D*(2010)-  -> ( D~0  -> ^( K+ ) pi- )  pi- ) ) 
+Lam0LL_P_isMuonTuple                                           INFO Will look for  ( ( Lambda0  -> ^( p+ ) ^( pi- )) || ( Lambda~0  -> ^( p~- ) ^( pi+ )) ) 
+Lam0LL_P_isMuonTuple                                           INFO Explicit sub decays :3
+Lam0LL_P_isMuonTuple.L0                                        INFO Lam0LL_P_isMuonTuple.L0 : ^( ( ( Lambda0  -> p+  pi- ) || ( Lambda~0  -> p~-  pi+ ) ) )
+Lam0LL_P_isMuonTuple.pi                                        INFO Lam0LL_P_isMuonTuple.pi : ( ( Lambda0  -> p+  ^( pi- )) || ( Lambda~0  -> p~-  ^( pi+ )) ) 
+Lam0LL_P_isMuonTuple.probe                                     INFO Lam0LL_P_isMuonTuple.probe : ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+Jpsi_MuPTuple                                                  INFO Will look for  ( J/psi(1S)  -> ^( mu+ ) ^( mu- )) 
+Jpsi_MuPTuple                                                  INFO Explicit sub decays :3
+Jpsi_MuPTuple.Jpsi                                             INFO Jpsi_MuPTuple.Jpsi : ^( ( J/psi(1S)  -> mu+  mu- ) )
+Jpsi_MuPTuple.probe                                            INFO Jpsi_MuPTuple.probe : ( J/psi(1S)  -> ^( mu+ ) mu- ) 
+Jpsi_MuPTuple.tag                                              INFO Jpsi_MuPTuple.tag : ( J/psi(1S)  -> mu+  ^( mu- )) 
+DsPhi_KPTuple                                                  INFO Will look for  ( [D_s+]cc  -> ^( ( phi(1020)  -> ^( K- ) ^( K+ )) ) ^( [pi+]cc )) 
+DsPhi_KPTuple                                                  INFO Explicit sub decays :5
+DsPhi_KPTuple.Ds                                               INFO DsPhi_KPTuple.Ds : ^( ( [D_s+]cc  -> ( phi(1020)  -> K-  K+ )  [pi+]cc ) )
+DsPhi_KPTuple.phi                                              INFO DsPhi_KPTuple.phi : ( [D_s+]cc  -> ^( ( phi(1020)  -> K-  K+ ) ) [pi+]cc ) 
+DsPhi_KPTuple.pi                                               INFO DsPhi_KPTuple.pi : ( [D_s+]cc  -> ( phi(1020)  -> K-  K+ )  ^( [pi+]cc )) 
+DsPhi_KPTuple.probe                                            INFO DsPhi_KPTuple.probe : ( [D_s+]cc  -> ( phi(1020)  -> K-  ^( K+ ))  [pi+]cc ) 
+DsPhi_KPTuple.tag                                              INFO DsPhi_KPTuple.tag : ( [D_s+]cc  -> ( phi(1020)  -> ^( K- ) K+ )  [pi+]cc ) 
+Jpsi_MuMTuple                                                  INFO Will look for  ( J/psi(1S)  -> ^( mu+ ) ^( mu- )) 
+Jpsi_MuMTuple                                                  INFO Explicit sub decays :3
+Jpsi_MuMTuple.Jpsi                                             INFO Jpsi_MuMTuple.Jpsi : ^( ( J/psi(1S)  -> mu+  mu- ) )
+Jpsi_MuMTuple.probe                                            INFO Jpsi_MuMTuple.probe : ( J/psi(1S)  -> mu+  ^( mu- )) 
+Jpsi_MuMTuple.tag                                              INFO Jpsi_MuMTuple.tag : ( J/psi(1S)  -> ^( mu+ ) mu- ) 
+B_Jpsi_MuMTuple                                                INFO Will look for  ( [B+]cc  -> ^( ( J/psi(1S)  -> ^( mu+ ) ^( mu- )) ) ^( [K+]cc )) 
+B_Jpsi_MuMTuple                                                INFO Explicit sub decays :5
+B_Jpsi_MuMTuple.B                                              INFO B_Jpsi_MuMTuple.B : ^( ( [B+]cc  -> ( J/psi(1S)  -> mu+  mu- )  [K+]cc ) )
+B_Jpsi_MuMTuple.Jpsi                                           INFO B_Jpsi_MuMTuple.Jpsi : ( [B+]cc  -> ^( ( J/psi(1S)  -> mu+  mu- ) ) [K+]cc ) 
+B_Jpsi_MuMTuple.K                                              INFO B_Jpsi_MuMTuple.K : ( [B+]cc  -> ( J/psi(1S)  -> mu+  mu- )  ^( [K+]cc )) 
+B_Jpsi_MuMTuple.probe                                          INFO B_Jpsi_MuMTuple.probe : ( [B+]cc  -> ( J/psi(1S)  -> mu+  ^( mu- ))  [K+]cc ) 
+B_Jpsi_MuMTuple.tag                                            INFO B_Jpsi_MuMTuple.tag : ( [B+]cc  -> ( J/psi(1S)  -> ^( mu+ ) mu- )  [K+]cc ) 
+Lam0LL_Pbar_isMuonTuple                                        INFO Will look for  ( ( Lambda0  -> ^( p+ ) ^( pi- )) || ( Lambda~0  -> ^( p~- ) ^( pi+ )) ) 
+Lam0LL_Pbar_isMuonTuple                                        INFO Explicit sub decays :3
+Lam0LL_Pbar_isMuonTuple.L0                                     INFO Lam0LL_Pbar_isMuonTuple.L0 : ^( ( ( Lambda0  -> p+  pi- ) || ( Lambda~0  -> p~-  pi+ ) ) )
+Lam0LL_Pbar_isMuonTuple.pi                                     INFO Lam0LL_Pbar_isMuonTuple.pi : ( ( Lambda0  -> p+  ^( pi- )) || ( Lambda~0  -> p~-  ^( pi+ )) ) 
+Lam0LL_Pbar_isMuonTuple.probe                                  INFO Lam0LL_Pbar_isMuonTuple.probe : ( ( Lambda0  -> ^( p+ ) pi- ) || ( Lambda~0  -> ^( p~- ) pi+ ) ) 
+DSt_KMTuple                                                    INFO Will look for  ( ( D*(2010)+  -> ^( ( D0  -> ^( K- ) pi+ ) ) pi+ ) || ( D*(2010)-  -> ^( ( D~0  -> ^( K+ ) pi- ) ) pi- ) ) 
+DSt_KMTuple                                                    INFO Explicit sub decays :5
+DSt_KMTuple.Dst                                                INFO DSt_KMTuple.Dst : ^( ( ( D*(2010)+  -> ( D0  -> K-  pi+ )  pi+ ) || ( D*(2010)-  -> ( D~0  -> K+  pi- )  pi- ) ) )
+DSt_KMTuple.Dz                                                 INFO DSt_KMTuple.Dz : ( ( D*(2010)+  -> ^( ( D0  -> K-  pi+ ) ) pi+ ) || ( D*(2010)-  -> ^( ( D~0  -> K+  pi- ) ) pi- ) ) 
+DSt_KMTuple.pi                                                 INFO DSt_KMTuple.pi : ( ( D*(2010)+  -> ( D0  -> K-  ^( pi+ ))  pi+ ) || ( D*(2010)-  -> ( D~0  -> K+  ^( pi- ))  pi- ) ) 
+DSt_KMTuple.pis                                                INFO DSt_KMTuple.pis : ( ( D*(2010)+  -> ( D0  -> K-  pi+ )  ^( pi+ )) || ( D*(2010)-  -> ( D~0  -> K+  pi- )  ^( pi- )) ) 
+DSt_KMTuple.probe                                              INFO DSt_KMTuple.probe : ( ( D*(2010)+  -> ( D0  -> ^( K- ) pi+ )  pi+ ) || ( D*(2010)-  -> ( D~0  -> ^( K+ ) pi- )  pi- ) ) 
+DsPhi_KMTuple                                                  INFO Will look for  ( [D_s+]cc  -> ^( ( phi(1020)  -> ^( K- ) ^( K+ )) ) ^( [pi+]cc )) 
+DsPhi_KMTuple                                                  INFO Explicit sub decays :5
+DsPhi_KMTuple.Ds                                               INFO DsPhi_KMTuple.Ds : ^( ( [D_s+]cc  -> ( phi(1020)  -> K-  K+ )  [pi+]cc ) )
+DsPhi_KMTuple.phi                                              INFO DsPhi_KMTuple.phi : ( [D_s+]cc  -> ^( ( phi(1020)  -> K-  K+ ) ) [pi+]cc ) 
+DsPhi_KMTuple.pi                                               INFO DsPhi_KMTuple.pi : ( [D_s+]cc  -> ( phi(1020)  -> K-  K+ )  ^( [pi+]cc )) 
+DsPhi_KMTuple.probe                                            INFO DsPhi_KMTuple.probe : ( [D_s+]cc  -> ( phi(1020)  -> ^( K- ) K+ )  [pi+]cc ) 
+DsPhi_KMTuple.tag                                              INFO DsPhi_KMTuple.tag : ( [D_s+]cc  -> ( phi(1020)  -> K-  ^( K+ ))  [pi+]cc ) 
+MonitoringSequence                                             INFO Member list: 
+LumiSeq                                                        INFO OR Member list: EventAccounting/EventAccount
+IntegratorSeq                                                  INFO Member list: LumiIntegrateFSR/IntegrateBeamCrossing, GetIntegratedLuminosity
+IntegrateBeamCrossing                                          INFO Primary  BXType BeamCrossing
+IntegrateBeamCrossing                                          INFO Add      BXType NoBeam
+IntegrateBeamCrossing                                          INFO Subtract BXType Beam1
+IntegrateBeamCrossing                                          INFO Subtract BXType Beam2
+EventPersistencySvc                                            INFO Added successfully Conversion service:RootCnvSvc
+EventSelector                                                  INFO Stream:EventSelector.DataStreamTool_1 Def:DATAFILE='/afs/cern.ch/user/s/suny/eos/run2-pid/data-2015-mu/00050412_00000001_4.fullturbo.dst' SVC='Gaudi::RootEvtSelector' OPT='READ'
+ApplicationMgr                                                 INFO Application Manager Initialized successfully
+ApplicationMgr                                                 INFO Application Manager Started successfully
+FileRecordPersistencySvc                                       INFO Added successfully Conversion service:FileRecordCnvSvc
+EventSelector                                               SUCCESS Reading Event record 1. Record number within stream 1: 1
+ToolSvc.HybridFactory                                         ERROR  PyError Type      : <type 'exceptions.AssertionError'>
+ToolSvc.HybridFactory                                         ERROR  PyError Value     : Functor AALLSAMEBPV requires context (type dvalgo) but none is defined.
+ToolSvc.HybridFactory                                         ERROR  PyError Traceback : <traceback object at 0x7fa009bafcb0>
+ToolSvc.HybridFactory                                         ERROR Native Python printout to stderr
+ToolSvc.HybridFactory                                         ERROR End of native Python printout to stderr
+ToolSvc.HybridFactory                                         ERROR  Error has occured in Python: the problematic code is : 
+ToolSvc.HybridFactory                                         ERROR # ==============================================================================
+# python pseudomodule, generated for the hybrid factory'ToolSvc.HybridFactory'
+# ==============================================================================
+# Arguments:
+# 	code    = "switch((MAXTREE ( TRGHP , ISBASIC ) < 0.4)& CHILDCUT ( (abs(WM('pi+','pi-') - PDGMASS) > 25) & (abs(WM('K+','K-')   - PDGMASS) > 25)  & (abs(WM('pi+','K-')  - PDGMASS) > 25) , 1 ),1,0)"
+# 	actor   = 'LoKi.Hybrid.Engine()'
+# 	modules = [ 'LoKiPhys.decorators' , 'LoKiProtoParticles.decorators' , 'LoKiArrayFunctors.decorators' , 'LoKiCore.functions' , 'LoKiCore.math' ]
+# 	lines   = [  ]
+# 	context = '
+##! '
+# ==============================================================================
+##        MODULES :
+from LoKiPhys.decorators import *
+from LoKiProtoParticles.decorators import *
+from LoKiArrayFunctors.decorators import *
+from LoKiCore.functions import *
+from LoKiCore.math import *
+## End of MODULES
+## The ACTOR :
+_actor   = LoKi.Hybrid.Engine()
+from LoKiCore.decorators import hybrid_context_deco                      
+_context = _actor.context  () if hasattr ( _actor , 'context' ) else None
+_contexts = {'algo': _context.algo () if _context else None,             
+             'dvalgo': _context.dvalgo () if _context else None}         
+hybrid_context_deco ( globals() , _contexts )               
+##        CODE :         
+_code = switch((MAXTREE ( TRGHP , ISBASIC ) < 0.4)& CHILDCUT ( (abs(WM('pi+','pi-') - PDGMASS) > 25) & (abs(WM('K+','K-')   - PDGMASS) > 25)  & (abs(WM('pi+','K-')  - PDGMASS) > 25) , 1 ),1,0)
+## End of CODE           
+sc    = _actor.process( 'ToolSvc.HybridFactory' , _code ) 
+_code = None 
+#==============================================================================
+##                                                                      The END
+#==============================================================================
+
+ToolSvc.HybridFactory                                         ERROR LoKi::Hybrid::Tool::  Error has occured in Python  StatusCode=FAILURE
+ToolSvc.HybridFactory                                         ERROR LoKi::Hybrid::Tool:: Error from LoKi::Hybrid::Base::executeCode StatusCode=FAILURE
+ToolSvc.HybridFactory                                         ERROR LoKi::Hybrid::Tool:: Invalid object for the code 'switch((MAXTREE ( TRGHP , ISBASIC ) < 0.4)& CHILDCUT ( (abs(WM('pi+','pi-') - PDGMASS) > 25) & (abs(WM('K+','K-')   - PDGMASS) > 25)   & (abs(WM('pi+','K-')  - PDGMASS) > 25) , 1 ),1,0)' StatusCode=FAILURE
+ApplySWDSt_PiP                                                ERROR ApplySWeights:: Check cut: (MAXTREE ( TRGHP , ISBASIC ) < 0.4)& CHILDCUT ( (abs(WM('pi+','pi-') - PDGMASS) > 25) & (abs(WM('K+','K-')   - PDGMASS) > 25)   & (abs(WM('pi+','K-')  - PDGMASS) > 25) , 1 ) StatusCode=FAILURE
+UpdateManagerSvc                                              ERROR UpdateManagerSvc::reserve 	 failure updating conditions	 StatusCode=FAILURE
+UpdateManagerSvc                                              FATAL ***** The update failed. I schedule a stop of the run *****
+EventLoopMgr                                                SUCCESS Terminating event processing loop due to a stop scheduled by an incident listener
+EventLoopMgr                                                SUCCESS Terminating event processing loop due to scheduled stop
+IntegrateBeamCrossing                                          INFO ========== Integrating luminosity normalization: START ==========
+IntegrateBeamCrossing                                          INFO run: [166950] RandomFrequencyBB 697.9 CollidingBunches 1
+IntegrateBeamCrossing                                          INFO Luminosity scale used: 1.7007e-11 relative uncertainty 0.035
+IntegrateBeamCrossing                                          INFO Integrated luminosity: 2.26057e-08 +/- 7.91199e-10 [pb-1]
+IntegrateBeamCrossing                                          INFO ========== Integrating luminosity normalization: END ==========
+ApplicationMgr                                                 INFO Application Manager Stopped successfully
+DaVinciInitAlg                                              SUCCESS ==================================================================
+DaVinciInitAlg                                              SUCCESS 0 events processed
+DaVinciInitAlg                                              SUCCESS ==================================================================
+ApplySWDSt_PiP                                                 INFO ==> Finalize
+ApplySWDSt_PiP                                                 INFO Deleting map
+ApplySWDSt_PiP                                                 INFO Closing ./splots/splot_tables-2015-mu.root
+ApplySWDSt_PiP                                                 INFO Done.
+ApplySWDSt_PiP                                              SUCCESS Exceptions/Errors/Warnings/Infos Statistics : 0/1/0/0
+ApplySWDSt_PiP                                              SUCCESS  #ERRORS     = 1        Message = 'Check cut: (MAXTREE ( TRGHP , ISBASIC ) < 0.4)& CHILDCUT ( (abs(WM('pi+','pi-') - PDGMASS) > 25) & (abs(WM('K+','K-')   - PDGMASS) > 25)   & (abs(WM('pi+','K-')  - PDGMASS) > 25) , 1 )'
+ApplySWLbLcMu_P                                                INFO ==> Finalize
+ApplySWLbLcMu_P                                                INFO Deleting map
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'BasicDQFilter/ToolSvc.DQAcceptTool.BasicDQFilter' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'ChargedProtoParticleMapper/ToolSvc.UnpackChargedPPsMapper' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'CondDBDQScanner/ToolSvc.DQAcceptTool.CondDBDQScanner' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'ConversionDODMapper/ToolSvc.LiteClusterMapper' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'ConversionDODMapper/ToolSvc.UnpackRecPhysMapper' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'DQAcceptTool/ToolSvc.DQAcceptTool' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'FSRNavigator/ToolSvc.FSRNavigator' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'GenericParticle2PVRelator<_p2PVWithIPChi2, OfflineDistanceCalculatorName>/ToolSvc.P2PVWithIPChi2' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'GetLumiParameters/ToolSvc.lumiDatabaseTool' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'Hlt1TriggerTisTos/Jpsi_MuM.Hlt1TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'Hlt1TriggerTisTos/Jpsi_MuP.Hlt1TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'Hlt1TriggerTisTos/Jpsinopt_MuM.Hlt1TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'Hlt1TriggerTisTos/Jpsinopt_MuP.Hlt1TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'L0TriggerTisTos/Jpsi_MuM.L0TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'L0TriggerTisTos/Jpsi_MuP.L0TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'L0TriggerTisTos/Jpsinopt_MuM.L0TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'L0TriggerTisTos/Jpsinopt_MuP.L0TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.B.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.B.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.B.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.B.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KMTuple.Dst.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KMTuple.Dz.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KMTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KMTuple.pis.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KPTuple.Dst.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KPTuple.Dz.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KPTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KPTuple.pis.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_KPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiMTuple.Dst.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiMTuple.Dz.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiMTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiMTuple.pis.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiPTuple.Dst.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiPTuple.Dz.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiPTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiPTuple.pis.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DSt_PiPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KMTuple.Ds.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KMTuple.phi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KMTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KPTuple.Ds.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KPTuple.phi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KPTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/DsPhi_KPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsi_MuMTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsi_MuMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsi_MuMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsi_MuMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsi_MuPTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsi_MuPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsi_MuPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsi_MuPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsinopt_MuMTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsinopt_MuMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsinopt_MuMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsinopt_MuMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsinopt_MuPTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsinopt_MuPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsinopt_MuPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Jpsinopt_MuPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/KSLL_PiMTuple.KS.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/KSLL_PiMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/KSLL_PiMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/KSLL_PiMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/KSLL_PiPTuple.KS.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/KSLL_PiPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/KSLL_PiPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/KSLL_PiPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_HPT_PTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_HPT_PTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_HPT_PTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_HPT_PTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_HPT_PbarTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_HPT_PbarTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_HPT_PbarTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_HPT_PbarTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_PTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_PTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_PTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_PTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_P_isMuonTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_P_isMuonTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_P_isMuonTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_P_isMuonTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_PbarTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_PbarTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_PbarTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_PbarTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_Pbar_isMuonTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_Pbar_isMuonTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_Pbar_isMuonTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_Pbar_isMuonTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PbarTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PbarTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PbarTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PbarTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PTuple.Lb.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PTuple.Lc.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PTuple.mu.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.Lb.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.Lc.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.mu.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/ToolSvc.Decays' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Decay/ToolSvc.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::DistanceCalculator/ToolSvc.LoKi::DistanceCalculator' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::DistanceCalculator/ToolSvc.P2PVWithIPChi2.LoKi::DistanceCalculator' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Hybrid::CoreFactory/ToolSvc.CoreFactory' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Hybrid::Tool/ToolSvc.HybridFactory' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LoKi::Reporter/LoKiSvc.REPORT' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LumiIntegrator/ToolSvc.IntegrateBeamCrossing' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'LumiIntegrator/ToolSvc.RawLumiIntegrator' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'MemoryTool/DaVinciInitAlg.DaVinciMemory' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'ODINDecodeTool/EventClockSvc.EventTimeDecoder.OdinTimeDecoder.ODINDecodeTool' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'OdinTimeDecoder/EventClockSvc.EventTimeDecoder.OdinTimeDecoder' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'ParticlesAndVerticesMapper/ToolSvc.UnpackPsAndVsMapper' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'RateFromTCK/ToolSvc.lumiDatabaseTool.RateFromTCK' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'RecEventTime/EventClockSvc.EventTimeDecoder.RecEventTime' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'SequencerTimerTool/TimingAuditor.TIMER' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'SequencerTimerTool/ToolSvc.SequencerTimerTool' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TimeDecoderList/EventClockSvc.EventTimeDecoder' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'Track2Calo/ToolSvc.Track2CaloForTisTos' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TrackClustersMapper/ToolSvc.UnpackTkClustersMapper' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TrackRungeKuttaExtrapolator/ToolSvc.Track2CaloForTisTos.Extrapolator' Counts = 1
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_EMTuple.B' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_EMTuple.Jpsi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_EMTuple.K' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_EMTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_EMTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_EPTuple.B' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_EPTuple.Jpsi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_EPTuple.K' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_EPTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_EPTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_MuMTuple.B' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_MuMTuple.Jpsi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_MuMTuple.K' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_MuMTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_MuMTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_MuPTuple.B' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_MuPTuple.Jpsi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_MuPTuple.K' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_MuPTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/B_Jpsi_MuPTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_KMTuple.Dst' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_KMTuple.Dz' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_KMTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_KMTuple.pis' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_KMTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_KPTuple.Dst' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_KPTuple.Dz' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_KPTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_KPTuple.pis' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_KPTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_PiMTuple.Dst' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_PiMTuple.Dz' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_PiMTuple.K' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_PiMTuple.pis' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_PiMTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_PiPTuple.Dst' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_PiPTuple.Dz' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_PiPTuple.K' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_PiPTuple.pis' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DSt_PiPTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DsPhi_KMTuple.Ds' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DsPhi_KMTuple.phi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DsPhi_KMTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DsPhi_KMTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DsPhi_KMTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DsPhi_KPTuple.Ds' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DsPhi_KPTuple.phi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DsPhi_KPTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DsPhi_KPTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/DsPhi_KPTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsi_MuMTuple.Jpsi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsi_MuMTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsi_MuMTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsi_MuPTuple.Jpsi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsi_MuPTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsi_MuPTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsinopt_MuMTuple.Jpsi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsinopt_MuMTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsinopt_MuMTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsinopt_MuPTuple.Jpsi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsinopt_MuPTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Jpsinopt_MuPTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/KSLL_PiMTuple.KS' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/KSLL_PiMTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/KSLL_PiMTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/KSLL_PiPTuple.KS' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/KSLL_PiPTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/KSLL_PiPTuple.tag' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_HPT_PTuple.L0' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_HPT_PTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_HPT_PTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_HPT_PbarTuple.L0' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_HPT_PbarTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_HPT_PbarTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_PTuple.L0' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_PTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_PTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_P_isMuonTuple.L0' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_P_isMuonTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_P_isMuonTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_PbarTuple.L0' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_PbarTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_PbarTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_Pbar_isMuonTuple.L0' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_Pbar_isMuonTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_Pbar_isMuonTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PTuple.L0' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PbarTuple.L0' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PbarTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PbarTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PTuple.K' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PTuple.Lb' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PTuple.Lc' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PTuple.mu' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PTuple.probe' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.K' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.Lb' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.Lc' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.mu' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.pi' Counts = 2
+GaudiTool       WARNING   Initialize/Finalize (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.probe' Counts = 2
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'BasicDQFilter/ToolSvc.DQAcceptTool.BasicDQFilter' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'ChargedProtoParticleMapper/ToolSvc.UnpackChargedPPsMapper' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'CondDBDQScanner/ToolSvc.DQAcceptTool.CondDBDQScanner' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'ConversionDODMapper/ToolSvc.LiteClusterMapper' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'ConversionDODMapper/ToolSvc.UnpackRecPhysMapper' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'DQAcceptTool/ToolSvc.DQAcceptTool' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'FSRNavigator/ToolSvc.FSRNavigator' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'GenericParticle2PVRelator<_p2PVWithIPChi2, OfflineDistanceCalculatorName>/ToolSvc.P2PVWithIPChi2' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'GetLumiParameters/ToolSvc.lumiDatabaseTool' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'Hlt1TriggerTisTos/Jpsi_MuM.Hlt1TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'Hlt1TriggerTisTos/Jpsi_MuP.Hlt1TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'Hlt1TriggerTisTos/Jpsinopt_MuM.Hlt1TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'Hlt1TriggerTisTos/Jpsinopt_MuP.Hlt1TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'L0TriggerTisTos/Jpsi_MuM.L0TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'L0TriggerTisTos/Jpsi_MuP.L0TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'L0TriggerTisTos/Jpsinopt_MuM.L0TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'L0TriggerTisTos/Jpsinopt_MuP.L0TriggerTisTos' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.B.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.B.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_EPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.B.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.B.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/B_Jpsi_MuPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KMTuple.Dst.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KMTuple.Dz.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KMTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KMTuple.pis.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KPTuple.Dst.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KPTuple.Dz.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KPTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KPTuple.pis.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_KPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiMTuple.Dst.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiMTuple.Dz.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiMTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiMTuple.pis.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiPTuple.Dst.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiPTuple.Dz.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiPTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiPTuple.pis.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DSt_PiPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KMTuple.Ds.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KMTuple.phi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KMTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KPTuple.Ds.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KPTuple.phi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KPTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/DsPhi_KPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsi_MuMTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsi_MuMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsi_MuMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsi_MuMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsi_MuPTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsi_MuPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsi_MuPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsi_MuPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsinopt_MuMTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsinopt_MuMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsinopt_MuMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsinopt_MuMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsinopt_MuPTuple.Jpsi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsinopt_MuPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsinopt_MuPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Jpsinopt_MuPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/KSLL_PiMTuple.KS.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/KSLL_PiMTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/KSLL_PiMTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/KSLL_PiMTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/KSLL_PiPTuple.KS.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/KSLL_PiPTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/KSLL_PiPTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/KSLL_PiPTuple.tag.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_HPT_PTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_HPT_PTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_HPT_PTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_HPT_PTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_HPT_PbarTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_HPT_PbarTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_HPT_PbarTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_HPT_PbarTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_PTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_PTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_PTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_PTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_P_isMuonTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_P_isMuonTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_P_isMuonTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_P_isMuonTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_PbarTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_PbarTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_PbarTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_PbarTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_Pbar_isMuonTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_Pbar_isMuonTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_Pbar_isMuonTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_Pbar_isMuonTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PbarTuple.L0.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PbarTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PbarTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/Lam0LL_VHPT_PbarTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PTuple.Lb.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PTuple.Lc.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PTuple.mu.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.K.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.Lb.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.Lc.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.mu.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.pi.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/LbLcMu_PbarTuple.probe.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/ToolSvc.Decays' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Decay/ToolSvc.LoKi::Decay' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::DistanceCalculator/ToolSvc.LoKi::DistanceCalculator' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::DistanceCalculator/ToolSvc.P2PVWithIPChi2.LoKi::DistanceCalculator' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Hybrid::CoreFactory/ToolSvc.CoreFactory' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Hybrid::Tool/ToolSvc.HybridFactory' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LoKi::Reporter/LoKiSvc.REPORT' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LumiIntegrator/ToolSvc.IntegrateBeamCrossing' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'LumiIntegrator/ToolSvc.RawLumiIntegrator' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'MemoryTool/DaVinciInitAlg.DaVinciMemory' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'ODINDecodeTool/EventClockSvc.EventTimeDecoder.OdinTimeDecoder.ODINDecodeTool' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'OdinTimeDecoder/EventClockSvc.EventTimeDecoder.OdinTimeDecoder' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'ParticlesAndVerticesMapper/ToolSvc.UnpackPsAndVsMapper' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'RateFromTCK/ToolSvc.lumiDatabaseTool.RateFromTCK' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'RecEventTime/EventClockSvc.EventTimeDecoder.RecEventTime' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'SequencerTimerTool/TimingAuditor.TIMER' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'SequencerTimerTool/ToolSvc.SequencerTimerTool' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TeslaMatcher/ToolSvc.TeslaMatcher' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TimeDecoderList/EventClockSvc.EventTimeDecoder' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'Track2Calo/ToolSvc.Track2CaloForTisTos' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TrackClustersMapper/ToolSvc.UnpackTkClustersMapper' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TrackRungeKuttaExtrapolator/ToolSvc.Track2CaloForTisTos.Extrapolator' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_EMTuple.B' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_EMTuple.Jpsi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_EMTuple.K' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_EMTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_EMTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_EPTuple.B' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_EPTuple.Jpsi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_EPTuple.K' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_EPTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_EPTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_MuMTuple.B' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_MuMTuple.Jpsi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_MuMTuple.K' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_MuMTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_MuMTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_MuPTuple.B' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_MuPTuple.Jpsi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_MuPTuple.K' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_MuPTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/B_Jpsi_MuPTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_KMTuple.Dst' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_KMTuple.Dz' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_KMTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_KMTuple.pis' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_KMTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_KPTuple.Dst' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_KPTuple.Dz' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_KPTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_KPTuple.pis' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_KPTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_PiMTuple.Dst' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_PiMTuple.Dz' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_PiMTuple.K' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_PiMTuple.pis' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_PiMTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_PiPTuple.Dst' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_PiPTuple.Dz' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_PiPTuple.K' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_PiPTuple.pis' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DSt_PiPTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DsPhi_KMTuple.Ds' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DsPhi_KMTuple.phi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DsPhi_KMTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DsPhi_KMTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DsPhi_KMTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DsPhi_KPTuple.Ds' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DsPhi_KPTuple.phi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DsPhi_KPTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DsPhi_KPTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/DsPhi_KPTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsi_MuMTuple.Jpsi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsi_MuMTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsi_MuMTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsi_MuPTuple.Jpsi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsi_MuPTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsi_MuPTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsinopt_MuMTuple.Jpsi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsinopt_MuMTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsinopt_MuMTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsinopt_MuPTuple.Jpsi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsinopt_MuPTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Jpsinopt_MuPTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/KSLL_PiMTuple.KS' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/KSLL_PiMTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/KSLL_PiMTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/KSLL_PiPTuple.KS' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/KSLL_PiPTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/KSLL_PiPTuple.tag' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_HPT_PTuple.L0' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_HPT_PTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_HPT_PTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_HPT_PbarTuple.L0' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_HPT_PbarTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_HPT_PbarTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_PTuple.L0' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_PTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_PTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_P_isMuonTuple.L0' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_P_isMuonTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_P_isMuonTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_PbarTuple.L0' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_PbarTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_PbarTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_Pbar_isMuonTuple.L0' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_Pbar_isMuonTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_Pbar_isMuonTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PTuple.L0' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PbarTuple.L0' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PbarTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/Lam0LL_VHPT_PbarTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PTuple.K' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PTuple.Lb' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PTuple.Lc' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PTuple.mu' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PTuple.probe' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.K' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.Lb' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.Lc' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.mu' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.pi' Counts = 1
+GaudiTool       WARNING   Create/Destroy      (mis)balance 'TupleToolDecay/LbLcMu_PbarTuple.probe' Counts = 1
