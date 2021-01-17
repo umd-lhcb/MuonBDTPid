@@ -1,8 +1,6 @@
 from Configurables import DaVinci
 
 DaVinci().DataType = "2015"
-DaVinci().EvtMax = -1
-DaVinci().TupleFile = "pid.root"
 
 
 from Configurables import SWeightsTableFiles
