@@ -73,51 +73,51 @@ these are the input variables to the uBDT
 (These names are also used in the [source](https://github.com/umd-lhcb/MuonBDTPid/blob/master/src/AddUboostBranchRun2.cpp)):
 
 ```
-TrackChi2PerDof       -> TRCHI2NDOF
-TrackNumDof           -> ?
-TrackLikelihood       -> ?
-TrackGhostProbability -> TRACK_GHOSTPROB
-TrackFitMatchChi2     -> TRACH_MatchCHI2
-TrackFitVeloChi2      -> ?
-TrackFitVeloNDoF      -> ?
-TrackFitTChi2         -> ?
-TrackFitTNDoF         -> ?
+TrackChi2PerDof
+TrackNumDof
+TrackLikelihood
+TrackGhostProbability
+TrackFitMatchChi2
+TrackFitVeloChi2
+TrackFitVeloNDoF
+TrackFitTChi2
+TrackFitTNDoF
 ```
 
 ```
-RichUsedAero     -> RICHAerogelUsed
-RichUsedR1Gas    -> RICH1GasUsed
-RichUsedR2Gas    -> RICH2GasUsed
-RichAboveMuThres -> RICHThresholdMu
-RichAboveKaThres -> RICHThresholdKa
-RichDLLe         -> RichDLLe
-RichDLLmu        -> RichDLLmu
-RichDLLk         -> RichDLLk
-RichDLLp         -> RichDLLp
-RichDLLbt        -> RichDLLbt
+RichUsedAero
+RichUsedR1Gas
+RichUsedR2Gas
+RichAboveMuThres
+RichAboveKaThres
+RichDLLe
+RichDLLmu
+RichDLLk
+RichDLLp
+RichDLLbt
 ```
 
 ```
-MuonBkgLL   -> MuonBgLL
-MuonMuLL    -> MuonMuLL
-MuonNShared -> NShared
+MuonBkgLL
+MuonMuLL
+MuonNShared
 ```
 
 ```
-InAccEcal   -> ?
-EcalPIDe    -> EcalPIDe
-InAccHcal   -> ?
-HcalPIDe    -> HcalPIDe
-HcalPIDmu   -> ?
-InAccPrs    -> ?
-PrsPIDe     -> PrsPIDe
-InAccBrem   -> ?
-BremPIDe    -> ?
-VeloCharge  -> VeloCharge
-isMuonTight -> isMuonTight
+InAccEcal
+EcalPIDe
+InAccHcal
+HcalPIDe
+HcalPIDmu
+InAccPrs
+PrsPIDe
+InAccBrem
+BremPIDe
+VeloCharge
+isMuonTight
 ```
 
 ```
-TrackP  -> P
-TrackPt -> PT
+TrackP
+TrackPt
 ```
