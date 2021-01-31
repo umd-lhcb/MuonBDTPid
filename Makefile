@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Mon Dec 21, 2020 at 03:07 AM +0100
+# Last Change: Sun Jan 31, 2021 at 10:55 PM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -16,7 +16,7 @@ ADDLINKFLAGS	:=	-lTreePlayer -lMinuit -lFoam -lXMLIO -lTMVA
 # Current nix root5 derivation doesn't have RooFit library.
 #ADDLINKFLAGS	:=	-lTreePlayer -lRooFitCore -lRooFit -lMinuit -lFoam -lXMLIO -lTMVA
 
-CASTELAO_VERSION=Castelao-v10r0
+CASTELAO_VERSION=Castelao-v3r4
 
 # Executables
 AddUboostBranchRun2:
