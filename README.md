@@ -1,14 +1,14 @@
 # MuonBDTPid
 Muon PID with a uboost BDT (in ROOT 5). Also include code for PID efficiency studies.
+Below we list some related links:
 
-
-## PIDCalib samples
-These samples are generated with `Castelao`.
-Below we list some related links
 - A list of centrally produced [calibration data](https://twiki.cern.ch/twiki/bin/view/LHCbPhysics/ChargedPID#Calibration_data)
 - WG prodcution [twiki](https://twiki.cern.ch/twiki/bin/viewauth/LHCbPhysics/WGproductionPID)
 - PIDCalib package [twiki](https://twiki.cern.ch/twiki/bin/view/LHCb/PIDCalibPackage)
 - PIDCalib sample modes and cuts [option file](https://gitlab.cern.ch/lhcb/Castelao/-/blob/master/PIDCalib/PidCalibProduction/options/Run-2/makeTuples.py)
+
+
+## PIDCalib samples
 
 ### Run 2 `J/psi -> mu+ mu-`, no `PT` cut
 The sample is produced centrally with request ID `69972`.
@@ -46,6 +46,22 @@ DDDB: Condition DB: DQTag:
 Extra: AppConfig.v3r332 Runtime projects:
 Visible: Y Usable:Yes
 Input file types: PIDCALIB.ROOT Output file types: PIDCALIB.ROOT
+```
+
+
+## PIDCalib sample production
+PIDCalib samples are generated with `Castelao`. For run 1 and 2,
+`Castelao/v3r4` is used.
+
+### On `lxplus`
+Follow these commands to setup a Castelao dev environment on `lxplus`:
+
+```
+lb-dev Castelao/v3r4
+cd ./CastelaoDev_v3r4
+
+git lb-use Castelao
+git lb-checkout Castelao/run2-patches PIDCalib/PidCalibProduction
 ```
 
 
