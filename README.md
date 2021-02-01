@@ -62,7 +62,17 @@ cd ./CastelaoDev_v3r4
 
 git lb-use Castelao
 git lb-checkout Castelao/run2-patches PIDCalib/PidCalibProduction
+git lb-clone-pkg WG/PIDCalib -b v9r3
 ```
+
+### With a `Castelao` docker image:
+
+First, spawn a container with an image built by us:
+```
+make docker-cl
+```
+
+Then follow the instructions in the previous section.
 
 
 ## uboost BDT (uBDT)
