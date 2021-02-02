@@ -17,10 +17,6 @@ They are available at this eos location:
 /eos/lhcb/grid/prod/lhcb/LHCb/Collision16/PIDCALIB.ROOT/00111665/0000
 ```
 
-From file `00111665_00000001_1.pidcalib.root`, tree `Jpsinopt_MuMTuple/DecayTree`,
-I've validated that the `probe_PT` doesn't have a cut, as the minimal value is
-`8.63`; the `tag_PT` has a `PT > 1500*MeV` cut, as the minimal value `1500.0003`.
-
 From DIRAC, this sample is produced with:
 ```
 Conditions: Beam6500GeV-VeloClosed-MagUp type:
@@ -51,7 +47,7 @@ Input file types: PIDCALIB.ROOT Output file types: PIDCALIB.ROOT
 
 ## PIDCalib sample production
 PIDCalib samples are generated with `Castelao`. For run 1 and 2,
-`Castelao/v3r4` is used.
+`Castelao/v3r4` is used, with `CMTCONFIG=x86_64-centos7-gcc8-opt`.
 
 ### On `lxplus`
 Follow these commands to setup a Castelao dev environment on `lxplus`:
