@@ -65,6 +65,46 @@ git lb-checkout Castelao/run2-patches PIDCalib/PidCalibProduction
 git lb-clone-pkg WG/PIDCalib -b v9r3
 ```
 
+We need to customize our `Castelao` so that we have all branches needed
+for uBDT. Go to `LN460` of the file:
+```
+PIDCalib/PidCalibProduction/python/PidCalibProduction/Run2/parseTupleConfig.py
+```
+and add the following lines (with the correct indentation):
+```python
+from Configurables import TupleToolANNPIDTraining
+if hasattr(tuple, 'probe'):
+    tuple.probe.addTool(TupleToolANNPIDTraining, name='TupleToolANNPIDTraining')
+    tuple.probe.ToolList+=['TupleToolANNPIDTraining/TupleToolANNPIDTraining']
+
+# Note: The 'if' line is needed otherwise the non-J/Psi processing fails due to
+        a lack of 'probe' property.
+
+        However, in my locally generated sample ntuple, all 28 trees has the
+        'probe' property, so not sure WHY this is needed.
+```
+
+We then need to setup some environmental variable:
+```
+./run bash  # go to a shell that has our custom Castelao ready
+cd WG/PIDCalib
+export PIDCALIBROOT=$(pwd)
+```
+
+Now, to produce `J/psi` only samples:
+```
+gaudirun.py \
+    $PIDCALIBROOT/scriptsR2/makeTuples_pp_2016_reprocessing_Jpsinopt.py \
+    $PIDCALIBROOT/scriptsR2/DataType-2016repro.py
+```
+
+To produce everything else:
+```
+gaudirun.py \
+    $PIDCALIBROOT/scriptsR2/makeTuples_pp_2016_reprocessing.py \
+    $PIDCALIBROOT/scriptsR2/DataType-2016repro.py
+```
+
 ### With a `Castelao` docker image:
 
 First, spawn a container with an image built by us:
