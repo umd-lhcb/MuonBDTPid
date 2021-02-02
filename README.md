@@ -80,7 +80,7 @@ if hasattr(tuple, 'probe'):
 # Note: The 'if' line is needed otherwise the non-J/Psi processing fails due to
 #       a lack of 'probe' property.
 #
-#       However, in my locally generated sample ntuple, all 28 trees has the
+#       However, in my locally generated sample ntuple, all 28 trees have the
 #       'probe' property, so not sure WHY this is needed.
 ```
 
