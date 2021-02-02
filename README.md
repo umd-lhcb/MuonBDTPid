@@ -78,10 +78,10 @@ if hasattr(tuple, 'probe'):
     tuple.probe.ToolList+=['TupleToolANNPIDTraining/TupleToolANNPIDTraining']
 
 # Note: The 'if' line is needed otherwise the non-J/Psi processing fails due to
-        a lack of 'probe' property.
-
-        However, in my locally generated sample ntuple, all 28 trees has the
-        'probe' property, so not sure WHY this is needed.
+#       a lack of 'probe' property.
+#
+#       However, in my locally generated sample ntuple, all 28 trees has the
+#       'probe' property, so not sure WHY this is needed.
 ```
 
 We then need to setup some environmental variable:
@@ -89,6 +89,20 @@ We then need to setup some environmental variable:
 ./run bash  # go to a shell that has our custom Castelao ready
 cd WG/PIDCalib
 export PIDCALIBROOT=$(pwd)
+```
+
+And comment out the `Input` line in the `makeTuples_pp*.py` files:
+```python
+dv = DaVinci (
+        InputType             = "MDST"
+            , Turbo           = True
+            , RootInTES       = "/Event/Turbo"
+#            , DataType        = "2016" #added by me just for this test
+            , EvtMax          = -1
+            , Lumi            = True
+            , TupleFile       = "pidcalib.root"
+#            , Input           = ['root://eoslhcb.cern.ch//eos/lhcb/user/p/poluekt/PID/2016_TurCal_DST/00053197_00000610_2.fullturbo.dst']
+          )
 ```
 
 Now, to produce `J/psi` only samples:
