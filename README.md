@@ -133,6 +133,8 @@ these are the input variables to the uBDT
 (These names are also used in the [source](https://github.com/umd-lhcb/MuonBDTPid/blob/master/src/AddUboostBranchRun2.cpp)):
 
 ```
+TrackP
+TrackPt
 TrackChi2PerDof
 TrackNumDof
 TrackLikelihood
@@ -176,9 +178,4 @@ InAccBrem
 BremPIDe
 VeloCharge
 isMuonTight
-```
-
-```
-TrackP
-TrackPt
 ```
