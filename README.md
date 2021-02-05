@@ -166,6 +166,7 @@ MuonNShared
 ```
 InAccEcal
 EcalPIDe
+EcalPIDmu
 InAccHcal
 HcalPIDe
 HcalPIDmu
