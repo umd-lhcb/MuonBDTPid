@@ -133,8 +133,6 @@ these are the input variables to the uBDT
 (These names are also used in the [source](https://github.com/umd-lhcb/MuonBDTPid/blob/master/src/AddUboostBranchRun2.cpp)):
 
 ```
-TrackP
-TrackPt
 TrackChi2PerDof
 TrackNumDof
 TrackLikelihood
@@ -144,38 +142,40 @@ TrackFitVeloChi2
 TrackFitVeloNDoF
 TrackFitTChi2
 TrackFitTNDoF
+TrackP
+TrackPt
 ```
 
 ```
-RichUsedAero
-RichUsedR1Gas
-RichUsedR2Gas
-RichAboveMuThres
-RichAboveKaThres
-RichDLLe
-RichDLLmu
-RichDLLk
-RichDLLp
-RichDLLbt
+RichUsedAero     -> probe_Brunel_RICHAerogelUsed
+RichUsedR1Gas    -> probe_Brunel_RICH1GasUsed
+RichUsedR2Gas    -> probe_Brunel_RICH2GasUsed
+RichAboveMuThres -> probe_Brunel_RICHThresholdMu
+RichAboveKaThres -> probe_Brunel_RICHThresholdKa
+RichDLLe         -> probe_Brunel_RichDLLe
+RichDLLmu        -> probe_Brunel_RichDLLmu
+RichDLLk         -> probe_Brunel_RichDLLk
+RichDLLp         -> probe_Brunel_RichDLLp
+RichDLLbt        -> probe_Brunel_RichDLLbt
 ```
 
 ```
-MuonBkgLL
-MuonMuLL
-MuonNShared
+MuonBkgLL   -> probe_MuonBgLL
+MuonMuLL    -> probe_MuonMuLL
+MuonNShared -> ?probe_NShared
 ```
 
 ```
 InAccEcal
-EcalPIDe
+EcalPIDe    -> ?probe_Brunel_PP_EcalPIDe
 EcalPIDmu
 InAccHcal
-HcalPIDe
+HcalPIDe    -> ?probe_Brunel_PP_EcalHcalPIDe
 HcalPIDmu
 InAccPrs
-PrsPIDe
+PrsPIDe     -> ?probe_Brunel_PP_PrsPIDe
 InAccBrem
 BremPIDe
-VeloCharge
-isMuonTight
+VeloCharge  -> ?probe_Brunel_PP_VeloCharge
+isMuonTight -> probe_isMuonTight
 ```
