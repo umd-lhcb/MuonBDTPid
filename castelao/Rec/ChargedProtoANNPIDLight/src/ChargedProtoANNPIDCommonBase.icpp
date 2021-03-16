@@ -1,0 +1,306 @@
+/*****************************************************************************\
+* (c) Copyright 2000-2019 CERN for the benefit of the LHCb Collaboration      *
+*                                                                             *
+* This software is distributed under the terms of the GNU General Public      *
+* Licence version 3 (GPL Version 3), copied verbatim in the file "COPYING".   *
+*                                                                             *
+* In applying this licence, CERN does not waive the privileges and immunities *
+* granted to it by virtue of its status as an Intergovernmental Organization  *
+* or submit itself to any jurisdiction.                                       *
+\*****************************************************************************/
+
+// local
+#include "ChargedProtoANNPIDCommonBase.h"
+
+// FPE exception protection
+#include "Kernel/FPEGuard.h"
+
+// Redirect streams
+#include "Kernel/STLOStreamRedirect.h"
+
+// STL
+#include <algorithm>
+#include <fstream>
+
+// boost
+#include "boost/algorithm/string.hpp"
+#include "boost/format.hpp"
+#include "boost/lexical_cast.hpp"
+#include "boost/optional.hpp"
+#include "boost/regex.hpp"
+
+//=============================================================================
+// Constructor initialisation
+//=============================================================================
+template <class PBASE>
+void ANNGlobalPID::ChargedProtoANNPIDCommonBase<PBASE>::initCommonConstructor() {
+  // Job Options
+  this->declareProperty( "ProtoParticleLocation", m_protoPath = LHCb::ProtoParticleLocation::Charged );
+  this->declareProperty( "RecSummaryLocation", m_recSumPath = LHCb::RecSummaryLocation::Default );
+}
+
+//=============================================================================
+// Initialisation
+//=============================================================================
+template <class PBASE>
+StatusCode ANNGlobalPID::ChargedProtoANNPIDCommonBase<PBASE>::initialize() {
+  // Execute the base class initialize
+  StatusCode sc = PBASE::initialize();
+  if ( sc.isFailure() ) { return this->Error( "Failed to initialise Gaudi Base class", sc ); }
+
+  // Printout from initialize
+  if ( this->msgLevel( MSG::DEBUG ) ) { this->debug() << "Initialize" << endmsg; }
+
+  // Setup incident services
+  IIncidentSvc* incSvc = this->template svc<IIncidentSvc>( "IncidentSvc", true );
+  incSvc->addListener( this, IncidentType::EndEvent );
+  if ( sc ) sc = this->releaseSvc( incSvc );
+
+  return sc;
+}
+//=============================================================================
+
+//=============================================================================
+// Incident handle
+//=============================================================================
+template <class PBASE>
+void ANNGlobalPID::ChargedProtoANNPIDCommonBase<PBASE>::handle( const Incident& ) {
+  m_summary = nullptr;
+}
+//=============================================================================
+
+//=============================================================================
+// Finalisation
+//=============================================================================
+template <class PBASE>
+StatusCode ANNGlobalPID::ChargedProtoANNPIDCommonBase<PBASE>::finalize() {
+  // Printout from finalization
+  if ( this->msgLevel( MSG::DEBUG ) ) { this->debug() << "Finalize" << endmsg; }
+
+  // Finalise base class and return
+  return PBASE::finalize();
+}
+//=============================================================================
+
+//=============================================================================
+// Access the RecSummary
+//=============================================================================
+template <class PBASE>
+const LHCb::RecSummary* ANNGlobalPID::ChargedProtoANNPIDCommonBase<PBASE>::recSummary() const {
+  if ( !m_summary ) {
+    m_summary = this->template getIfExists<LHCb::RecSummary>( m_recSumPath, false );
+    if ( !m_summary ) { m_summary = this->template getIfExists<LHCb::RecSummary>( m_recSumPath, true ); }
+    // if still not found, issue a warning
+    if ( !m_summary ) { this->Warning( "RecSummary missing at " + m_recSumPath ).ignore(); }
+  }
+  return m_summary;
+}
+//=============================================================================
+
+//=============================================================================
+template <class PBASE>
+typename ANNGlobalPID::ChargedProtoANNPIDCommonBase<PBASE>::Input::ConstVector
+ANNGlobalPID::ChargedProtoANNPIDCommonBase<PBASE>::getInputs( const StringInputs& names ) const {
+  typename Input::ConstVector inputs;
+  inputs.reserve( names.size() );
+  for ( const auto& name : names ) { inputs.emplace_back( getInput( name ) ); }
+  return inputs;
+}
+//=============================================================================
+
+//=============================================================================
+template <class PBASE>
+typename ANNGlobalPID::ChargedProtoANNPIDCommonBase<PBASE>::Input::SmartPtr
+ANNGlobalPID::ChargedProtoANNPIDCommonBase<PBASE>::getInput( const std::string& name ) const {
+  Input* input = nullptr;
+
+  // Tracking variables
+  if ( "TrackP" == name ) {
+    input = new InTrackP();
+  } else if ( "TrackPt" == name ) {
+    input = new InTrackPt();
+  } else if ( "TrackLikelihood" == name ) {
+    input = new InTrackLikelihood();
+  } else if ( "TrackGhostProbability" == name ) {
+    input = new InTrackGhostProb();
+  } else if ( "TrackCloneDist" == name ) {
+    input = new InTrackCloneDist();
+  } else if ( "TrackFitMatchChi2" == name ) {
+    input = new InTrackExInfo( LHCb::Track::AdditionalInfo::FitMatchChi2 );
+  } else if ( "TrackFitVeloChi2" == name ) {
+    input = new InTrackExInfo( LHCb::Track::AdditionalInfo::FitVeloChi2 );
+  } else if ( "TrackFitVeloNDoF" == name ) {
+    input = new InTrackExInfo( LHCb::Track::AdditionalInfo::FitVeloNDoF );
+  } else if ( "TrackFitTChi2" == name ) {
+    input = new InTrackExInfo( LHCb::Track::AdditionalInfo::FitTChi2 );
+  } else if ( "TrackFitTNDoF" == name ) {
+    input = new InTrackExInfo( LHCb::Track::AdditionalInfo::FitTNDoF );
+  } else if ( "TrackMatchChi2" == name ) {
+    input = new InTrackExInfo( LHCb::Track::AdditionalInfo::MatchChi2 );
+  } else if ( "TrackDOCA" == name ) {
+    input = new InTrackDOCA();
+  }
+
+  // Rich Variables
+  else if ( "RichUsedAero" == name ) {
+    input = new InRichUsedAerogel();
+  } else if ( "RichUsedR1Gas" == name ) {
+    input = new InRichUsedR1Gas();
+  } else if ( "RichUsedR2Gas" == name ) {
+    input = new InRichUsedR2Gas();
+  } else if ( "RichAboveElThres" == name ) {
+    input = new InRichAboveElThres();
+  } else if ( "RichAboveMuThres" == name ) {
+    input = new InRichAboveMuThres();
+  } else if ( "RichAbovePiThres" == name ) {
+    input = new InRichAbovePiThres();
+  } else if ( "RichAboveKaThres" == name ) {
+    input = new InRichAboveKaThres();
+  } else if ( "RichAbovePrThres" == name ) {
+    input = new InRichAbovePrThres();
+  } else if ( "RichAboveDeThres" == name ) {
+    input = new InRichAboveDeThres();
+  } else if ( "RichDLLe" == name ) {
+    input = new InRichDLL( Rich::Electron );
+  } else if ( "RichDLLmu" == name ) {
+    input = new InRichDLL( Rich::Muon );
+  } else if ( "RichDLLpi" == name ) {
+    input = new InRichDLL( Rich::Pion );
+  } else if ( "RichDLLk" == name ) {
+    input = new InRichDLL( Rich::Kaon );
+  } else if ( "RichDLLp" == name ) {
+    input = new InRichDLL( Rich::Proton );
+  } else if ( "RichDLLd" == name ) {
+    input = new InRichDLL( Rich::Deuteron );
+  } else if ( "RichDLLbt" == name ) {
+    input = new InRichDLL( Rich::BelowThreshold );
+  }
+
+  // Muon variables
+  else if ( "MuonIsLooseMuon" == name ) {
+    input = new InMuonIsMuonLoose();
+  } else if ( "MuonIsMuon" == name ) {
+    input = new InMuonIsMuon();
+  } else if ( "MuonNShared" == name ) {
+    input = new InMuonNShared();
+  } else if ( "MuonMuLL" == name ) {
+    input = new InMuonLLMu();
+  } else if ( "MuonBkgLL" == name ) {
+    input = new InMuonLLBkg();
+  }
+
+  // GEC Variables
+  else if ( "NumProtoParticles" == name ) {
+    input = new InNumProtos();
+  } else if ( "NumCaloHypos" == name ) {
+    input = new InNumCaloHypos();
+  } else if ( "NumLongTracks" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nLongTracks, this );
+  } else if ( "NumDownstreamTracks" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nDownstreamTracks, this );
+  } else if ( "NumUpstreamTracks" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nUpstreamTracks, this );
+  } else if ( "NumVeloTracks" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nVeloTracks, this );
+  } else if ( "NumTTracks" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nTTracks, this );
+  } else if ( "NumGhosts" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nGhosts, this );
+  } else if ( "NumMuonTracks" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nMuonTracks, this );
+  } else if ( "NumPVs" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nPVs, this );
+  } else if ( "NumRich1Hits" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nRich1Hits, this );
+  } else if ( "NumRich2Hits" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nRich2Hits, this );
+  } else if ( "NumVeloClusters" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nVeloClusters, this );
+  } else if ( "NumITClusters" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nITClusters, this );
+  } else if ( "NumTTClusters" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nTTClusters, this );
+  } else if ( "NumOTClusters" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nOTClusters, this );
+  } else if ( "NumSPDHits" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nSPDhits, this );
+  } else if ( "NumMuonCoordsS0" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nMuonCoordsS0, this );
+  } else if ( "NumMuonCoordsS1" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nMuonCoordsS1, this );
+  } else if ( "NumMuonCoordsS2" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nMuonCoordsS2, this );
+  } else if ( "NumMuonCoordsS3" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nMuonCoordsS3, this );
+  } else if ( "NumMuonCoordsS4" == name ) {
+    input = new InRecSummary( LHCb::RecSummary::nMuonCoordsS4, this );
+  }
+
+  // Proto Extra Info variables with specific default requirements, not -999
+  else if ( "InAccMuon" == name ) {
+    input = new InProtoExInfo( LHCb::ProtoParticle::additionalInfo::InAccMuon, 0 );
+  } else if ( "InAccEcal" == name ) {
+    input = new InProtoExInfo( LHCb::ProtoParticle::additionalInfo::InAccEcal, 0 );
+  } else if ( "InAccHcal" == name ) {
+    input = new InProtoExInfo( LHCb::ProtoParticle::additionalInfo::InAccHcal, 0 );
+  } else if ( "InAccPrs" == name ) {
+    input = new InProtoExInfo( LHCb::ProtoParticle::additionalInfo::InAccPrs, 0 );
+  } else if ( "InAccSpd" == name ) {
+    input = new InProtoExInfo( LHCb::ProtoParticle::additionalInfo::InAccSpd, 0 );
+  } else if ( "InAccBrem" == name ) {
+    input = new InProtoExInfo( LHCb::ProtoParticle::additionalInfo::InAccBrem, 0 );
+  } else if ( "CaloEcalChi2" == name ) {
+    input = new InCaloEcalChi2();
+  } else if ( "CaloBremChi2" == name ) {
+    input = new InCaloBremChi2();
+  } else if ( "CaloClusChi2" == name ) {
+    input = new InCaloClusChi2();
+  }
+
+  // Generic ProtoParticle Extra Info
+  else {
+    input = new InProtoExInfo( LHCb::ProtoParticle::convertExtraInfo( name ) );
+  }
+
+  if ( !input ) {
+    this->Exception( "Failed to create input object for '" + name + "'" );
+  } else {
+    input->setName( name );
+  }
+
+  return typename Input::SmartPtr( input );
+}
+//=============================================================================
+
+//=============================================================================
+// Cut constructor
+//=============================================================================
+template <class PBASE>
+ANNGlobalPID::ChargedProtoANNPIDCommonBase<PBASE>::Cut::Cut( const std::string&                         desc,
+                                                             const ChargedProtoANNPIDCommonBase<PBASE>* parent )
+    : m_desc( desc ) {
+  // Cuts must have a precise form. Either
+  //    variable > value
+  // or
+  //    variable < value
+
+  // Parse the cut string
+  boost::regex                 re( "\\s+" );
+  boost::sregex_token_iterator i( desc.begin(), desc.end(), re, -1 );
+  boost::sregex_token_iterator j;
+  std::vector<std::string>     matches;
+  while ( i != j ) { matches.push_back( *i++ ); }
+  if ( matches.size() == 3 ) {
+    // Get the variable from its name
+    m_variable = parent->getInput( matches[0] );
+
+    // Delimitor
+    m_OK = setDelim( matches[1] );
+
+    // The cut value
+    m_cut = boost::lexical_cast<double>( matches[2] );
+  }
+
+  // Remove spaces from the cached description string
+  boost::erase_all( m_desc, " " );
+}
