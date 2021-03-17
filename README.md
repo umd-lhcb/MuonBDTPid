@@ -94,7 +94,7 @@ gaudirun.py \
 
 To produce everything else, drop in the same `bash`, then:
 ```
-./run gaudirun.py \
+gaudirun.py \
     $PIDCALIBROOT/scriptsR2/makeTuples_pp_2016_reprocessing.py \
     $PIDCALIBROOT/scriptsR2/DataType-2016repro.py
 ```
