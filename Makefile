@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Sun Jan 31, 2021 at 10:55 PM +0100
+# Last Change: Wed Mar 17, 2021 at 01:38 AM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -19,7 +19,7 @@ ADDLINKFLAGS	:=	-lTreePlayer -lMinuit -lFoam -lXMLIO -lTMVA
 CASTELAO_VERSION=Castelao-v3r4
 
 # Executables
-AddUboostBranchRun2:
+addUBDTBranchRun2:
 
 uBoostTrain.dbg:
 
