@@ -61,33 +61,12 @@ git lb-checkout Castelao/run2-patches PIDCalib/PidCalibProduction
 git lb-clone-pkg WG/PIDCalib -b v9r3
 ```
 
-We need to customize our `Castelao` so that we have all branches needed
-for uBDT. Go to `LN460` of the file:
-```
-PIDCalib/PidCalibProduction/python/PidCalibProduction/Run2/parseTupleConfig.py
-```
-and add the following lines (with the correct indentation):
-```python
-from Configurables import TupleToolANNPIDTraining
-if hasattr(tuple, 'probe'):
-    tuple.probe.addTool(TupleToolANNPIDTraining, name='TupleToolANNPIDTraining')
-    tuple.probe.ToolList+=['TupleToolANNPIDTraining/TupleToolANNPIDTraining']
+All required changes to Castelao are included in this repository. Copy all
+contents in `./castelao` to `CastelaoDev_vXrY` folder.
 
-# Note: The 'if' line is needed otherwise the non-J/Psi processing fails due to
-#       a lack of 'probe' property.
-#
-#       However, in my locally generated sample ntuple, all 28 trees have the
-#       'probe' property, so not sure WHY this is needed.
-```
-
-We then need to setup some environmental variable:
-```
-./run bash  # go to a shell that has our custom Castelao ready
-cd WG/PIDCalib
-export PIDCALIBROOT=$(pwd)
-```
-
-And comment out the `Input` line in the `makeTuples_pp*.py` files:
+Finally, comment out the `Input` and `DataType` lines in the
+`makeTuples_pp_YYYY_reprocessing*.py` files. Below is an example from
+`makeTuples_pp_YYYY_reprocessing_Jpsinopt.py` file:
 ```python
 dv = DaVinci (
         InputType             = "MDST"
@@ -101,16 +80,21 @@ dv = DaVinci (
           )
 ```
 
-Now, to produce `J/psi` only samples:
+Now, to produce `J/psi` only samples, first, drop into a `bash` shell:
+```
+./run bash
+```
+
+In the `bash` shell, run:
 ```
 gaudirun.py \
     $PIDCALIBROOT/scriptsR2/makeTuples_pp_2016_reprocessing_Jpsinopt.py \
     $PIDCALIBROOT/scriptsR2/DataType-2016repro.py
 ```
 
-To produce everything else:
+To produce everything else, drop in the same `bash`, then:
 ```
-gaudirun.py \
+./run gaudirun.py \
     $PIDCALIBROOT/scriptsR2/makeTuples_pp_2016_reprocessing.py \
     $PIDCALIBROOT/scriptsR2/DataType-2016repro.py
 ```
