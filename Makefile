@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Thu Mar 18, 2021 at 02:23 AM +0100
+# Last Change: Thu Mar 18, 2021 at 02:25 AM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -18,23 +18,6 @@ ADDLINKFLAGS	:=	-lTreePlayer -lMinuit -lFoam -lXMLIO -lTMVA
 
 CASTELAO_VERSION=Castelao-v3r4
 
-# Test: Apply UBDT to a PIDCalib sample
-.PHONY: test-apply
-test-apply: gen/pidcalib.root addUBDTBranchRun2_pid_sample
-	$(word 2, $^) $<
-
-gen/pidcalib.root: samples/JPsi--21_02_05--pidcalib--data--2016--nopt-subset.root
-	@cp $< $@
-	@chmod 644 $@
-
-# Executables
-addUBDTBranchRun2:
-addUBDTBranchRun2_pid_sample:
-
-# Executables (w/ debug symbols)
-uBoostTrain.dbg:
-
-# Helpers
 .PHONY: clean
 clean:
 	@rm -rf $(BINPATH)/*
@@ -43,7 +26,11 @@ clean:
 	@rm -rf weights/TMVA_BDT.class.C
 	@rm -rf weights/TMVA_BDT.weights.xml
 
-# Castelao docker image
+
+#####################
+# Run docker images #
+#####################
+
 .PHONY: docker-cl
 
 ifeq ($(OS),Darwin)
@@ -55,7 +42,36 @@ endif
 docker-cl:
 	@eval $(CL_CMD)
 
-# General patterns
+
+#########
+# Tests #
+#########
+
+# Apply UBDT to a PIDCalib sample
+.PHONY: test-apply
+test-apply: gen/pidcalib.root addUBDTBranchRun2_pid_sample
+	$(word 2, $^) $<
+
+gen/pidcalib.root: samples/JPsi--21_02_05--pidcalib--data--2016--nopt-subset.root
+	@cp $< $@
+	@chmod 644 $@
+
+
+###############
+# Executables #
+###############
+
+addUBDTBranchRun2:
+addUBDTBranchRun2_pid_sample:
+
+# Executables (w/ debug symbols)
+uBoostTrain.dbg:
+
+
+####################
+# General patterns #
+####################
+
 %.dbg: %.cpp
 	$(COMPILER) $(CXXFLAGS) $(ADDCXXFLAGS) -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
 
