@@ -1,7 +1,8 @@
 test/TMVAUBDT.root
 weights/TMVA_BDT.class.C
 weights/TMVA_BDT.weights.xml
-CastelaoDev_*
 
 bin
 filename.root
+
+.lvimrc
