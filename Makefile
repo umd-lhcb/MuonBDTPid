@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Thu Mar 18, 2021 at 02:08 AM +0100
+# Last Change: Thu Mar 18, 2021 at 02:14 AM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -30,6 +30,10 @@ uBoostTrain.dbg:
 .PHONY: clean
 clean:
 	@rm -rf $(BINPATH)/*
+	@rm -rf gen/*
+	@rm -rf test/TMVAUBDT.root
+	@rm -rf weights/TMVA_BDT.class.C
+	@rm -rf weights/TMVA_BDT.weights.xml
 
 # Castelao docker image
 .PHONY: docker-cl
