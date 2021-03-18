@@ -1,36 +1,16 @@
-#include <cstdlib>
 #include <iostream>
 #include <map>
 #include <string>
 #include <vector>
 
-#include "TBranch.h"
-#include "TCanvas.h"
-#include "TChain.h"
-#include "TColor.h"
 #include "TFile.h"
-#include "TGraph.h"
-#include "TH2F.h"
-#include "TLatex.h"
-#include "TMath.h"
-#include "TObjString.h"
-#include "TPluginManager.h"
+#include "TMVA/Reader.h"
 #include "TROOT.h"
 #include "TString.h"
-#include "TSystem.h"
 #include "TTree.h"
 #include "TTreeFormula.h"
 
-#if not defined(__CINT__) || defined(__MAKECINT__)
-// needs to be included when makecint runs (ACLIC)
-#include "TMVA/Factory.h"
-#include "TMVA/MethodCuts.h"
-#include "TMVA/Reader.h"
-#include "TMVA/Tools.h"
-#endif
-
 using namespace std;
-using namespace TMVA;
 
 void addMuBDT(TFile *ntp, TString treename, TString isMuonTightBrName,
               TString outputBrName = "mu_bdt",
@@ -67,7 +47,7 @@ void addMuBDT(TFile *ntp, TString treename, TString isMuonTightBrName,
   // clang-format on
   auto obBrNames = vector<TString>{"TrackP", "TrackPt"};
 
-  auto *tree = (TTree *)dynamic_cast<TTree *>(ntp->Get(treename));
+  auto *tree = dynamic_cast<TTree *>(ntp->Get(treename));
   auto numEntries = static_cast<int>(tree->GetEntries());
 
   // Define variables to be loaded in the tree
