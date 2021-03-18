@@ -1,11 +1,12 @@
+// Author: Gregory Ciezarek, Yipeng Sun
+// Last Change: Thu Mar 18, 2021 at 04:18 AM +0100
+
 #include <iostream>
 #include <map>
-#include <string>
 #include <vector>
 
 #include "TFile.h"
 #include "TMVA/Reader.h"
-#include "TROOT.h"
 #include "TString.h"
 #include "TTree.h"
 #include "TTreeFormula.h"
