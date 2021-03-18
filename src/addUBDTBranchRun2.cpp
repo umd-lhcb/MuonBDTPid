@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Thu Mar 18, 2021 at 04:18 AM +0100
+// Last Change: Thu Mar 18, 2021 at 04:20 AM +0100
 
 #include <iostream>
 #include <map>
@@ -54,8 +54,8 @@ void addMuBDT(TFile *ntp, TString treename, TString isMuonTightBrName,
   // Define variables to be loaded in the tree
   auto treeFormulae = map<TString, TTreeFormula>{};
   for (auto name : varBrNames) {
-    treeFormulae.emplace(std::piecewise_construct, std::make_tuple(name),
-                         std::make_tuple(name, name, tree));
+    treeFormulae.emplace(piecewise_construct, make_tuple(name),
+                         make_tuple(name, name, tree));
   }
 
   cout << "Done loading input data" << endl;
