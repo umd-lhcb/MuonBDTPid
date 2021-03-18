@@ -32,8 +32,8 @@
 using namespace std;
 using namespace TMVA;
 
-void addMuBDT(TFile *ntp, TString treename, TString outputBrName = "mu_bdt",
-              TString isMuonTightBrName = "tag_isMuonTight",
+void addMuBDT(TFile *ntp, TString treename, TString isMuonTightBrName,
+              TString outputBrName = "mu_bdt",
               TString weightName = "weights/TMVA_Run2NoCut_UBDT.weights.xml") {
   // Configure branches to be loaded
   // NOTE: The ordering matters!
@@ -128,13 +128,15 @@ void addMuBDT(TFile *ntp, TString treename, TString outputBrName = "mu_bdt",
 
 int main(int argc, char *argv[]) {
   TString filename = argv[1];
+  TString isMuonTightBrName = argv[2];
   auto *ntp = new TFile(filename, "update");
   cout << "Input file: " << filename << endl;
+  cout << "isMuonTight branch name is: " << isMuonTightBrName << endl;
 
-  for (int i = 2; i < argc; i++) {
+  for (int i = 3; i < argc; i++) {
     TString treename = argv[i];
     cout << "Processing tree: " << treename << endl;
-    addMuBDT(ntp, treename);
+    addMuBDT(ntp, treename, isMuonTightBrName);
   }
 
   ntp->Close();

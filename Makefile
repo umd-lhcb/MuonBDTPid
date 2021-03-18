@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Thu Mar 18, 2021 at 04:04 AM +0100
+# Last Change: Thu Mar 18, 2021 at 04:08 AM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -50,7 +50,7 @@ docker-cl:
 # Apply UBDT to a PIDCalib sample
 .PHONY: test-apply
 test-apply: gen/pidcalib.root addUBDTBranchRun2
-	$(word 2, $^) $< "Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
+	$(word 2, $^) $< "tag_isMuonTight" "Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
 
 gen/pidcalib.root: samples/JPsi--21_02_05--pidcalib--data--2016--nopt-subset.root
 	@cp $< $@
