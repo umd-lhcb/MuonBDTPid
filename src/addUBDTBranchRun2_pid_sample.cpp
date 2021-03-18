@@ -211,7 +211,7 @@ void addMuBDT(TFile *ntp, TString treename, TString outputBrName = "mu_bdt",
     br->Fill();
   }
 
-  ntp->Write();
+  ntp->Write("", TObject::kOverwrite);  // Keep latest cycle only
 }
 
 int main(int argc, char *argv[]) {
