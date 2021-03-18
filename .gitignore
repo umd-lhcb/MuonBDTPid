@@ -3,6 +3,7 @@ weights/TMVA_BDT.class.C
 weights/TMVA_BDT.weights.xml
 
 bin
+gen
 filename.root
 
 .lvimrc
