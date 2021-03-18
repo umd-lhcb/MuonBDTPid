@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Thu Mar 18, 2021 at 02:14 AM +0100
+# Last Change: Thu Mar 18, 2021 at 02:20 AM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -18,8 +18,15 @@ ADDLINKFLAGS	:=	-lTreePlayer -lMinuit -lFoam -lXMLIO -lTMVA
 
 CASTELAO_VERSION=Castelao-v3r4
 
-# Executables
+# Test: Apply UBDT to a PIDCalib sample
+test-apply: gen/pidcalib.root addUBDTBranchRun2_pid_sample
+	$(word 2, $^) $<
 
+gen/pidcalib.root:
+	@cp ./samples/JPsi--21_02_05--pidcalib--data--2016--nopt-subset.root $@
+	@chmod 644 $@
+
+# Executables
 addUBDTBranchRun2:
 addUBDTBranchRun2_pid_sample:
 

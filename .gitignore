@@ -4,6 +4,5 @@ weights/TMVA_BDT.weights.xml
 
 bin
 gen
-filename.root
 
 .lvimrc
