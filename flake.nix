@@ -27,12 +27,6 @@
             python2
             root5
 
-            # Debug
-            gdb
-            cgdb
-            gdbgui
-            valgrind
-
             # Dev
             (python3.withPackages (ps: with ps; [
               black
