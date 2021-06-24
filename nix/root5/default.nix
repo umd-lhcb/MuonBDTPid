@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , cmake
 , pcre
@@ -28,14 +29,14 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "root-project";
     repo = pname;
-    rev = "v" + stdenv.lib.concatStringsSep "-" (stdenv.lib.splitString "." version);
+    rev = "v" + lib.concatStringsSep "-" (lib.splitString "." version);
     sha256 = "1lyz4b2raql3fw4l1k05d5lsmidp3nrqr6x0ckafqllilaah6n0k";
   };
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ cmake pcre python2 zlib libxml2 lz4 lzma gsl_1 xxHash ]
-    ++ stdenv.lib.optionals (!stdenv.isDarwin) [ libX11 libXpm libXft libXext libGLU libGL ]
-    ++ stdenv.lib.optionals (stdenv.isDarwin) [ Cocoa OpenGL ]
+    ++ lib.optionals (!stdenv.isDarwin) [ libX11 libXpm libXft libXext libGLU libGL ]
+    ++ lib.optionals (stdenv.isDarwin) [ Cocoa OpenGL ]
   ;
 
   patches = [
@@ -55,14 +56,14 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     patchShebangs build/unix/
-    ln -s ${stdenv.lib.getDev stdenv.cc.libc}/include/AvailabilityMacros.h cint/cint/include/
+    ln -s ${lib.getDev stdenv.cc.libc}/include/AvailabilityMacros.h cint/cint/include/
   ''
   # Fix CINTSYSDIR for "build" version of rootcint
   # This is probably a bug that breaks out-of-source builds
   + ''
     substituteInPlace cint/cint/src/loadfile.cxx\
       --replace 'env = "cint";' 'env = "'`pwd`'/cint";'
-  '' + stdenv.lib.optionalString noSplash ''
+  '' + lib.optionalString noSplash ''
     substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
   '';
 
@@ -100,13 +101,13 @@ stdenv.mkDerivation rec {
     "-Dxml=ON"
     "-Dxrootd=OFF"
   ]
-  ++ stdenv.lib.optional stdenv.isDarwin "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
+  ++ lib.optional stdenv.isDarwin "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
 
   enableParallelBuilding = true;
 
   setupHook = ./setup-hook.sh;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://root.cern.ch/";
     description = "A data analysis framework";
     platforms = platforms.unix;
