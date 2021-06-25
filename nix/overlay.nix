@@ -10,4 +10,11 @@ rec {
     root = root5;
     stdenv = if prev.stdenv.cc.isClang then prev.llvmPackages_5.stdenv else prev.gcc8Stdenv;
   };
+
+  addUBDTBranchWrapped = prev.writeScriptBin "addUBDTBranch" ''
+    unset LD_LIBRARY_PATH
+    unset DYLD_LIBRARY_PATH
+
+    exec ${final.addUBDTBranch}/bin/addUBDTBranchRun2 $@
+  '';
 }

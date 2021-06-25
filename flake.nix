@@ -26,7 +26,7 @@
           buildInputs = with pkgs; [
             root5
             python2
-            addUBDTBranch
+            addUBDTBranchWrapped
           ];
         };
       });
