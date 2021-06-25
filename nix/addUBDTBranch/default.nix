@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ root ];
-  
+
   installPhase = ''
     mkdir -p $out/bin
     cp addUBDTBranchRun2 $out/bin
