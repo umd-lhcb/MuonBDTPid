@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Fri Jun 25, 2021 at 09:59 PM +0200
+// Last Change: Fri Jun 25, 2021 at 11:25 PM +0200
 
 #include <TFile.h>
 #include <TMVA/Reader.h>
@@ -7,13 +7,74 @@
 #include <TTree.h>
 #include <TTreeFormula.h>
 
+#include <cmath>
+#include <iomanip>
 #include <iostream>
 #include <map>
+#include <ostream>
 #include <sstream>
 #include <string>
 #include <vector>
 
 using namespace std;
+
+////////
+// UI //
+////////
+
+class progress_bar {
+  // Stolen from:
+  //   https://codereview.stackexchange.com/questions/186535/progress-bar-in-c
+  static const auto overhead = sizeof " [100%]";
+
+  std::ostream &os;
+  const std::size_t bar_width;
+  std::string message;
+  const std::string full_bar;
+
+ public:
+  progress_bar(std::ostream &os, std::size_t line_width, std::string message_,
+               const char symbol = '.')
+      : os{os},
+        bar_width{line_width - overhead},
+        message{std::move(message_)},
+        full_bar{std::string(bar_width, symbol) + std::string(bar_width, ' ')} {
+    if (message.size() + 1 >= bar_width || message.find('\n') != message.npos) {
+      os << message << '\n';
+      message.clear();
+    } else {
+      message += ' ';
+    }
+    write(0.0);
+  }
+
+  // not copyable
+  progress_bar(const progress_bar &) = delete;
+  progress_bar &operator=(const progress_bar &) = delete;
+
+  ~progress_bar() {
+    write(1.0);
+    os << '\n';
+  }
+
+  void write(double fraction);
+};
+
+void progress_bar::write(double fraction) {
+  // clamp fraction to valid range [0,1]
+  if (fraction < 0)
+    fraction = 0;
+  else if (fraction > 1)
+    fraction = 1;
+
+  auto width = bar_width - message.size();
+  auto offset = bar_width - static_cast<unsigned>(width * fraction);
+
+  os << '\r' << message;
+  os.write(full_bar.data() + offset, width);
+  os << " [" << std::setw(3) << static_cast<int>(100 * fraction) << "%] "
+     << std::flush;
+}
 
 /////////////
 // Helpers //
@@ -145,11 +206,13 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   treeOut->Branch("eventNumber", &eventNumber);
 
   // Start processing
-  cout << endl
-       << "Processing " << numEntries
-       << " events from PIDCalib sample:" << endl;
+  cout << treeName << " has " << numEntries << " entries" << endl;
+  Long64_t stepSize = max(1ll, numEntries / 100ll);
+  auto progress = new progress_bar(std::clog, 79u, string("Processing"));
+
   for (int e = 0; e < numEntries; e++) {
-    if (e % 50000 == 0) cout << "...... " << e << " events complete" << endl;
+    if (!(e % stepSize))
+      progress->write(static_cast<float>(e) / static_cast<float>(numEntries));
     treeIn->GetEntry(e);
 
     for (auto name : varBrNames) {
@@ -164,6 +227,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   delete reader;
   delete treeIn;
   delete treeOut;
+  delete progress;
 }
 
 int main(int argc, char *argv[]) {
@@ -177,12 +241,10 @@ int main(int argc, char *argv[]) {
 
   cout << "Input file: " << inputFilename << endl;
   cout << "isMuonTight branch name is: " << isMuonTightBrName << endl;
-  cout << "Input BDT XML: " << inputXml << endl;
+  cout << "Input BDT XML: " << inputXml << endl << endl;
 
   for (int i = 5; i < argc; i++) {
-    string treeName = argv[i];
-    cout << "Processing tree: " << treeName << endl;
-    addMuBDT(ntpIn, ntpOut, treeName, isMuonTightBrName, inputXml);
+    addMuBDT(ntpIn, ntpOut, string(argv[i]), isMuonTightBrName, inputXml);
   }
 
   ntpIn->Close();
