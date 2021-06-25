@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Fri Jun 25, 2021 at 09:40 PM +0200
+// Last Change: Fri Jun 25, 2021 at 09:59 PM +0200
 
 #include <TFile.h>
 #include <TMVA/Reader.h>
@@ -149,7 +149,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
        << "Processing " << numEntries
        << " events from PIDCalib sample:" << endl;
   for (int e = 0; e < numEntries; e++) {
-    if (e % 5000 == 0) cout << "...... " << e << " events complete" << endl;
+    if (e % 50000 == 0) cout << "...... " << e << " events complete" << endl;
     treeIn->GetEntry(e);
 
     for (auto name : varBrNames) {
