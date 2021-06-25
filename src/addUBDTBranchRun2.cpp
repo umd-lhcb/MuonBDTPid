@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Fri Jun 25, 2021 at 04:49 AM +0200
+// Last Change: Fri Jun 25, 2021 at 09:22 PM +0200
 
 #include <TFile.h>
 #include <TMVA/Reader.h>
@@ -52,7 +52,7 @@ TString basename(string s) { return TString(split(s, '/').back()); }
 
 void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
               TString isMuonTightBrName, TString weightName,
-              TString outputBrName = "mu_bdt") {
+              TString outputBrName = "mu_bdt_mu") {
   // Configure branches to be loaded
   // NOTE: The ordering matters!
   // clang-format off
