@@ -8,6 +8,15 @@ Below we list some related links:
 - PIDCalib sample modes and cuts [option file](https://gitlab.cern.ch/lhcb/Castelao/-/blob/master/PIDCalib/PidCalibProduction/options/Run-2/makeTuples.py)
 
 
+## Adding Greg's run 2 Mu BDT branch
+
+```
+make addUBDTBranchRun2  # compile it first
+
+./bin/addUBDTBranchRun2 <input_ntuple> <isMuonTight_br_name> <UBDT_xml> <output_ntuple> <treename> [<treename> ... ]
+```
+
+
 ## PIDCalib samples
 
 ### Run 2 `J/psi -> mu+ mu-`, no `PT` cut
