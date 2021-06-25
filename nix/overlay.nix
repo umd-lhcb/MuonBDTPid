@@ -6,5 +6,8 @@ rec {
     stdenv = if prev.stdenv.cc.isClang then prev.llvmPackages_5.stdenv else prev.gcc8Stdenv;
   };
 
-  addUBDTBranch = prev.callPackage ./addUBDTBranch { root = root5; };
+  addUBDTBranch = prev.callPackage ./addUBDTBranch {
+    root = root5;
+    stdenv = if prev.stdenv.cc.isClang then prev.llvmPackages_5.stdenv else prev.gcc8Stdenv;
+  };
 }
