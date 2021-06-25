@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Fri Jun 25, 2021 at 09:22 PM +0200
+// Last Change: Fri Jun 25, 2021 at 09:40 PM +0200
 
 #include <TFile.h>
 #include <TMVA/Reader.h>
@@ -138,7 +138,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
 
   // run and event Numbers
   UInt_t runNumber;
-  Long64_t eventNumber;
+  ULong64_t eventNumber;
   treeIn->SetBranchAddress("runNumber", &runNumber);
   treeIn->SetBranchAddress("eventNumber", &eventNumber);
   treeOut->Branch("runNumber", &runNumber);
