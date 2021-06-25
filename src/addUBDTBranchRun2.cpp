@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Fri Jun 25, 2021 at 04:20 AM +0200
+// Last Change: Fri Jun 25, 2021 at 04:49 AM +0200
 
 #include <TFile.h>
 #include <TMVA/Reader.h>
@@ -139,6 +139,10 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   // run and event Numbers
   UInt_t runNumber;
   Long64_t eventNumber;
+  treeIn->SetBranchAddress("runNumber", &runNumber);
+  treeIn->SetBranchAddress("eventNumber", &eventNumber);
+  treeOut->Branch("runNumber", &runNumber);
+  treeOut->Branch("eventNumber", &eventNumber);
 
   // Start processing
   cout << endl
@@ -158,6 +162,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
 
   ntpOut->Write("", TObject::kOverwrite);  // Keep latest cycle only
   delete reader;
+  delete treeIn;
   delete treeOut;
 }
 
