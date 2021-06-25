@@ -1,21 +1,58 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Thu Mar 18, 2021 at 04:20 AM +0100
+// Last Change: Fri Jun 25, 2021 at 04:20 AM +0200
+
+#include <TFile.h>
+#include <TMVA/Reader.h>
+#include <TString.h>
+#include <TTree.h>
+#include <TTreeFormula.h>
 
 #include <iostream>
 #include <map>
+#include <sstream>
+#include <string>
 #include <vector>
-
-#include "TFile.h"
-#include "TMVA/Reader.h"
-#include "TString.h"
-#include "TTree.h"
-#include "TTreeFormula.h"
 
 using namespace std;
 
-void addMuBDT(TFile *ntp, TString treename, TString isMuonTightBrName,
-              TString outputBrName = "mu_bdt",
-              TString weightName = "weights/TMVA_Run2NoCut_UBDT.weights.xml") {
+/////////////
+// Helpers //
+/////////////
+
+vector<string> split(const string &s, char delim) {
+  stringstream ss(s);
+  string item;
+  vector<string> elems;
+
+  while (getline(ss, item, delim)) {
+    elems.push_back(move(item));
+  }
+
+  return elems;
+}
+
+TString dirname(string s) {
+  auto splitted = split(s, '/');
+  if (splitted.size() == 1) return TString("");
+
+  TString dir = "";
+  for (int idx = 0; idx < splitted.size() - 1; idx++) {
+    dir += splitted[idx];
+    if (idx < splitted.size() - 2) dir += "/";
+  }
+
+  return dir;
+}
+
+TString basename(string s) { return TString(split(s, '/').back()); }
+
+/////////////////////////
+// Add Muon BDT branch //
+/////////////////////////
+
+void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
+              TString isMuonTightBrName, TString weightName,
+              TString outputBrName = "mu_bdt") {
   // Configure branches to be loaded
   // NOTE: The ordering matters!
   // clang-format off
@@ -48,14 +85,26 @@ void addMuBDT(TFile *ntp, TString treename, TString isMuonTightBrName,
   // clang-format on
   auto obBrNames = vector<TString>{"TrackP", "TrackPt"};
 
-  auto *tree = dynamic_cast<TTree *>(ntp->Get(treename));
-  auto numEntries = static_cast<int>(tree->GetEntries());
+  auto treeIn = dynamic_cast<TTree *>(ntpIn->Get(TString(treeName)));
+  auto numEntries = static_cast<int>(treeIn->GetEntries());
+
+  // Recreate the same folder structure in output
+  auto treeDir = dirname(treeName);
+  auto treeBase = basename(treeName);
+
+  ntpOut->cd();
+  if (treeDir != TString("")) {
+    ntpOut->mkdir(treeDir);
+    ntpOut->cd(treeDir);
+  }
+
+  auto treeOut = new TTree(treeBase, treeBase);
 
   // Define variables to be loaded in the tree
   auto treeFormulae = map<TString, TTreeFormula>{};
   for (auto name : varBrNames) {
     treeFormulae.emplace(piecewise_construct, make_tuple(name),
-                         make_tuple(name, name, tree));
+                         make_tuple(name, name, treeIn));
   }
 
   cout << "Done loading input data" << endl;
@@ -85,43 +134,56 @@ void addMuBDT(TFile *ntp, TString treename, TString isMuonTightBrName,
 
   // Output branch
   float signalResponse;
-  TBranch *br = tree->Branch(outputBrName, &signalResponse);
+  treeOut->Branch(outputBrName, &signalResponse);
+
+  // run and event Numbers
+  UInt_t runNumber;
+  Long64_t eventNumber;
 
   // Start processing
   cout << endl
        << "Processing " << numEntries
        << " events from PIDCalib sample:" << endl;
   for (int e = 0; e < numEntries; e++) {
-    if (e % 10000 == 0) cout << "...... " << e << " events complete" << endl;
-    tree->GetEntry(e);
+    if (e % 5000 == 0) cout << "...... " << e << " events complete" << endl;
+    treeIn->GetEntry(e);
 
     for (auto name : varBrNames) {
       tempVars[name] = treeFormulae[name].EvalInstance();
     }
 
     signalResponse = reader->EvaluateMVA("UBDT method");
-    br->Fill();
+    treeOut->Fill();
   }
 
-  ntp->Write("", TObject::kOverwrite);  // Keep latest cycle only
+  ntpOut->Write("", TObject::kOverwrite);  // Keep latest cycle only
   delete reader;
+  delete treeOut;
 }
 
 int main(int argc, char *argv[]) {
-  TString filename = argv[1];
+  TString inputFilename = argv[1];
   TString isMuonTightBrName = argv[2];
-  auto *ntp = new TFile(filename, "update");
-  cout << "Input file: " << filename << endl;
-  cout << "isMuonTight branch name is: " << isMuonTightBrName << endl;
+  TString inputXml = argv[3];
+  TString outputFilename = argv[4];
 
-  for (int i = 3; i < argc; i++) {
-    TString treename = argv[i];
-    cout << "Processing tree: " << treename << endl;
-    addMuBDT(ntp, treename, isMuonTightBrName);
+  auto *ntpIn = new TFile(inputFilename, "read");
+  auto *ntpOut = new TFile(outputFilename, "recreate");
+
+  cout << "Input file: " << inputFilename << endl;
+  cout << "isMuonTight branch name is: " << isMuonTightBrName << endl;
+  cout << "Input BDT XML: " << inputXml << endl;
+
+  for (int i = 5; i < argc; i++) {
+    string treeName = argv[i];
+    cout << "Processing tree: " << treeName << endl;
+    addMuBDT(ntpIn, ntpOut, treeName, isMuonTightBrName, inputXml);
   }
 
-  ntp->Close();
-  delete ntp;
+  ntpIn->Close();
+  ntpOut->Close();
+  delete ntpIn;
+  delete ntpOut;
 
   return 0;
 }
