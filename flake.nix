@@ -24,13 +24,9 @@
           pname = "MuonBDTPid";
 
           buildInputs = with pkgs; [
-            python2
             root5
-
-            # Dev
-            (python3.withPackages (ps: with ps; [
-              black
-            ]))
+            python2
+            addUBDTBranch
           ];
         };
       });
