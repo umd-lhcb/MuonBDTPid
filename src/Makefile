@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Fri Jun 25, 2021 at 05:27 AM +0200
+# Last Change: Tue Jun 29, 2021 at 03:38 PM +0200
 
 # Compiler settings
 COMPILER	:=	$(shell root-config --cxx)
@@ -11,4 +11,4 @@ ADDLINKFLAGS	:=	-lTreePlayer -lMinuit -lFoam -lXMLIO -lTMVA
 addUBDTBranchRun2:
 
 %: %.cpp
-	$(COMPILER) $(CXXFLAGS) -o $@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
+	$(COMPILER) -std=c++11 $(CXXFLAGS) -o $@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
