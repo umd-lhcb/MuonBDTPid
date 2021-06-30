@@ -4,7 +4,6 @@
 , cmake
 , pcre
 , pkgconfig
-, python2
 , libX11
 , libXpm
 , libXft
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ cmake pcre python2 zlib libxml2 lz4 lzma gsl_1 xxHash ]
+  buildInputs = [ cmake pcre zlib libxml2 lz4 lzma gsl_1 xxHash ]
     ++ lib.optionals (!stdenv.isDarwin) [ libX11 libXpm libXft libXext libGLU libGL ]
     ++ lib.optionals (stdenv.isDarwin) [ Cocoa OpenGL ]
   ;
@@ -69,6 +68,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-Drpath=ON"
+    "-DCMAKE_CXX_STANDARD=11"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
     "-Dalien=OFF"
@@ -95,6 +95,7 @@ stdenv.mkDerivation rec {
     "-Dpgsql=OFF"
     "-Dpythia6=OFF"
     "-Dpythia8=OFF"
+    "-Dpython=OFF"
     "-Drfio=OFF"
     "-Dsqlite=OFF"
     "-Dssl=OFF"

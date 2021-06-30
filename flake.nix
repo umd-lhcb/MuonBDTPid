@@ -24,8 +24,7 @@
           pname = "MuonBDTPid";
 
           buildInputs = with pkgs; [
-            root5
-            python2
+            root5-ubdt
             addUBDTBranchWrapped
           ];
         };
