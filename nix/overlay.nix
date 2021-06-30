@@ -1,13 +1,13 @@
 final: prev:
 
-rec {
-  root5 = prev.callPackage ./root5 {
+{
+  root5-ubdt = prev.callPackage ./root5 {
     inherit (prev.darwin.apple_sdk.frameworks) Cocoa OpenGL;
     stdenv = if prev.stdenv.cc.isClang then prev.llvmPackages_5.stdenv else prev.gcc8Stdenv;
   };
 
   addUBDTBranch = prev.callPackage ./addUBDTBranch {
-    root = root5;
+    root = final.root5-ubdt;
     stdenv = if prev.stdenv.cc.isClang then prev.llvmPackages_5.stdenv else prev.gcc8Stdenv;
   };
 

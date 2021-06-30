@@ -3,7 +3,7 @@
 , root
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "addUBDTBranch";
   version = "0.1.1";
 
