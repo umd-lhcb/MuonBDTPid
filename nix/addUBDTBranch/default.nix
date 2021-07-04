@@ -1,5 +1,4 @@
 { stdenv
-, makeWrapper
 , root
 }:
 
@@ -9,7 +8,6 @@ stdenv.mkDerivation {
 
   src = builtins.path { path = ./../../src; name = "addUBDTBranch"; };
 
-  nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ root ];
 
   installPhase = ''
