@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Tue Nov 30, 2021 at 03:05 PM +0100
+# Last Change: Tue Nov 30, 2021 at 04:00 PM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -60,6 +60,19 @@ test-apply: \
 		samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
 		"probe_Brunel_isMuonTight" "weights/weights_run2_no_cut_ubdt.xml" "gen/pidcalib_new.root" \
 		"Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
+	plotbr \
+		-o ./gen/mu_bdt_mu_MuM_comp_norm.png \
+		-n ./gen/pidcalib_old.root/Jpsinopt_MuMTuple/DecayTree \
+		-b mu_bdt_mu -l "UBDT, MuM, old" \
+		-n ./gen/pidcalib_new.root/Jpsinopt_MuMTuple/DecayTree \
+		-b mu_bdt_mu -l "MuM, new" \
+	    --normalize -YL "Normalized"	
+	plotbr \
+		-o ./gen/mu_bdt_mu_MuM_comp.png \
+		-n ./gen/pidcalib_old.root/Jpsinopt_MuMTuple/DecayTree \
+		-b mu_bdt_mu -l "UBDT, MuM, old" \
+		-n ./gen/pidcalib_new.root/Jpsinopt_MuMTuple/DecayTree \
+		-b mu_bdt_mu -l "MuM, new"
 
 
 ###############
