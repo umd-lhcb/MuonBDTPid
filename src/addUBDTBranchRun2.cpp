@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Fri Jun 25, 2021 at 11:25 PM +0200
+// Last Change: Tue Nov 30, 2021 at 03:02 PM +0100
 
 #include <TFile.h>
 #include <TMVA/Reader.h>
@@ -117,12 +117,46 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   // Configure branches to be loaded
   // NOTE: The ordering matters!
   // clang-format off
+
+#ifdef PIDCALIB
+  TString prefix = "probe_Brunel_ANNTraining_";
+  TString prefix2 = "proble_Brunel_";
+
+  auto varBrNames = vector<TString>{
+    prefix+"TrackChi2PerDof", prefix+"TrackNumDof", prefix+"TrackGhostProb",
+    prefix+"TrackFitMatchChi2", prefix+"TrackFitVeloChi2", prefix+"TrackFitVeloNDoF",
+    prefix+"TrackFitTChi2", prefix+"TrackFitTNDoF",
+    //
+    // "RichUsedAero",     <-- Not needed for run 2!
+    // "TrackLikelihood",  <-- Not needed for run 2!
+    //
+    prefix2+"RICH1GasUsed", prefix2+"RICH2GasUsed",
+    prefix2+"RICHThresholdMu", prefix2+"RICHThresholdKa",
+    prefix+"RichDLLe", prefix+"RichDLLmu", prefix+"RichDLLk", prefix+"RichDLLp", prefix+"RichDLLbt",
+    //
+    prefix+"MuonLLBkg", prefix+"MuonLLMu", prefix+"MuonNShared",
+    //
+    prefix+"InAccEcal", prefix+"EcalPIDe", prefix+"EcalPIDmu",
+    //
+    prefix+"InAccHcal", prefix+"HcalPIDe", prefix+"HcalPIDmu",
+    //
+    prefix+"InAccPrs", prefix+"PrsPIDe",
+    //
+    prefix+"InAccBrem", prefix+"BremPIDe",
+    //
+    prefix+"VeloCharge",
+    //
+    isMuonTightBrName,
+    //
+    prefix+"TrackP", prefix+"TrackPt"
+  };
+
+#else
   auto varBrNames = vector<TString>{
     "TrackChi2PerDof", "TrackNumDof", "TrackGhostProbability",
     "TrackFitMatchChi2", "TrackFitVeloChi2", "TrackFitVeloNDoF",
     "TrackFitTChi2", "TrackFitTNDoF",
     //
-    //"RichUsedAero",  <-- Not needed for run 2!
     "RichUsedR1Gas", "RichUsedR2Gas",
     "RichAboveMuThres", "RichAboveKaThres",
     "RichDLLe", "RichDLLmu", "RichDLLk", "RichDLLp", "RichDLLbt",
@@ -143,6 +177,8 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
     //
     "TrackP", "TrackPt"
   };
+#endif
+
   // clang-format on
   auto obBrNames = vector<TString>{"TrackP", "TrackPt"};
 
