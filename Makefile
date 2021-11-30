@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Thu Jun 24, 2021 at 06:25 PM +0200
+# Last Change: Tue Nov 30, 2021 at 02:37 PM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -49,7 +49,7 @@ docker-cl:
 
 # Apply UBDT to a PIDCalib sample
 .PHONY: test-apply
-test-apply: samples/JPsi--21_02_05--pidcalib--data--2016--nopt-subset.root addUBDTBranchRun2
+test-apply: samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2
 	$(word 2, $^) $< \
 		"tag_isMuonTight" "weights/weights_run2_no_cut_ubdt.xml" "gen/pidcalib.root" \
 		"Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
@@ -60,6 +60,9 @@ test-apply: samples/JPsi--21_02_05--pidcalib--data--2016--nopt-subset.root addUB
 ###############
 
 addUBDTBranchRun2:
+
+addUBDTBranchRun2PidCalib: addUBDTBranchRun2.cpp
+	$(COMPILER) $(CXXFLAGS) -DPIDCALIB -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
 
 # Executables (w/ debug symbols)
 uBoostTrain.dbg:
