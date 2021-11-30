@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Tue Nov 30, 2021 at 03:14 PM +0100
+// Last Change: Tue Nov 30, 2021 at 03:39 PM +0100
 
 #include <TFile.h>
 #include <TMVA/Reader.h>
@@ -117,7 +117,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   // Configure branches to be loaded
   // NOTE: The ordering matters!
   // clang-format off
-  auto bdtVarNames = vector<TString>{
+  auto ubdtVarNames = vector<TString>{
     "TrackChi2PerDof", "TrackNumDof", "TrackGhostProbability",
     "TrackFitMatchChi2", "TrackFitVeloChi2", "TrackFitVeloNDoF",
     "TrackFitTChi2", "TrackFitTNDoF",
@@ -175,8 +175,6 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
     //
     prefix+"TrackP", prefix+"TrackPt"
   };
-
-  auto obBrNames = vector<TString>{prefix+"TrackP", prefix+"TrackPt"};
 #else
   auto varBrNames = vector<TString>{
     "TrackChi2PerDof", "TrackNumDof", "TrackGhostProbability",
@@ -203,10 +201,9 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
     //
     "TrackP", "TrackPt"
   };
-
-  auto obBrNames = vector<TString>{"TrackP", "TrackPt"};
 #endif
   // clang-format on
+  auto obVarNames = vector<TString>{"TrackP", "TrackPt"};
 
   auto treeIn = dynamic_cast<TTree *>(ntpIn->Get(TString(treeName)));
   auto numEntries = static_cast<int>(treeIn->GetEntries());
@@ -225,31 +222,29 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
 
   // Define variables to be loaded in the tree
   auto treeFormulae = map<TString, TTreeFormula>{};
-  for (auto name : varBrNames) {
-    treeFormulae.emplace(piecewise_construct, make_tuple(name),
-                         make_tuple(name, name, treeIn));
+  for (auto idx=0; idx < ubdtVarNames.size(); idx++) {
+    auto key = ubdtVarNames[idx];
+    auto formula = varBrNames[idx];
+    treeFormulae.emplace(piecewise_construct, make_tuple(key),
+                         make_tuple(key, formula, treeIn));
   }
 
   cout << "Done loading input data" << endl;
 
   // Define temp variable to store loaded branches in each loop
   map<TString, float> tempVars;
-  for (auto name : varBrNames) {
+  for (auto name : ubdtVarNames) {
     tempVars.emplace(name, 0.);
   }
 
   // Pointing temp variables to the TMVA reader
   auto reader = new TMVA::Reader("!Color:Silent");
 
-  for (auto name : varBrNames) {
-    if (name == isMuonTightBrName) {
-      reader->AddVariable("muminus_isMuonTight", &tempVars[name]);
-    } else {
-      reader->AddVariable(name, &tempVars[name]);
-    }
+  for (auto name : ubdtVarNames) {
+    reader->AddVariable(name, &tempVars[name]);
   }
 
-  for (auto name : obBrNames) {
+  for (auto name : obVarNames) {
     reader->AddSpectator(name, &tempVars[name]);
   }
 
