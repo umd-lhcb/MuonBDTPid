@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Tue Nov 30, 2021 at 03:02 PM +0100
+// Last Change: Tue Nov 30, 2021 at 03:14 PM +0100
 
 #include <TFile.h>
 #include <TMVA/Reader.h>
@@ -117,10 +117,35 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   // Configure branches to be loaded
   // NOTE: The ordering matters!
   // clang-format off
+  auto bdtVarNames = vector<TString>{
+    "TrackChi2PerDof", "TrackNumDof", "TrackGhostProbability",
+    "TrackFitMatchChi2", "TrackFitVeloChi2", "TrackFitVeloNDoF",
+    "TrackFitTChi2", "TrackFitTNDoF",
+    //
+    "RichUsedR1Gas", "RichUsedR2Gas",
+    "RichAboveMuThres", "RichAboveKaThres",
+    "RichDLLe", "RichDLLmu", "RichDLLk", "RichDLLp", "RichDLLbt",
+    //
+    "MuonBkgLL", "MuonMuLL", "MuonNShared",
+    //
+    "InAccEcal", "EcalPIDe", "EcalPIDmu",
+    //
+    "InAccHcal", "HcalPIDe", "HcalPIDmu",
+    //
+    "InAccPrs", "PrsPIDe",
+    //
+    "InAccBrem", "BremPIDe",
+    //
+    "VeloCharge",
+    //
+    "muminus_isMuonTight",
+    //
+    "TrackP", "TrackPt"
+  };
 
 #ifdef PIDCALIB
   TString prefix = "probe_Brunel_ANNTraining_";
-  TString prefix2 = "proble_Brunel_";
+  TString prefix2 = "probe_Brunel_";
 
   auto varBrNames = vector<TString>{
     prefix+"TrackChi2PerDof", prefix+"TrackNumDof", prefix+"TrackGhostProb",
@@ -146,11 +171,12 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
     //
     prefix+"VeloCharge",
     //
-    isMuonTightBrName,
+    isMuonTightBrName, 
     //
     prefix+"TrackP", prefix+"TrackPt"
   };
 
+  auto obBrNames = vector<TString>{prefix+"TrackP", prefix+"TrackPt"};
 #else
   auto varBrNames = vector<TString>{
     "TrackChi2PerDof", "TrackNumDof", "TrackGhostProbability",
@@ -177,10 +203,10 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
     //
     "TrackP", "TrackPt"
   };
-#endif
 
-  // clang-format on
   auto obBrNames = vector<TString>{"TrackP", "TrackPt"};
+#endif
+  // clang-format on
 
   auto treeIn = dynamic_cast<TTree *>(ntpIn->Get(TString(treeName)));
   auto numEntries = static_cast<int>(treeIn->GetEntries());
