@@ -29,6 +29,7 @@
           buildInputs = (with pkgs; with pythonPackages; [
             root5-ubdt
             addUBDTBranchWrapped
+            addUBDTBranchPidCalibWrapped
 
             virtualenvwrapper
             numpy

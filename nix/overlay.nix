@@ -17,4 +17,11 @@ final: prev:
 
     exec ${final.addUBDTBranch}/bin/addUBDTBranchRun2 $@
   '';
+
+  addUBDTBranchPidCalibWrapped = prev.writeScriptBin "addUBDTBranchPidCalib" ''
+    unset LD_LIBRARY_PATH
+    unset DYLD_LIBRARY_PATH
+
+    exec ${final.addUBDTBranch}/bin/addUBDTBranchRun2PidCalib $@
+  '';
 }
