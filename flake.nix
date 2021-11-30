@@ -31,6 +31,10 @@
             addUBDTBranchWrapped
             addUBDTBranchPidCalibWrapped
 
+            jedi
+            flake8
+            pylint
+
             virtualenvwrapper
             numpy
           ]);
