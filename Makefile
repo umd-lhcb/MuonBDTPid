@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Tue Nov 30, 2021 at 02:37 PM +0100
+# Last Change: Tue Nov 30, 2021 at 03:05 PM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -49,9 +49,16 @@ docker-cl:
 
 # Apply UBDT to a PIDCalib sample
 .PHONY: test-apply
-test-apply: samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2
-	$(word 2, $^) $< \
-		"tag_isMuonTight" "weights/weights_run2_no_cut_ubdt.xml" "gen/pidcalib.root" \
+test-apply: \
+	samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2 \
+	samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2PidCalib 
+	addUBDTBranchRun2 \
+		samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
+		"probe_isMuonTight" "weights/weights_run2_no_cut_ubdt.xml" "gen/pidcalib_old.root" \
+		"Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
+	addUBDTBranchRun2PidCalib \
+		samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
+		"probe_Brunel_isMuonTight" "weights/weights_run2_no_cut_ubdt.xml" "gen/pidcalib_new.root" \
 		"Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
 
 
