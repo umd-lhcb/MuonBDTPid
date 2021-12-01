@@ -1,11 +1,9 @@
 # Author: Yipeng Sun
-# Last Change: Tue Nov 30, 2021 at 04:00 PM +0100
+# Last Change: Wed Dec 01, 2021 at 02:19 AM +0100
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
 VPATH	:=	test:src:$(VPATH)
-
-export PATH	:=	$(BINPATH):$(PATH)
 
 # Compiler settings
 COMPILER	:=	$(shell root-config --cxx)
@@ -52,11 +50,11 @@ docker-cl:
 test-apply: \
 	samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2 \
 	samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2PidCalib 
-	addUBDTBranchRun2 \
+	bin/addUBDTBranchRun2 \
 		samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
 		"probe_isMuonTight" "weights/weights_run2_no_cut_ubdt.xml" "gen/pidcalib_old.root" \
 		"Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
-	addUBDTBranchRun2PidCalib \
+	bin/addUBDTBranchRun2PidCalib \
 		samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
 		"probe_Brunel_isMuonTight" "weights/weights_run2_no_cut_ubdt.xml" "gen/pidcalib_new.root" \
 		"Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"

@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Tue Nov 30, 2021 at 03:39 PM +0100
+// Last Change: Wed Dec 01, 2021 at 02:28 AM +0100
 
 #include <TFile.h>
 #include <TMVA/Reader.h>
@@ -272,7 +272,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
       progress->write(static_cast<float>(e) / static_cast<float>(numEntries));
     treeIn->GetEntry(e);
 
-    for (auto name : varBrNames) {
+    for (auto name : ubdtVarNames) {
       tempVars[name] = treeFormulae[name].EvalInstance();
     }
 
