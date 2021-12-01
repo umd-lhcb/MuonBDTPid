@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Yipeng Sun
-# Last Change: Wed Dec 01, 2021 at 01:37 AM +0100
+# Last Change: Wed Dec 01, 2021 at 01:47 AM +0100
 #
 # Description: Plot the following form-factor related figures
 #              - q2, normalized
@@ -27,7 +27,7 @@ def plotComp(ntp1, br1, ntp2, br2, output,
              tree='Jpsinopt_MuMTuple/DecayTree', labels=[],
              normalize=True, wtBr='wff', xRange=None):
     cmd = fr'''
-        plotbr -o {output} --labels {labels} \
+        plotbr -o {output} \
             -n {ntp1}/{tree} -b {br1} -l "{labels[0]}" \
             -n {ntp2}/{tree} -b {br2} -l "{labels[1]}" \
             --title "Jpsi nopt MuM"'''
@@ -85,7 +85,7 @@ ubdtInputBrs = [
 ]
 
 for (varOld, varNew) in ubdtInputBrs:
-    legendOld = varOld
+    legendOld = varOld.replace('probe', 'P')
     legendNew = varNew.replace('probe_Brunel', 'PB').replace(
         'ANNTraining', 'A')
 
