@@ -123,7 +123,7 @@ Then follow the instructions in the previous section.
 ### Required input variables
 According to the [ANA note](https://github.com/umd-lhcb/group-talks/blob/master/ana_thesis/RD_RDst_ANA_21-01-05.pdf), p.16,
 these are the input variables to the uBDT
-(These names are also used in the [source](https://github.com/umd-lhcb/MuonBDTPid/blob/master/src/AddUBDTBranchRun2.cpp)):
+(These names are also used in the [source](https://github.com/umd-lhcb/MuonBDTPid/blob/master/src/addUBDTBranchRun2.cpp)):
 
 ```python
 TrackChi2PerDof       <-> probe_Brunel_ANNTraining_TrackChi2PerDof
