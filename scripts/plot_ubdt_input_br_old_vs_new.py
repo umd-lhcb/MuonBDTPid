@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Yipeng Sun
-# Last Change: Wed Dec 01, 2021 at 01:47 AM +0100
+# Last Change: Wed Dec 01, 2021 at 02:02 AM +0100
 #
 # Description: Plot the following form-factor related figures
 #              - q2, normalized
@@ -8,6 +8,9 @@
 #              - line shapes of various D**, normalized
 
 import os
+import uproot
+
+from pyTuplingUtils.io import read_branch as readBr
 
 
 ###########
@@ -84,11 +87,17 @@ ubdtInputBrs = [
     ("TrackPt", brPref1+"TrackPt"),
 ]
 
+ntpOldLoaded = uproot.open(ntpOld)
+
 for (varOld, varNew) in ubdtInputBrs:
     legendOld = varOld.replace('probe', 'P')
     legendNew = varNew.replace('probe_Brunel', 'PB').replace(
         'ANNTraining', 'A')
+    tree = 'Jpsinopt_MuMTuple/DecayTree'
+
+    brOld = readBr(ntpOldLoaded, tree, varOld)
+    xRange = [brOld.min(), brOld.max()]
 
     outputFigName = f'../gen/{varOld}_MuM.png'
     plotComp(ntpOld, varOld, ntpNew, varNew, outputFigName,
-             labels=[legendOld, legendNew])
+             tree=tree, labels=[legendOld, legendNew], xRange=xRange)
