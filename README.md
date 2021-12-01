@@ -125,51 +125,49 @@ According to the [ANA note](https://github.com/umd-lhcb/group-talks/blob/master/
 these are the input variables to the uBDT
 (These names are also used in the [source](https://github.com/umd-lhcb/MuonBDTPid/blob/master/src/AddUBDTBranchRun2.cpp)):
 
-```
-TrackChi2PerDof
-TrackNumDof
-TrackGhostProbability
-TrackFitMatchChi2
-TrackFitVeloChi2
-TrackFitVeloNDoF
-TrackFitTChi2
-TrackFitTNDoF
-TrackP
-TrackPt
+```python
+TrackChi2PerDof       <-> probe_Brunel_ANNTraining_TrackChi2PerDof
+TrackNumDof           <-> probe_Brunel_ANNTraining_TrackNumDof
+TrackGhostProbability <-> probe_Brunel_ANNTraining_TrackGhostProb
+TrackFitMatchChi2     <-> probe_Brunel_ANNTraining_TrackFitMatchChi2
+TrackFitVeloChi2      <-> probe_Brunel_ANNTraining_TrackFitVeloChi2
+TrackFitVeloNDoF      <-> probe_Brunel_ANNTraining_TrackFitVeloNDoF
+TrackFitTChi2         <-> probe_Brunel_ANNTraining_TrackFitTChi2
+TrackFitTNDoF         <-> probe_Brunel_ANNTraining_TrackFitTNDoF
+####
+RichUsedR1Gas         <-> probe_Brunel_RICH1GasUsed
+RichUsedR2Gas         <-> probe_Brunel_RICH2GasUsed
+RichAboveMuThres      <-> probe_Brunel_RICHThresholdMu
+RichAboveKaThres      <-> probe_Brunel_RICHThresholdKa
+RichDLLe              <-> probe_Brunel_ANNTraining_RichDLLe
+RichDLLmu             <-> probe_Brunel_ANNTraining_RichDLLmu
+RichDLLk              <-> probe_Brunel_ANNTraining_RichDLLk
+RichDLLp              <-> probe_Brunel_ANNTraining_RichDLLp
+RichDLLbt             <-> probe_Brunel_ANNTraining_RichDLLbt
+####
+MuonBkgLL             <-> probe_Brunel_ANNTraining_MuonLLBkg
+MuonMuLL              <-> probe_Brunel_ANNTraining_MuonLLMu
+MuonNShared           <-> probe_Brunel_ANNTraining_MuonNShared
+InAccEcal             <-> probe_Brunel_ANNTraining_InAccEcal
+EcalPIDe              <-> probe_Brunel_ANNTraining_EcalPIDe
+EcalPIDmu             <-> probe_Brunel_ANNTraining_EcalPIDmu
+InAccHcal             <-> probe_Brunel_ANNTraining_InAccHcal
+HcalPIDe              <-> probe_Brunel_ANNTraining_HcalPIDe
+HcalPIDmu             <-> probe_Brunel_ANNTraining_HcalPIDmu
+InAccPrs              <-> probe_Brunel_ANNTraining_InAccPrs
+PrsPIDe               <-> probe_Brunel_ANNTraining_PrsPIDe
+InAccBrem             <-> probe_Brunel_ANNTraining_InAccBrem
+BremPIDe              <-> probe_Brunel_ANNTraining_BremPIDe
+VeloCharge            <-> probe_Brunel_ANNTraining_VeloCharge
+####
+probe_isMuonTight     <-> probe_Brunel_isMuonTight
+####
+TrackP                <-> probe_Brunel_ANNTraining_TrackP
+TrackPt               <-> probe_Brunel_ANNTraining_TrackPt
 ```
 
-```
-RichUsedR1Gas    -> probe_Brunel_RICH1GasUsed
-RichUsedR2Gas    -> probe_Brunel_RICH2GasUsed
-RichAboveMuThres -> probe_Brunel_RICHThresholdMu
-RichAboveKaThres -> probe_Brunel_RICHThresholdKa
-RichDLLe         -> probe_Brunel_RichDLLe
-RichDLLmu        -> probe_Brunel_RichDLLmu
-RichDLLk         -> probe_Brunel_RichDLLk
-RichDLLp         -> probe_Brunel_RichDLLp
-RichDLLbt        -> probe_Brunel_RichDLLbt
-```
-
-```
-MuonBkgLL   -> probe_MuonBgLL
-MuonMuLL    -> probe_MuonMuLL
-MuonNShared -> ?probe_NShared
-```
-
-```
-InAccEcal
-EcalPIDe    -> ?probe_Brunel_PP_EcalPIDe
-EcalPIDmu
-InAccHcal
-HcalPIDe    -> ?probe_Brunel_PP_EcalHcalPIDe
-HcalPIDmu
-InAccPrs
-PrsPIDe     -> ?probe_Brunel_PP_PrsPIDe
-InAccBrem
-BremPIDe
-VeloCharge  -> ?probe_Brunel_PP_VeloCharge
-isMuonTight -> probe_isMuonTight
-```
+**Note**: Left column indicates the input branches for normal ntuples, right
+indicates equivalent branches in PIDCalib ntuples.
 
 ### On the seemingly identical branches
 Naively, one would expect `RichDLLe` and `probe_Brunel_RichDLLe` are identical.
