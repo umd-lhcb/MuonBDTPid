@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # Author: Yipeng Sun
-# Last Change: Wed Dec 01, 2021 at 02:02 AM +0100
+# Last Change: Wed Dec 01, 2021 at 03:11 AM +0100
 #
-# Description: Plot the following form-factor related figures
-#              - q2, normalized
-#              - FF weights
-#              - line shapes of various D**, normalized
+# Description: Plot the input branches to UBDT for:
+#              - normal ntuples
+#              - PIDCalib ntuples
 
 import os
 import uproot
