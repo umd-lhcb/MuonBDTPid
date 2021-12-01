@@ -8,13 +8,19 @@ Below we list some related links:
 - PIDCalib sample modes and cuts [option file](https://gitlab.cern.ch/lhcb/Castelao/-/blob/master/PIDCalib/PidCalibProduction/options/Run-2/makeTuples.py)
 
 
-## Adding Greg's run 2 Mu BDT branch
+## Add Greg's run 2 Mu BDT branch
 
 ```
 make addUBDTBranchRun2  # compile it first
 
 ./bin/addUBDTBranchRun2 <input_ntuple> <isMuonTight_br_name> <UBDT_xml> <output_ntuple> <treename> [<treename> ... ]
 ```
+
+
+## Retrain the UBDT
+
+**Retraining is still broken**. The related code is preserved in `test` folder
+for archival purposes.
 
 
 ## PIDCalib samples
