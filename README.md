@@ -11,15 +11,15 @@ Below we list some related links:
 ## Add Greg's run 2 Mu BDT branch
 
 ```
-make addUBDTBranchRun2  # compile it first
+make AddUBDTBranchRun2  # compile it first
 
-./bin/addUBDTBranchRun2 <input_ntuple> <isMuonTight_br_name> <UBDT_xml> <output_ntuple> <treename> [<treename> ... ]
+./bin/AddUBDTBranchRun2 -i <input_ntuple> -o <output_ntuple> -p <muon_branch_name, like "probe"> -x <UBDT_xml> -t <treename>,[<treename> ... ]
 ```
 
 
 ## Retrain the UBDT
 
-**Retraining is still broken**. The related code is preserved in `test` folder
+**Retraining is broken, and there's no plan to fix**. The code is preserved in [`test`](https://github.com/umd-lhcb/MuonBDTPid/tree/0.2.0/test)
 for archival purposes.
 
 
