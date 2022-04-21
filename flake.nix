@@ -27,6 +27,8 @@
           pname = "MuonBDTPid";
 
           buildInputs = (with pkgs; with pythonPackages; [
+            clang-tools
+
             cxxopts
             root5-ubdt
 
