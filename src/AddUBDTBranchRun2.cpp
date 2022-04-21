@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Thu Apr 21, 2022 at 12:22 AM -0400
+// Last Change: Thu Apr 21, 2022 at 12:33 AM -0400
 
 #include <cmath>
 #include <iomanip>
@@ -115,6 +115,7 @@ TString basename(string s) { return TString(split(s, '/').back()); }
 
 void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName, TString particle,
               TString weightName, TString outputBrName) {
+  cout << "Working on " << treeName << endl;
   // Configure branches to be loaded
   // NOTE: The ordering matters!
   // clang-format off
