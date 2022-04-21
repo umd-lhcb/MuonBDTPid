@@ -32,6 +32,8 @@
             cxxopts
             root5-ubdt
 
+            AddUBDTBranchPidCalibWrapped
+
             virtualenvwrapper
             numpy
             pylint

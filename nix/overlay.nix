@@ -15,13 +15,13 @@ final: prev:
     unset LD_LIBRARY_PATH
     unset DYLD_LIBRARY_PATH
 
-    exec ${final.AddUBDTBranch}/bin/AddUBDTBranchRun2 $@
+    exec ${final.AddUBDTBranch}/bin/AddUBDTBranchRun2 $@ -x ${final.AddUBDTBranch}/weights/ubdt_run2.xml
   '';
 
   AddUBDTBranchPidCalibWrapped = prev.writeScriptBin "AddUBDTBranchPidCalib" ''
     unset LD_LIBRARY_PATH
     unset DYLD_LIBRARY_PATH
 
-    exec ${final.AddUBDTBranch}/bin/AddUBDTBranchRun2PidCalib $@
+    exec ${final.AddUBDTBranch}/bin/AddUBDTBranchRun2PidCalib $@ -x ${final.AddUBDTBranch}/weights/ubdt_run2.xml
   '';
 }
