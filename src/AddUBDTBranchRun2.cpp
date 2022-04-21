@@ -1,11 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Wed Dec 01, 2021 at 02:28 AM +0100
-
-#include <TFile.h>
-#include <TMVA/Reader.h>
-#include <TString.h>
-#include <TTree.h>
-#include <TTreeFormula.h>
+// Last Change: Thu Apr 21, 2022 at 12:07 AM -0400
 
 #include <cmath>
 #include <iomanip>
@@ -16,25 +10,33 @@
 #include <string>
 #include <vector>
 
+#include <TFile.h>
+#include <TMVA/Reader.h>
+#include <TString.h>
+#include <TTree.h>
+#include <TTreeFormula.h>
+
+#include <cxxopts.hpp>
+
 using namespace std;
 
 ////////
 // UI //
 ////////
 
-class progress_bar {
+class progressBar {
   // Stolen from:
   //   https://codereview.stackexchange.com/questions/186535/progress-bar-in-c
   static const auto overhead = sizeof " [100%]";
 
-  std::ostream &os;
+  std::ostream &    os;
   const std::size_t bar_width;
-  std::string message;
+  std::string       message;
   const std::string full_bar;
 
  public:
-  progress_bar(std::ostream &os, std::size_t line_width, std::string message_,
-               const char symbol = '.')
+  progressBar(std::ostream &os, std::size_t line_width, std::string message_,
+              const char symbol = '.')
       : os{os},
         bar_width{line_width - overhead},
         message{std::move(message_)},
@@ -49,10 +51,10 @@ class progress_bar {
   }
 
   // not copyable
-  progress_bar(const progress_bar &) = delete;
-  progress_bar &operator=(const progress_bar &) = delete;
+  progressBar(const progressBar &) = delete;
+  progressBar &operator=(const progressBar &) = delete;
 
-  ~progress_bar() {
+  ~progressBar() {
     write(1.0);
     os << '\n';
   }
@@ -60,14 +62,14 @@ class progress_bar {
   void write(double fraction);
 };
 
-void progress_bar::write(double fraction) {
+void progressBar::write(double fraction) {
   // clamp fraction to valid range [0,1]
   if (fraction < 0)
     fraction = 0;
   else if (fraction > 1)
     fraction = 1;
 
-  auto width = bar_width - message.size();
+  auto width  = bar_width - message.size();
   auto offset = bar_width - static_cast<unsigned>(width * fraction);
 
   os << '\r' << message;
@@ -81,8 +83,8 @@ void progress_bar::write(double fraction) {
 /////////////
 
 vector<string> split(const string &s, char delim) {
-  stringstream ss(s);
-  string item;
+  stringstream   ss(s);
+  string         item;
   vector<string> elems;
 
   while (getline(ss, item, delim)) {
@@ -111,9 +113,8 @@ TString basename(string s) { return TString(split(s, '/').back()); }
 // Add Muon BDT branch //
 /////////////////////////
 
-void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
-              TString isMuonTightBrName, TString weightName,
-              TString outputBrName = "mu_bdt_mu") {
+void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName, TString particle,
+              TString weightName, TString outputBrName = "bdt_mu") {
   // Configure branches to be loaded
   // NOTE: The ordering matters!
   // clang-format off
@@ -144,8 +145,8 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   };
 
 #ifdef PIDCALIB
-  TString prefix = "probe_Brunel_ANNTraining_";
-  TString prefix2 = "probe_Brunel_";
+  TString prefix = particle + "_Brunel_ANNTraining_";
+  TString prefix2 = particle + "_Brunel_";
 
   auto varBrNames = vector<TString>{
     prefix+"TrackChi2PerDof", prefix+"TrackNumDof", prefix+"TrackGhostProb",
@@ -171,7 +172,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
     //
     prefix+"VeloCharge",
     //
-    isMuonTightBrName, 
+    particle + "_isMuonTight",
     //
     prefix+"TrackP", prefix+"TrackPt"
   };
@@ -197,7 +198,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
     //
     "VeloCharge",
     //
-    isMuonTightBrName,
+    particle + "_isMuonTight",
     //
     "TrackP", "TrackPt"
   };
@@ -205,11 +206,11 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   // clang-format on
   auto obVarNames = vector<TString>{"TrackP", "TrackPt"};
 
-  auto treeIn = dynamic_cast<TTree *>(ntpIn->Get(TString(treeName)));
+  auto treeIn     = dynamic_cast<TTree *>(ntpIn->Get(TString(treeName)));
   auto numEntries = static_cast<int>(treeIn->GetEntries());
 
   // Recreate the same folder structure in output
-  auto treeDir = dirname(treeName);
+  auto treeDir  = dirname(treeName);
   auto treeBase = basename(treeName);
 
   ntpOut->cd();
@@ -222,8 +223,8 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
 
   // Define variables to be loaded in the tree
   auto treeFormulae = map<TString, TTreeFormula>{};
-  for (auto idx=0; idx < ubdtVarNames.size(); idx++) {
-    auto key = ubdtVarNames[idx];
+  for (auto idx = 0; idx < ubdtVarNames.size(); idx++) {
+    auto key     = ubdtVarNames[idx];
     auto formula = varBrNames[idx];
     treeFormulae.emplace(piecewise_construct, make_tuple(key),
                          make_tuple(key, formula, treeIn));
@@ -255,7 +256,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   treeOut->Branch(outputBrName, &signalResponse);
 
   // run and event Numbers
-  UInt_t runNumber;
+  UInt_t    runNumber;
   ULong64_t eventNumber;
   treeIn->SetBranchAddress("runNumber", &runNumber);
   treeIn->SetBranchAddress("eventNumber", &eventNumber);
@@ -265,7 +266,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   // Start processing
   cout << treeName << " has " << numEntries << " entries" << endl;
   Long64_t stepSize = max(1ll, numEntries / 100ll);
-  auto progress = new progress_bar(std::clog, 79u, string("Processing"));
+  auto     progress = new progressBar(std::clog, 79u, string("Processing"));
 
   for (int e = 0; e < numEntries; e++) {
     if (!(e % stepSize))
@@ -287,22 +288,38 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName,
   delete progress;
 }
 
-int main(int argc, char *argv[]) {
-  TString inputFilename = argv[1];
-  TString isMuonTightBrName = argv[2];
-  TString inputXml = argv[3];
-  TString outputFilename = argv[4];
+int main(int argc, char **argv) {
+  cxxopts::Options argOpts("AddUBDTBranchRun2",
+                           "add UBDT branch for run 2 ntuples.");
 
-  auto *ntpIn = new TFile(inputFilename, "read");
-  auto *ntpOut = new TFile(outputFilename, "recreate");
+  // clang-format off
+  argOpts.add_options()
+    ("h,help", "print help")
+    ("i,input", "input ntuple", cxxopts::value<string>())
+    ("o,output", "output ntuple", cxxopts::value<string>())
+    ("x,xml", "BDT XML export file", cxxopts::value<string>())
+    ("p,particle", "particle name",
+     cxxopts::value<string>()->default_value("mu"))
+    ("t,trees", "tree names", cxxopts::value<vector<string>>())
+  ;
+  // clang-format on
 
-  cout << "Input file: " << inputFilename << endl;
-  cout << "isMuonTight branch name is: " << isMuonTightBrName << endl;
-  cout << "Input BDT XML: " << inputXml << endl << endl;
-
-  for (int i = 5; i < argc; i++) {
-    addMuBDT(ntpIn, ntpOut, string(argv[i]), isMuonTightBrName, inputXml);
+  auto parsedArgs = argOpts.parse(argc, argv);
+  if (parsedArgs.count("help")) {
+    cout << argOpts.help() << endl;
+    return 0;
   }
+
+  auto inputFilename  = TString(parsedArgs["input"].as<string>());
+  auto outputFilename = TString(parsedArgs["output"].as<string>());
+  auto xmlFilename    = TString(parsedArgs["xmlFile"].as<string>());
+  auto particle       = TString(parsedArgs["particle"].as<string>());
+  auto trees          = parsedArgs["trees"].as<vector<string>>();
+
+  auto ntpIn  = new TFile(inputFilename, "read");
+  auto ntpOut = new TFile(outputFilename, "recreate");
+
+  for (auto t : trees) addMuBDT(ntpIn, ntpOut, t, particle, xmlFilename);
 
   ntpIn->Close();
   ntpOut->Close();
