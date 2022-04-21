@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Wed Dec 01, 2021 at 02:19 AM +0100
+# Last Change: Wed Apr 20, 2022 at 09:06 PM -0400
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -49,7 +49,7 @@ docker-cl:
 .PHONY: test-apply
 test-apply: \
 	samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2 \
-	samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2PidCalib 
+	samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2PidCalib
 	bin/addUBDTBranchRun2 \
 		samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
 		"probe_isMuonTight" "weights/weights_run2_no_cut_ubdt.xml" "gen/pidcalib_old.root" \
@@ -64,7 +64,7 @@ test-apply: \
 		-b mu_bdt_mu -l "UBDT, MuM, old" \
 		-n ./gen/pidcalib_new.root/Jpsinopt_MuMTuple/DecayTree \
 		-b mu_bdt_mu -l "MuM, new" \
-	    --normalize -YL "Normalized"	
+	    --normalize -YL "Normalized"
 	plotbr \
 		-o ./gen/mu_bdt_mu_MuM_comp.png \
 		-n ./gen/pidcalib_old.root/Jpsinopt_MuMTuple/DecayTree \
@@ -81,9 +81,6 @@ addUBDTBranchRun2:
 
 addUBDTBranchRun2PidCalib: addUBDTBranchRun2.cpp
 	$(COMPILER) $(CXXFLAGS) -DPIDCALIB -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
-
-# Executables (w/ debug symbols)
-uBoostTrain.dbg:
 
 
 ####################
