@@ -6,22 +6,22 @@ final: prev:
     stdenv = if prev.stdenv.cc.isClang then prev.llvmPackages_5.stdenv else prev.gcc8Stdenv;
   };
 
-  addUBDTBranch = prev.callPackage ./addUBDTBranch {
+  AddUBDTBranch = prev.callPackage ./AddUBDTBranch {
     root = final.root5-ubdt;
     stdenv = if prev.stdenv.cc.isClang then prev.llvmPackages_5.stdenv else prev.gcc8Stdenv;
   };
 
-  addUBDTBranchWrapped = prev.writeScriptBin "addUBDTBranch" ''
+  AddUBDTBranchWrapped = prev.writeScriptBin "AddUBDTBranch" ''
     unset LD_LIBRARY_PATH
     unset DYLD_LIBRARY_PATH
 
-    exec ${final.addUBDTBranch}/bin/addUBDTBranchRun2 $@
+    exec ${final.AddUBDTBranch}/bin/AddUBDTBranchRun2 $@
   '';
 
-  addUBDTBranchPidCalibWrapped = prev.writeScriptBin "addUBDTBranchPidCalib" ''
+  AddUBDTBranchPidCalibWrapped = prev.writeScriptBin "AddUBDTBranchPidCalib" ''
     unset LD_LIBRARY_PATH
     unset DYLD_LIBRARY_PATH
 
-    exec ${final.addUBDTBranch}/bin/addUBDTBranchRun2PidCalib $@
+    exec ${final.AddUBDTBranch}/bin/AddUBDTBranchRun2PidCalib $@
   '';
 }
