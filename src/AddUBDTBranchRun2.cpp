@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Thu Apr 21, 2022 at 12:33 AM -0400
+// Last Change: Thu Apr 21, 2022 at 12:41 AM -0400
 
 #include <cmath>
 #include <iomanip>
@@ -305,9 +305,9 @@ int main(int argc, char **argv) {
     ("o,output", "output ntuple", cxxopts::value<string>())
     ("x,xml", "BDT XML export file", cxxopts::value<string>())
     ("b,ubdtBrName", "UBDT branch name",
-     cxxopts::value<string>()->default_value("ubd"))
-    ("p,particle", "particle name",
      cxxopts::value<string>()->default_value("bdt_mu"))
+    ("p,particle", "particle name",
+     cxxopts::value<string>()->default_value("mu"))
     ("t,trees", "tree names", cxxopts::value<vector<string>>())
   ;
   // clang-format on
