@@ -27,16 +27,12 @@
           pname = "MuonBDTPid";
 
           buildInputs = (with pkgs; with pythonPackages; [
+            cxxopts
             root5-ubdt
-            addUBDTBranchWrapped
-            addUBDTBranchPidCalibWrapped
-
-            jedi
-            flake8
-            pylint
 
             virtualenvwrapper
             numpy
+            pylint
           ]);
 
           FONTCONFIG_FILE = pkgs.makeFontsConf {
