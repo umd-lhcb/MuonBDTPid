@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Thu Apr 21, 2022 at 12:07 AM -0400
+// Last Change: Thu Apr 21, 2022 at 12:22 AM -0400
 
 #include <cmath>
 #include <iomanip>
@@ -114,7 +114,7 @@ TString basename(string s) { return TString(split(s, '/').back()); }
 /////////////////////////
 
 void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName, TString particle,
-              TString weightName, TString outputBrName = "bdt_mu") {
+              TString weightName, TString outputBrName) {
   // Configure branches to be loaded
   // NOTE: The ordering matters!
   // clang-format off
@@ -172,7 +172,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName, TString particle,
     //
     prefix+"VeloCharge",
     //
-    particle + "_isMuonTight",
+    prefix2 + "isMuonTight",
     //
     prefix+"TrackP", prefix+"TrackPt"
   };
@@ -253,11 +253,16 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName, TString particle,
 
   // Output branch
   float signalResponse;
-  treeOut->Branch(outputBrName, &signalResponse);
+  treeOut->Branch(particle + "_" + outputBrName, &signalResponse);
 
   // run and event Numbers
+#ifdef PIDCALIB
+  double runNumber;
+  double eventNumber;
+#else
   UInt_t    runNumber;
   ULong64_t eventNumber;
+#endif
   treeIn->SetBranchAddress("runNumber", &runNumber);
   treeIn->SetBranchAddress("eventNumber", &eventNumber);
   treeOut->Branch("runNumber", &runNumber);
@@ -298,8 +303,10 @@ int main(int argc, char **argv) {
     ("i,input", "input ntuple", cxxopts::value<string>())
     ("o,output", "output ntuple", cxxopts::value<string>())
     ("x,xml", "BDT XML export file", cxxopts::value<string>())
+    ("b,ubdtBrName", "UBDT branch name",
+     cxxopts::value<string>()->default_value("ubd"))
     ("p,particle", "particle name",
-     cxxopts::value<string>()->default_value("mu"))
+     cxxopts::value<string>()->default_value("bdt_mu"))
     ("t,trees", "tree names", cxxopts::value<vector<string>>())
   ;
   // clang-format on
@@ -312,14 +319,16 @@ int main(int argc, char **argv) {
 
   auto inputFilename  = TString(parsedArgs["input"].as<string>());
   auto outputFilename = TString(parsedArgs["output"].as<string>());
-  auto xmlFilename    = TString(parsedArgs["xmlFile"].as<string>());
+  auto xmlFilename    = TString(parsedArgs["xml"].as<string>());
   auto particle       = TString(parsedArgs["particle"].as<string>());
+  auto ubdtBrName     = TString(parsedArgs["ubdtBrName"].as<string>());
   auto trees          = parsedArgs["trees"].as<vector<string>>();
 
   auto ntpIn  = new TFile(inputFilename, "read");
   auto ntpOut = new TFile(outputFilename, "recreate");
 
-  for (auto t : trees) addMuBDT(ntpIn, ntpOut, t, particle, xmlFilename);
+  for (auto t : trees)
+    addMuBDT(ntpIn, ntpOut, t, particle, xmlFilename, ubdtBrName);
 
   ntpIn->Close();
   ntpOut->Close();
