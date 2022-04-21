@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Wed Apr 20, 2022 at 09:06 PM -0400
+# Last Change: Thu Apr 21, 2022 at 12:23 AM -0400
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -17,6 +17,9 @@ ADDLINKFLAGS	:=	-lTreePlayer -lMinuit -lFoam -lXMLIO -lTMVA
 CASTELAO_VERSION=Castelao-v3r4
 
 .PHONY: clean
+
+exe: AddUBDTBranchRun2 AddUBDTBranchRun2PidCalib
+
 clean:
 	@rm -rf $(BINPATH)/*
 	@rm -rf gen/*
@@ -28,7 +31,6 @@ clean:
 #####################
 # Run docker images #
 #####################
-
 .PHONY: docker-cl
 
 ifeq ($(OS),Darwin)
@@ -44,42 +46,44 @@ docker-cl:
 #########
 # Tests #
 #########
+.PHONY: test-apply
 
 # Apply UBDT to a PIDCalib sample
-.PHONY: test-apply
 test-apply: \
-	samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2 \
-	samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root addUBDTBranchRun2PidCalib
-	bin/addUBDTBranchRun2 \
-		samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
-		"probe_isMuonTight" "weights/weights_run2_no_cut_ubdt.xml" "gen/pidcalib_old.root" \
-		"Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
-	bin/addUBDTBranchRun2PidCalib \
-		samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
-		"probe_Brunel_isMuonTight" "weights/weights_run2_no_cut_ubdt.xml" "gen/pidcalib_new.root" \
-		"Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
+	samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root AddUBDTBranchRun2 \
+	samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root AddUBDTBranchRun2PidCalib
+	bin/AddUBDTBranchRun2 \
+		-i samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
+		-o gen/pidcalib_old.root \
+		-p probe -x weights/weights_run2_no_cut_ubdt.xml -b UBDT \
+		-t "Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
+	bin/AddUBDTBranchRun2PidCalib \
+		-i samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
+		-o gen/pidcalib_new.root \
+		-p probe -x weights/weights_run2_no_cut_ubdt.xml -b UBDT \
+		-t "Jpsinopt_MuMTuple/DecayTree" "Jpsinopt_MuPTuple/DecayTree"
 	plotbr \
 		-o ./gen/mu_bdt_mu_MuM_comp_norm.png \
 		-n ./gen/pidcalib_old.root/Jpsinopt_MuMTuple/DecayTree \
-		-b mu_bdt_mu -l "UBDT, MuM, old" \
+		-b probe_UBDT -l "UBDT, MuM, old" \
 		-n ./gen/pidcalib_new.root/Jpsinopt_MuMTuple/DecayTree \
-		-b mu_bdt_mu -l "MuM, new" \
-	    --normalize -YL "Normalized"
+		-b probe_UBDT -l "MuM, new" \
+		--normalize -YL "Normalized"
 	plotbr \
 		-o ./gen/mu_bdt_mu_MuM_comp.png \
 		-n ./gen/pidcalib_old.root/Jpsinopt_MuMTuple/DecayTree \
-		-b mu_bdt_mu -l "UBDT, MuM, old" \
+		-b probe_UBDT -l "UBDT, MuM, old" \
 		-n ./gen/pidcalib_new.root/Jpsinopt_MuMTuple/DecayTree \
-		-b mu_bdt_mu -l "MuM, new"
+		-b probe_UBDT -l "MuM, new"
 
 
 ###############
 # Executables #
 ###############
 
-addUBDTBranchRun2:
+AddUBDTBranchRun2:
 
-addUBDTBranchRun2PidCalib: addUBDTBranchRun2.cpp
+AddUBDTBranchRun2PidCalib: AddUBDTBranchRun2.cpp
 	$(COMPILER) $(CXXFLAGS) -DPIDCALIB -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
 
 
