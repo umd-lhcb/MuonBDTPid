@@ -18,12 +18,12 @@ for decay in files["data"]:
     for folder in files["data"][decay]:
         for mag in files["data"][decay][folder]:
             localDir = files["local_ntuple_folders"][folder]+"/"+decay+"-"+mag
+            mergedDir = files["local_ntuple_folders"]["merged"]+"/"+decay+"-"+mag+"/"
             jsonDict[decay+"-"+mag] = {}
             jsonDict[decay+"-"+mag]["files"] = []
 
             for filename in os.listdir(localDir):
-                jsonDict[decay+"-"+mag]["files"].append(filename)
-#print(jsonDict)
+                jsonDict[decay+"-"+mag]["files"].append(mergedDir+filename)
 
 json_object = json.dumps(jsonDict, indent = 4)
   
