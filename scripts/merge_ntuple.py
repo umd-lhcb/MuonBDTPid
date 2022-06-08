@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # Author: Yipeng Sun
-# Last Change: Wed Jun 08, 2022 at 11:36 AM -0400
+# Last Change: Wed Jun 08, 2022 at 03:58 PM -0400
 
 import argparse
 import os
 import sys
 import yaml
 import uproot
+import pandas as pd
 
 from glob import glob
 from os.path import basename
@@ -25,9 +26,15 @@ parser.add_argument(
 args = parser.parse_args()
 
 
+def getTreeSpec(tree):
+    raw = tree.typenames()
+    return {k: v.replace('_t', '') for k, v in raw.items()}
+
+
 with open(args.ymlName, "r") as stream:
     config = yaml.safe_load(stream)
 
+stepSize = 1000
 for species, directive in config["data"].items():
     for mag, remoteBaseDir in directive.items():
         mainDir = f"{config['local_ntuple_folders']['remote']}/{species}-{mag}/"
@@ -42,26 +49,26 @@ for species, directive in config["data"].items():
 
             friendInput = friendDir + ntpName
             fOutput = outputDir + basename(mainInput)
+            outputRootFile = uproot.recreate(fOutput)
 
             mainRootFile = uproot.open(mainInput)
+            friendRootFile = uproot.open(friendInput)
+
             trees = [t.replace(";1", "") for t in mainRootFile if "DecayTree" in t]
             print(f"    trees: {','.join(trees)}")
 
-            friendRootFile = uproot.open(friendInput)
-
-            outputRootFile = uproot.recreate(fOutput)
             for t in trees:
-                outputRootFile[t] = dict()
+                mainSpec = getTreeSpec(mainRootFile[t])
+                friendSpec = getTreeSpec(friendRootFile[t])
+                mainSpec.update(friendSpec)
+                outputRootFile.mktree(t, mainSpec)
 
-                # Write aux branch
-                outputRootFile[t][args.branchName] = friendRootFile[t][args.branchName]
+                mainDF = uproot.iterate(f'{mainInput}:{t}', step_size=stepSize, library='pd')
+                friendDF = uproot.iterate(f'{friendInput}:{t}', [args.branchName], step_size=stepSize, library='pd')
 
-                # Write branch by branch
-                #  for brName in mainRootFile[t]:
-                #      outputRootFile[t][brName] = uproot.
-
-                #  outputRootFile[t] = mainRootFile[t]
-                #  outputRootFile[t][args.branchName] = friendRootFile[t][args.branchName]
+                for m, f in zip(mainDF, friendDF):
+                    outDF = pd.concat([m.reset_index(drop=True), f.reset_index(drop=True)], axis=1)
+                    outputRootFile[t].extend(outDF.drop(['index'], axis=1))
 
             if args.testRun:
                 sys.exit(0)

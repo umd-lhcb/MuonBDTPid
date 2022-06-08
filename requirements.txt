@@ -1,2 +1,4 @@
 pyTuplingUtils
 pyyaml
+awkward
+pandas
