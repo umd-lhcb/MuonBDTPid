@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # Author: Yipeng Sun
-# Last Change: Wed Jun 08, 2022 at 03:58 PM -0400
+# Last Change: Wed Jun 08, 2022 at 04:19 PM -0400
 
 import argparse
 import os
 import sys
 import yaml
 import uproot
-import pandas as pd
 
 from glob import glob
 from os.path import basename
@@ -28,13 +27,13 @@ args = parser.parse_args()
 
 def getTreeSpec(tree):
     raw = tree.typenames()
-    return {k: v.replace('_t', '') for k, v in raw.items()}
+    return {k: v.replace("_t", "") for k, v in raw.items()}
 
 
 with open(args.ymlName, "r") as stream:
     config = yaml.safe_load(stream)
 
-stepSize = 1000
+stepSize = 10000
 for species, directive in config["data"].items():
     for mag, remoteBaseDir in directive.items():
         mainDir = f"{config['local_ntuple_folders']['remote']}/{species}-{mag}/"
@@ -47,10 +46,10 @@ for species, directive in config["data"].items():
             ntpName = basename(mainInput)
             print(f"  Working on {ntpName}...")
 
-            friendInput = friendDir + ntpName
             fOutput = outputDir + basename(mainInput)
             outputRootFile = uproot.recreate(fOutput)
 
+            friendInput = friendDir + ntpName
             mainRootFile = uproot.open(mainInput)
             friendRootFile = uproot.open(friendInput)
 
@@ -63,12 +62,19 @@ for species, directive in config["data"].items():
                 mainSpec.update(friendSpec)
                 outputRootFile.mktree(t, mainSpec)
 
-                mainDF = uproot.iterate(f'{mainInput}:{t}', step_size=stepSize, library='pd')
-                friendDF = uproot.iterate(f'{friendInput}:{t}', [args.branchName], step_size=stepSize, library='pd')
+                mainDF = uproot.iterate(
+                    f"{mainInput}:{t}", step_size=stepSize, library="np"
+                )
+                friendDF = uproot.iterate(
+                    f"{friendInput}:{t}",
+                    [args.branchName],
+                    step_size=stepSize,
+                    library="np",
+                )
 
                 for m, f in zip(mainDF, friendDF):
-                    outDF = pd.concat([m.reset_index(drop=True), f.reset_index(drop=True)], axis=1)
-                    outputRootFile[t].extend(outDF.drop(['index'], axis=1))
+                    m.update(f)
+                    outputRootFile[t].extend(m)
 
             if args.testRun:
                 sys.exit(0)
