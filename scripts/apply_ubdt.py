@@ -47,7 +47,7 @@ for species, directive in config["data"].items():
                 firstRun = False
 
             # Call UBDT
-            cmd = f"AddUBDTBranchPidCalib -i {fInput} -o {fOutput} -p probe -b UBDT -t {trees}"
+            cmd = f"  AddUBDTBranchPidCalib -i {fInput} -o {fOutput} -p probe -b UBDT -t {trees}"
             print(cmd)
 
             if not args.dryRun:
