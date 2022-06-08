@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Tue Jun 07, 2022 at 08:08 PM -0400
+# Last Change: Wed Jun 08, 2022 at 03:34 AM -0400
 #
 # Description: to use this script, first generate shasum txt files on lxplus
 #              with naming conventions outlined in MuonBDTPid/spec/pidcalib.yml,
@@ -19,35 +19,75 @@
 #               once.
 
 import argparse
-import os
-import yaml
 import hashlib
+import yaml
+
+from glob import glob
+from os.path import basename
 
 
-parser = argparse.ArgumentParser(description="Process yml filename.")
+parser = argparse.ArgumentParser(
+    description="Generate local hash and optionally compare w/ remote."
+)
 parser.add_argument(
     "--ymlName",
-    type=str,
     help="path to YAML file containing directories of files to be downloaded",
+)
+parser.add_argument("--localFileHashes", help="path to store local file hashes")
+parser.add_argument(
+    "--remoteFileHashes",
+    default=None,
+    help="path to YAML file containing hashes to remote files",
 )
 args = parser.parse_args()
 
+
+def computeHash(filePath):
+    hashVal = hashlib.sha256()
+    # Don't read the whole file into RAM! do it chunk by chunk!
+    with open(filePath, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            hashVal.update(chunk)
+    return hashVal.hexdigest()
+
+
 with open(args.ymlName, "r") as stream:
-    files = yaml.safe_load(stream)
+    config = yaml.safe_load(stream)
 
-local = open("/home/ejiang/MuonBDTPid/hash_file_final.txt")
-readLocal = local.read()
+remoteHashMap = None
+if args.remoteFileHashes:
+    with open(args.remoteFileHashes, "r") as stream:
+        remoteHashMap = yaml.safe_load(stream)
+
+outputHashMap = dict()
+
+for folder in glob(config["local_ntuple_folders"]["remote"] + "/*"):
+    print(f"Working in {folder}...")
+    keyName = basename(folder)
+    result = dict()
+
+    for fileName in glob(folder + "/*.root"):
+        fileKey = basename(fileName)
+        fileHash = computeHash(fileName)
+        result[fileKey] = fileHash
+
+        # compare hash if the remote file hash YAML is supplied
+        if remoteHashMap:
+            remoteHash = ""
+            try:
+                remoteHash = remoteHashMap[keyName][fileKey]
+            except KeyError:
+                print(f"  WARNING: unknown key: {keyName}-{fileKey}")
+
+            try:
+                assert fileHash == remoteHash
+            except AssertionError:
+                print(f"  WARNING: {keyName}/{fileKey} hash is inconsistent!")
+                print(f"    local : {fileHash}")
+                print(f"    remote: {remoteHash}")
 
 
-for decay in files["data"]:
-    for folder in files["data"][decay]:
-        for mag in files["data"][decay][folder]:
-            with open(
-                "/home/ejiang/MuonBDTPid/" + decay + "-" + mag + ".txt"
-            ) as remote:
-                remoteLines = remote.read().splitlines()
-                for line in remoteLines:
-                    if line in readLocal:
-                        continue
-                    else:
-                        print(-1)
+# save local hash into a YAML file
+with open(args.localFileHashes, "w") as f:
+    dump = yaml.dump(outputHashMap, default_flow_style=False)
+    f.write(dump)

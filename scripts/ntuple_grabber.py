@@ -21,7 +21,7 @@ parser.add_argument("--lxplusUser", help="your username for remote host")
 parser.add_argument(
     "--host",
     default="lxplus.cern.ch",
-    help="specify remote host name (default to lxplus)"
+    help="specify remote host name (default to lxplus)",
 )
 parser.add_argument("--dryRun", action="store_true", help="dry run")
 args = parser.parse_args()
@@ -35,7 +35,7 @@ for species, directive in config["data"].items():
         localDir = f"{config['local_ntuple_folders']['remote']}/{species}-{mag}/"
         remoteDir = f"{args.lxplusUser}@{args.host}:{remoteBaseDir}/"
 
-        if (args.dryRun):
+        if args.dryRun:
             print(f"mkdir -p {localDir}")
             print(f"rsync -a {remoteDir} {localDir}")
         else:
