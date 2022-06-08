@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Wed Jun 08, 2022 at 03:02 AM -0400
+# Last Change: Wed Jun 08, 2022 at 03:37 AM -0400
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -97,6 +97,9 @@ AddUBDTBranchRun2PidCalib: AddUBDTBranchRun2.cpp
 
 test-grab-ntp:
 	./scripts/ntuple_grabber.py --ymlName ./spec/pidcalib.yml --lxplusUser ejiang --dryRun
+
+test-check-hash:
+	./scripts/hash_checker.py --ymlName ./spec/pidcalib.yml --localFileHashes gen/test_local_hash.yml --dryRun
 
 
 ####################

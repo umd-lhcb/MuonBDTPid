@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Wed Jun 08, 2022 at 03:34 AM -0400
+# Last Change: Wed Jun 08, 2022 at 03:37 AM -0400
 #
 # Description: to use this script, first generate shasum txt files on lxplus
 #              with naming conventions outlined in MuonBDTPid/spec/pidcalib.yml,
@@ -39,6 +39,7 @@ parser.add_argument(
     default=None,
     help="path to YAML file containing hashes to remote files",
 )
+parser.add_argument("--dryRun", help="dry run")
 args = parser.parse_args()
 
 
@@ -85,6 +86,9 @@ for folder in glob(config["local_ntuple_folders"]["remote"] + "/*"):
                 print(f"  WARNING: {keyName}/{fileKey} hash is inconsistent!")
                 print(f"    local : {fileHash}")
                 print(f"    remote: {remoteHash}")
+
+        if args.dryRun:
+            break
 
 
 # save local hash into a YAML file
