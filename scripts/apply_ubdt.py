@@ -1,61 +1,56 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Tues May 10, 2022 at 02:24 PM +0100
+# Last Change: Wed Jun 08, 2022 at 04:58 AM -0400
 #
-# Description: Apply the UBDT to root files in directories specified by a yml file (input), and write them to specified
-# output directory.
+# Description: Apply the UBDT to root files in directories specified by a yml
+#              file (input), and write them to specified output directory.
 
 import argparse
 import yaml
 import os
 import uproot
 
-parser = argparse.ArgumentParser(description="Process yml filename.")
+from glob import glob
+from os.path import basename
+
+
+parser = argparse.ArgumentParser(description="Apply UBDT to PIDCalib ntuples.")
 parser.add_argument(
     "--ymlName",
-    type=str,
     help="path to YAML file containing directories of files to be downloaded",
 )
+parser.add_argument("--dryRun", action="store_true", help="dry run")
+
 args = parser.parse_args()
 
+
 with open(args.ymlName, "r") as stream:
-    files = yaml.safe_load(stream)
+    config = yaml.safe_load(stream)
 
-for decay in files["data"]:
-    for folder in files["data"][decay]:
-        i = 0
-        for mag in files["data"][decay][folder]:
-            inputDir = files["local_ntuple_folders"][folder] + "/" + decay + "-" + mag
-            outputDir = (
-                files["local_ntuple_folders"]["friends"] + "/" + decay + "-" + mag
-            )
-            # i = 0
-            os.system("mkdir -p " + outputDir)
-            for filename in os.listdir(inputDir):
-                fInput = inputDir + "/" + filename
-                fOutput = outputDir + "/" + filename
-                # Get names of trees--only need to do this once per decay, hence the counter
-                if i == 0:
-                    rootFile = uproot.open(fInput)
-                    trees = []
-                    for tree in rootFile.keys():
-                        if "DecayTree" in tree:
-                            trees.append(tree.replace(";1", ""))
-                            print(trees)
-                    i = 1
+for species, directive in config["data"].items():
+    for mag, remoteBaseDir in directive.items():
+        firstRun = True
+        trees = ""
+        inputDir = f"{config['local_ntuple_folders']['remote']}/{species}-{mag}/"
+        outputDir = f"{config['local_ntuple_folders']['friend']}/{species}-{mag}/"
+        os.system("mkdir -p " + outputDir)
+        print(f"{inputDir} -> {outputDir}")
 
-                # Call BDT
-                cmd = (
-                    "AddUBDTBranchPidCalib -i "
-                    + fInput
-                    + " -o "
-                    + fOutput
-                    + " -p probe -b UBDT -t "
-                )
-                for tree in trees:
-                    cmd = cmd + tree + ","
-                # cmd=cmd[:-1]
-                print(cmd)
-                ret_code = os.system(cmd)
-                if ret_code != 0:
-                    print("WARNING: " + cmd + " did not execute properly!")
+        for fInput in glob(inputDir + "/*.root"):
+            fOutput = outputDir + "/" + basename(fInput)
+            # Get names of trees--only need to do this once per decay
+            if firstRun:
+                rootFile = uproot.open(fInput)
+                trees = [t.replace(";1", "") for t in rootFile if "DecayTree" in t]
+                trees = ",".join(trees)
+                print(f"  trees: {trees}")
+                firstRun = False
+
+            # Call UBDT
+            cmd = f"AddUBDTBranchPidCalib -i {fInput} -o {fOutput} -p probe -b UBDT -t {trees}"
+            print(cmd)
+
+            if not args.dryRun:
+                retCode = os.system(cmd)
+                if retCode != 0:
+                    print(f"  WARNING: {cmd} did not execute properly!")

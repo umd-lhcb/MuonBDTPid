@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Wed Jun 08, 2022 at 03:09 AM -0400
+# Last Change: Wed Jun 08, 2022 at 04:49 AM -0400
 #
 # Description: Parse a yaml file containing the location of files on lxplus,
 #              copying them to a glacier directory (also specified in yaml)
@@ -10,9 +10,7 @@ import subprocess
 import yaml
 
 
-parser = argparse.ArgumentParser(
-    description="Process yml filename and lxplus username."
-)
+parser = argparse.ArgumentParser(description="Download PIDCalib ntuples from lxplus.")
 parser.add_argument(
     "--ymlName",
     help="path to YAML file containing directories of files to be downloaded",

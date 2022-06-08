@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Wed Jun 08, 2022 at 03:37 AM -0400
+# Last Change: Wed Jun 08, 2022 at 04:59 AM -0400
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -100,6 +100,9 @@ test-grab-ntp:
 
 test-check-hash:
 	./scripts/hash_checker.py --ymlName ./spec/pidcalib.yml --localFileHashes gen/test_local_hash.yml --dryRun
+
+test-apply-ubdt:
+	./scripts/apply_ubdt.py --ymlName ./spec/pidcalib.yml --dryRun
 
 
 ####################
