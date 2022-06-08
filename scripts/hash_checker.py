@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Wed Jun 08, 2022 at 03:37 AM -0400
+# Last Change: Wed Jun 08, 2022 at 03:42 AM -0400
 #
 # Description: to use this script, first generate shasum txt files on lxplus
 #              with naming conventions outlined in MuonBDTPid/spec/pidcalib.yml,
@@ -39,7 +39,7 @@ parser.add_argument(
     default=None,
     help="path to YAML file containing hashes to remote files",
 )
-parser.add_argument("--dryRun", help="dry run")
+parser.add_argument("--dryRun", action='store_true', help="dry run")
 args = parser.parse_args()
 
 
@@ -68,6 +68,7 @@ for folder in glob(config["local_ntuple_folders"]["remote"] + "/*"):
     result = dict()
 
     for fileName in glob(folder + "/*.root"):
+        print(f'  on file {fileName}...')
         fileKey = basename(fileName)
         fileHash = computeHash(fileName)
         result[fileKey] = fileHash
@@ -89,6 +90,8 @@ for folder in glob(config["local_ntuple_folders"]["remote"] + "/*"):
 
         if args.dryRun:
             break
+
+    outputHashMap[keyName] = result
 
 
 # save local hash into a YAML file
