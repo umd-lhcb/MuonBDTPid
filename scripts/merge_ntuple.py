@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Yipeng Sun
-# Last Change: Wed Jun 08, 2022 at 05:30 AM -0400
+# Last Change: Wed Jun 08, 2022 at 11:36 AM -0400
 
 import argparse
 import os
@@ -51,8 +51,17 @@ for species, directive in config["data"].items():
 
             outputRootFile = uproot.recreate(fOutput)
             for t in trees:
-                outputRootFile[t] = mainRootFile[t]
+                outputRootFile[t] = dict()
+
+                # Write aux branch
                 outputRootFile[t][args.branchName] = friendRootFile[t][args.branchName]
+
+                # Write branch by branch
+                #  for brName in mainRootFile[t]:
+                #      outputRootFile[t][brName] = uproot.
+
+                #  outputRootFile[t] = mainRootFile[t]
+                #  outputRootFile[t][args.branchName] = friendRootFile[t][args.branchName]
 
             if args.testRun:
                 sys.exit(0)
