@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Wed Jun 08, 2022 at 04:59 AM -0400
+# Last Change: Wed Jun 08, 2022 at 05:12 AM -0400
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -103,6 +103,9 @@ test-check-hash:
 
 test-apply-ubdt:
 	./scripts/apply_ubdt.py --ymlName ./spec/pidcalib.yml --dryRun
+
+test-write-json:
+	./scripts/json_writer.py --ymlName ./spec/pidcalib.yml --outputJson gen/sample.json
 
 
 ####################
