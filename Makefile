@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Wed Jun 08, 2022 at 05:12 AM -0400
+# Last Change: Wed Jun 08, 2022 at 05:24 AM -0400
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -106,6 +106,9 @@ test-apply-ubdt:
 
 test-write-json:
 	./scripts/json_writer.py --ymlName ./spec/pidcalib.yml --outputJson gen/sample.json
+
+test-merge-ntp:
+	./scripts/merge_ntuple.py --ymlName ./spec/pidcalib.yml --testRun
 
 
 ####################
