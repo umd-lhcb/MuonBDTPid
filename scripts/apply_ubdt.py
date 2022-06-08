@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Wed Jun 08, 2022 at 04:58 AM -0400
+# Last Change: Wed Jun 08, 2022 at 05:04 AM -0400
 #
 # Description: Apply the UBDT to root files in directories specified by a yml
 #              file (input), and write them to specified output directory.
@@ -32,12 +32,12 @@ for species, directive in config["data"].items():
         firstRun = True
         trees = ""
         inputDir = f"{config['local_ntuple_folders']['remote']}/{species}-{mag}/"
-        outputDir = f"{config['local_ntuple_folders']['friend']}/{species}-{mag}/"
+        outputDir = f"{config['local_ntuple_folders']['friends']}/{species}-{mag}/"
         os.system("mkdir -p " + outputDir)
         print(f"{inputDir} -> {outputDir}")
 
-        for fInput in glob(inputDir + "/*.root"):
-            fOutput = outputDir + "/" + basename(fInput)
+        for fInput in glob(inputDir + "*.root"):
+            fOutput = outputDir + basename(fInput)
             # Get names of trees--only need to do this once per decay
             if firstRun:
                 rootFile = uproot.open(fInput)
