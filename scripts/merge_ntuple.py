@@ -54,7 +54,7 @@ for species, directive in config["data"].items():
                 for t in trees:
                     print(f"    Merging tree: {t}")
                     treeSpec = getTreeSpec(mainRootFile[t])
-                    treeSpec[args.branchName] = 'float'
+                    treeSpec[args.branchName] = "float"
                     outputRootFile.mktree(t, treeSpec)
 
                     mainDF = uproot.iterate(
@@ -69,7 +69,7 @@ for species, directive in config["data"].items():
 
                     for m, f in zip(mainDF, friendDF):
                         m[args.branchName] = f[args.branchName]
-                        print(f'    {f[args.branchName].size}')
+                        print(f"    {f[args.branchName].size}")
                         outputRootFile[t].extend(m)
 
                 if args.testRun:
