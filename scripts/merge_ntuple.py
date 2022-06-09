@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Yipeng Sun
-# Last Change: Wed Jun 08, 2022 at 04:19 PM -0400
+# Last Change: Thu Jun 09, 2022 at 03:14 AM -0400
 
 import argparse
 import os
@@ -33,7 +33,7 @@ def getTreeSpec(tree):
 with open(args.ymlName, "r") as stream:
     config = yaml.safe_load(stream)
 
-stepSize = 10000
+stepSize = 200000  # FIXME: not ideal, but probably fine on our server
 for species, directive in config["data"].items():
     for mag, remoteBaseDir in directive.items():
         mainDir = f"{config['local_ntuple_folders']['remote']}/{species}-{mag}/"
@@ -46,35 +46,31 @@ for species, directive in config["data"].items():
             ntpName = basename(mainInput)
             print(f"  Working on {ntpName}...")
 
-            fOutput = outputDir + basename(mainInput)
-            outputRootFile = uproot.recreate(fOutput)
-
             friendInput = friendDir + ntpName
             mainRootFile = uproot.open(mainInput)
-            friendRootFile = uproot.open(friendInput)
-
             trees = [t.replace(";1", "") for t in mainRootFile if "DecayTree" in t]
-            print(f"    trees: {','.join(trees)}")
 
-            for t in trees:
-                mainSpec = getTreeSpec(mainRootFile[t])
-                friendSpec = getTreeSpec(friendRootFile[t])
-                mainSpec.update(friendSpec)
-                outputRootFile.mktree(t, mainSpec)
+            with uproot.recreate(outputDir + ntpName) as outputRootFile:
+                for t in trees:
+                    print(f"    Merging tree: {t}")
+                    treeSpec = getTreeSpec(mainRootFile[t])
+                    treeSpec[args.branchName] = 'float'
+                    outputRootFile.mktree(t, treeSpec)
 
-                mainDF = uproot.iterate(
-                    f"{mainInput}:{t}", step_size=stepSize, library="np"
-                )
-                friendDF = uproot.iterate(
-                    f"{friendInput}:{t}",
-                    [args.branchName],
-                    step_size=stepSize,
-                    library="np",
-                )
+                    mainDF = uproot.iterate(
+                        f"{mainInput}:{t}", step_size=stepSize, library="np"
+                    )
+                    friendDF = uproot.iterate(
+                        f"{friendInput}:{t}",
+                        [args.branchName],
+                        step_size=stepSize,
+                        library="np",
+                    )
 
-                for m, f in zip(mainDF, friendDF):
-                    m.update(f)
-                    outputRootFile[t].extend(m)
+                    for m, f in zip(mainDF, friendDF):
+                        m[args.branchName] = f[args.branchName]
+                        print(f'    {f[args.branchName].size}')
+                        outputRootFile[t].extend(m)
 
-            if args.testRun:
-                sys.exit(0)
+                if args.testRun:
+                    sys.exit(0)
