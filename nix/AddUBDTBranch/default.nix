@@ -5,7 +5,7 @@
 
 stdenv.mkDerivation {
   pname = "AddUBDTBranch";
-  version = "0.2.1";
+  version = "0.2.2";
 
   src = builtins.path { path = ./../..; name = "AddUBDTBranch"; };
 
