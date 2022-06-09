@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Wed Jun 08, 2022 at 08:12 PM -0400
+# Last Change: Wed Jun 08, 2022 at 08:15 PM -0400
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -96,7 +96,7 @@ AddUBDTBranchRun2PidCalib: AddUBDTBranchRun2.cpp
 #####################################
 
 merge-ntp:
-	./scripts/merge_ntuple.py --ymlName ./spec/pidcalib.yml --testRun
+	./scripts/merge_ntuple.py --ymlName ./spec/pidcalib.yml
 
 test-grab-ntp:
 	./scripts/ntuple_grabber.py --ymlName ./spec/pidcalib.yml --lxplusUser ejiang --dryRun
