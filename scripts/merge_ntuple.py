@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Yipeng Sun
-# Last Change: Thu Jun 09, 2022 at 07:47 PM -0400
+# Last Change: Thu Jun 09, 2022 at 10:22 PM -0400
 
 import argparse
 import os
@@ -45,7 +45,9 @@ def genTypeName(raw):
 
 def getTreeSpec(tree):
     raw = tree.typenames()
-    return {k: genTypeName(v) for k, v in raw.items()}
+    converted = {k: genTypeName(v) for k, v in raw.items()}
+    # can't save branches of shape 'float[5]'
+    return {k: v for k, v in converted.items() if "*" not in v}
 
 
 with open(args.ymlName, "r") as stream:
@@ -74,6 +76,7 @@ for species, directive in config["data"].items():
                     treeSpec = getTreeSpec(mainRootFile[t])
                     treeSpec[args.branchName] = "float"
                     outputRootFile.mktree(t, treeSpec)
+                    outputBrNames = list(treeSpec.keys())
 
                     mainDF = uproot.iterate(
                         f"{mainInput}:{t}", step_size=stepSize, library="np"
@@ -86,9 +89,10 @@ for species, directive in config["data"].items():
                     )
 
                     for m, f in zip(mainDF, friendDF):
-                        m[args.branchName] = f[args.branchName]
+                        out = {k: v for k, v in m.items() if k in outputBrNames}
+                        out[args.branchName] = f[args.branchName]
                         print(f"    {f[args.branchName].size}")
-                        outputRootFile[t].extend(m)
+                        outputRootFile[t].extend(out)
 
                 if args.testRun:
                     sys.exit(0)
