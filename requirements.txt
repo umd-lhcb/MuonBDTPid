@@ -1,3 +1,4 @@
 pyTuplingUtils
 pyyaml
 uproot
+awkward

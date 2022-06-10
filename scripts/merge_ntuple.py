@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Yipeng Sun
-# Last Change: Thu Jun 09, 2022 at 03:14 AM -0400
+# Last Change: Thu Jun 09, 2022 at 07:47 PM -0400
 
 import argparse
 import os
@@ -25,9 +25,27 @@ parser.add_argument(
 args = parser.parse_args()
 
 
+def genTypeName(raw):
+    fields = []
+    part = ""
+    for s in raw:
+        if s in ["[", "]"]:
+            if len(part):
+                fields.append(part)
+            part = ""
+        else:
+            part += s
+    if len(part):
+        fields.append(part)
+    # multidim array be like: nx * ny * type
+    if len(fields) > 1:
+        fields = fields[1:] + [fields[0]]
+    return " * ".join([f.replace("_t", "") for f in fields])
+
+
 def getTreeSpec(tree):
     raw = tree.typenames()
-    return {k: v.replace("_t", "") for k, v in raw.items()}
+    return {k: genTypeName(v) for k, v in raw.items()}
 
 
 with open(args.ymlName, "r") as stream:
