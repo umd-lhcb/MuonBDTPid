@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Mon Jun 13, 2022 at 01:08 PM -0400
+# Last Change: Mon Jun 13, 2022 at 01:19 PM -0400
 
 import argparse
 import os
@@ -33,7 +33,7 @@ for species, directive in config["data"].items():
 
         files = []
         for filename in os.listdir(mergedDir):
-            files.append(mergedDir + filename)
+            files.append(mergedDir + "/" + filename)
 
         year, polarity = mag.split("-")
         year = year[2:]
