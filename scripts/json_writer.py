@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Wed Jun 08, 2022 at 05:11 AM -0400
+# Last Change: Mon Jun 13, 2022 at 01:05 PM -0400
 
 import argparse
 import os
@@ -28,16 +28,23 @@ with open(args.ymlName, "r") as stream:
 jsonDict = {}
 
 for species, directive in config["data"].items():
-    for mag, remoteBaseDir in directive.items():
-        localDir = f"{config['local_ntuple_folders']['remote']}/{species}-{mag}"
+    for mag in directive:
         mergedDir = f"{config['local_ntuple_folders']['merged']}/{species}-{mag}"
 
         files = []
-        for filename in os.listdir(localDir):
+        for filename in os.listdir(mergedDir):
             files.append(mergedDir + filename)
 
-        jsonDict[species + "-" + mag] = {}
-        jsonDict[species + "-" + mag]["files"] = files
+        year, polarity = mag.split("-")
+        year = year[2:]
+
+        if species in ["Mu_nopt", "P"]:
+            key = f"Turbo{year}-{polarity}-{species}"
+            jsonDict[key] = {"files": files}
+        elif species == "KPiMu":
+            for part in ["K", "Pi", "Mu"]:
+                key = f"Turbo{year}-{polarity}-{species}"
+                jsonDict[key] = {"files": files}
 
 
 # Writing to a output JSON file
