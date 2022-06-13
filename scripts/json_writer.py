@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Mon Jun 13, 2022 at 01:05 PM -0400
+# Last Change: Mon Jun 13, 2022 at 01:08 PM -0400
 
 import argparse
 import os
@@ -43,7 +43,7 @@ for species, directive in config["data"].items():
             jsonDict[key] = {"files": files}
         elif species == "KPiMu":
             for part in ["K", "Pi", "Mu"]:
-                key = f"Turbo{year}-{polarity}-{species}"
+                key = f"Turbo{year}-{polarity}-{part}"
                 jsonDict[key] = {"files": files}
 
 
