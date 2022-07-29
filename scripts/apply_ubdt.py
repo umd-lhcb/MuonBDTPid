@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Wed Jun 08, 2022 at 05:04 AM -0400
+# Last Change: Fri Jul 29, 2022 at 04:44 PM -0400
 #
 # Description: Apply the UBDT to root files in directories specified by a yml
 #              file (input), and write them to specified output directory.
@@ -29,28 +29,32 @@ with open(args.ymlName, "r") as stream:
 
 for species, directive in config["data"].items():
     for mag, remoteBaseDir in directive.items():
-        firstRun = True
-        trees = ""
-        inputDir = f"{config['local_ntuple_folders']['remote']}/{species}-{mag}/"
-        outputDir = f"{config['local_ntuple_folders']['friends']}/{species}-{mag}/"
-        os.system("mkdir -p " + outputDir)
-        print(f"{inputDir} -> {outputDir}")
+        try:
+            firstRun = True
+            trees = ""
+            inputDir = f"{config['local_ntuple_folders']['remote']}/{species}-{mag}/"
+            outputDir = f"{config['local_ntuple_folders']['friends']}/{species}-{mag}/"
+            os.system("mkdir -p " + outputDir)
+            print(f"{inputDir} -> {outputDir}")
 
-        for fInput in glob(inputDir + "*.root"):
-            fOutput = outputDir + basename(fInput)
-            # Get names of trees--only need to do this once per decay
-            if firstRun:
-                rootFile = uproot.open(fInput)
-                trees = [t.replace(";1", "") for t in rootFile if "DecayTree" in t]
-                trees = ",".join(trees)
-                print(f"  trees: {trees}")
-                firstRun = False
+            for fInput in glob(inputDir + "*.root"):
+                fOutput = outputDir + basename(fInput)
+                # Get names of trees--only need to do this once per decay
+                if firstRun:
+                    rootFile = uproot.open(fInput)
+                    trees = [t.replace(";1", "") for t in rootFile if "DecayTree" in t]
+                    trees = ",".join(trees)
+                    print(f"  trees: {trees}")
+                    firstRun = False
 
-            # Call UBDT
-            cmd = f"  AddUBDTBranchPidCalib -i {fInput} -o {fOutput} -p probe -b UBDT -t {trees}"
-            print(cmd)
+                # Call UBDT
+                cmd = f"  AddUBDTBranchPidCalib -i {fInput} -o {fOutput} -p probe -b UBDT -t {trees}"
+                print(cmd)
 
-            if not args.dryRun:
-                retCode = os.system(cmd)
-                if retCode != 0:
-                    print(f"  WARNING: {cmd} did not execute properly!")
+                if not args.dryRun:
+                    retCode = os.system(cmd)
+                    if retCode != 0:
+                        print(f"  WARNING: {cmd} did not execute properly!")
+
+        except KeyboardInterrupt:
+            break
