@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Fri Jul 29, 2022 at 04:29 PM -0400
+# Last Change: Fri Jul 29, 2022 at 04:35 PM -0400
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -96,7 +96,7 @@ AddUBDTBranchRun2PidCalib: AddUBDTBranchRun2.cpp
 #####################################
 
 apply-ubdt:
-	./scripts/apply_ubdt.py --ymlName ./spec/pidcalib.yml --dryRun
+	./scripts/apply_ubdt.py --ymlName ./spec/pidcalib.yml
 
 merge-ntp:
 	./scripts/merge_ntuple.py --ymlName ./spec/pidcalib.yml
