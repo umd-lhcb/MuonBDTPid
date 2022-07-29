@@ -1,5 +1,5 @@
 // Author: Gregory Ciezarek, Yipeng Sun
-// Last Change: Thu Apr 21, 2022 at 12:41 AM -0400
+// Last Change: Fri Jul 29, 2022 at 04:13 PM -0400
 
 #include <cmath>
 #include <iomanip>
@@ -161,7 +161,8 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName, TString particle,
     prefix2+"RICHThresholdMu", prefix2+"RICHThresholdKa",
     prefix+"RichDLLe", prefix+"RichDLLmu", prefix+"RichDLLk", prefix+"RichDLLp", prefix+"RichDLLbt",
     //
-    prefix+"MuonLLBkg", prefix+"MuonLLMu", prefix+"MuonNShared",
+    prefix+"MuonLLBkg", prefix+"MuonLLMu", prefix+"MuonNShared + 1",
+    // "+1" to align the offset. For more info, see https://github.com/umd-lhcb/MuonBDTPid/issues/10
     //
     prefix+"InAccEcal", prefix+"EcalPIDe", prefix+"EcalPIDmu",
     //
