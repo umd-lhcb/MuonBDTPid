@@ -1,9 +1,8 @@
 #!/usr/bin/env python                                                                                                       
 # Author: Emily Jiang                                                                                                       
-# Last Change: Tues May 10, 2022 at 02:24 PM +0100                                                                          
-#                                                                                                                           
-# Description: Apply the UBDT to root files in directories specified by a yml file (input), and write them to specified
-# output directory.
+# Last Change: Tues May 10, 2022 at 02:24 PM +0100                               
+# 
+# Description: Apply the UBDT to root files in directories specified by a yml file (input), and write them to specified output directory.
 
 import argparse
 import yaml

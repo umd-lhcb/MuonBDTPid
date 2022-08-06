@@ -1,5 +1,5 @@
 # Author: Yipeng Sun
-# Last Change: Thu Apr 21, 2022 at 12:53 AM -0400
+# Last Change: Tue May 03, 2022 at 02:26 PM -0400
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -80,6 +80,9 @@ test-nix-pkg: samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-su
 	AddUBDTBranchPidCalib -i $< -o gen/pidcalib_w_nix_pkg.root \
 		-p probe -b UBDT -t "Jpsinopt_MuMTuple/DecayTree","Jpsinopt_MuPTuple/DecayTree"
 
+test-nix-pkg-emily: /home/public/pidcalib_ntuples/remote/Mu_nopt-2016-MagDown/00152085_00000001_1.pidcalib.root
+	AddUBDTBranchPidCalib -i $< -o gen/real_pidcalib_w_nix_pkg_test.root \
+		-p probe -b UBDT -t "Jpsinopt_MuMTuple/DecayTree","Jpsinopt_MuPTuple/DecayTree"
 
 ###############
 # Executables #
