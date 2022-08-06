@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Author: Emily Jiang
-# Last Change: Fri Jul 29, 2022 at 04:44 PM -0400
+# Last Change: Sat Aug 06, 2022 at 06:35 PM -0400
 #
 # Description: Apply the UBDT to root files in directories specified by a yml
 #              file (input), and write them to specified output directory.
@@ -30,8 +30,6 @@ with open(args.ymlName, "r") as stream:
 for species, directive in config["data"].items():
     for mag, remoteBaseDir in directive.items():
         try:
-            firstRun = True
-            trees = ""
             inputDir = f"{config['local_ntuple_folders']['remote']}/{species}-{mag}/"
             outputDir = f"{config['local_ntuple_folders']['friends']}/{species}-{mag}/"
             os.system("mkdir -p " + outputDir)
@@ -39,13 +37,10 @@ for species, directive in config["data"].items():
 
             for fInput in glob(inputDir + "*.root"):
                 fOutput = outputDir + basename(fInput)
-                # Get names of trees--only need to do this once per decay
-                if firstRun:
-                    rootFile = uproot.open(fInput)
-                    trees = [t.replace(";1", "") for t in rootFile if "DecayTree" in t]
-                    trees = ",".join(trees)
-                    print(f"  trees: {trees}")
-                    firstRun = False
+                rootFile = uproot.open(fInput)
+                trees = [t.replace(";1", "") for t in rootFile if "DecayTree" in t]
+                trees = ",".join(trees)
+                print(f"  trees: {trees}")
 
                 # Call UBDT
                 cmd = f"  AddUBDTBranchPidCalib -i {fInput} -o {fOutput} -p probe -b UBDT -t {trees}"
