@@ -1,32 +1,52 @@
+#!/usr/bin/env python
+# Author: Emily Jiang
+# Last Change: Mon Jun 13, 2022 at 01:19 PM -0400
+
 import argparse
-import yaml
-import subprocess
 import os
 import json
+import yaml
 
-parser = argparse.ArgumentParser(description='Process yml filename and lxplus username.')
-parser.add_argument('--ymlName', type=str,
-                    help='path to YAML file containing directories of files to be downloaded')
+
+parser = argparse.ArgumentParser(
+    description="Generate PIDCalib file location JSON file."
+)
+parser.add_argument(
+    "--ymlName",
+    help="path to YAML file containing directories of files to be downloaded",
+)
+parser.add_argument(
+    "--outputJson",
+    help="path to output JSON",
+)
 args = parser.parse_args()
 
-with open(args.ymlName, 'r') as stream:
-    files = yaml.safe_load(stream)
+
+with open(args.ymlName, "r") as stream:
+    config = yaml.safe_load(stream)
 
 jsonDict = {}
 
-for decay in files["data"]:
-    for folder in files["data"][decay]:
-        for mag in files["data"][decay][folder]:
-            localDir = files["local_ntuple_folders"][folder]+"/"+decay+"-"+mag
-            mergedDir = files["local_ntuple_folders"]["merged"]+"/"+decay+"-"+mag+"/"
-            jsonDict[decay+"-"+mag] = {}
-            jsonDict[decay+"-"+mag]["files"] = []
+for species, directive in config["data"].items():
+    for mag in directive:
+        mergedDir = f"{config['local_ntuple_folders']['merged']}/{species}-{mag}"
 
-            for filename in os.listdir(localDir):
-                jsonDict[decay+"-"+mag]["files"].append(mergedDir+filename)
+        files = []
+        for filename in os.listdir(mergedDir):
+            files.append(mergedDir + "/" + filename)
 
-json_object = json.dumps(jsonDict, indent = 4)
-  
-# Writing to sample.json
-with open("samples.json", "w") as outfile:
-    outfile.write(json_object)
+        year, polarity = mag.split("-")
+        year = year[2:]
+
+        if species in ["Mu_nopt", "P"]:
+            key = f"Turbo{year}-{polarity}-{species}"
+            jsonDict[key] = {"files": files}
+        elif species == "KPiMu":
+            for part in ["K", "Pi", "Mu"]:
+                key = f"Turbo{year}-{polarity}-{part}"
+                jsonDict[key] = {"files": files}
+
+
+# Writing to a output JSON file
+with open(args.outputJson, "w") as outfile:
+    outfile.write(json.dumps(jsonDict, indent=4))

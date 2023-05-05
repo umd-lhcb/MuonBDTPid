@@ -1,5 +1,4 @@
 # Author: Yipeng Sun
-# Last Change: Tue May 03, 2022 at 02:26 PM -0400
 
 BINPATH	:=	bin
 VPATH	:=	$(BINPATH)
@@ -92,6 +91,30 @@ AddUBDTBranchRun2:
 
 AddUBDTBranchRun2PidCalib: AddUBDTBranchRun2.cpp
 	$(COMPILER) $(CXXFLAGS) -DPIDCALIB -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
+
+
+#####################################
+# PIDCalib ntuple w/ UBDT workflows #
+#####################################
+
+apply-ubdt:
+	./scripts/apply_ubdt.py --ymlName ./spec/pidcalib.yml
+
+merge-ntp:
+	./scripts/merge_ntuple.py --ymlName ./spec/pidcalib.yml
+
+write-json:
+	./scripts/json_writer.py --ymlName ./spec/pidcalib.yml --outputJson gen/sample.json
+
+
+test-grab-ntp:
+	./scripts/ntuple_grabber.py --ymlName ./spec/pidcalib.yml --lxplusUser ejiang --dryRun
+
+test-check-hash:
+	./scripts/hash_checker.py --ymlName ./spec/pidcalib.yml --localFileHashes gen/test_local_hash.yml --dryRun
+
+test-merge-ntp:
+	./scripts/merge_ntuple.py --ymlName ./spec/pidcalib.yml --testRun
 
 
 ####################

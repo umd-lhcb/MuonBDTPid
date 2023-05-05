@@ -5,7 +5,7 @@
 
 stdenv.mkDerivation {
   pname = "AddUBDTBranch";
-  version = "0.2.1";
+  version = "0.2.4";
 
   src = builtins.path { path = ./../..; name = "AddUBDTBranch"; };
 
@@ -16,6 +16,6 @@ stdenv.mkDerivation {
     mkdir -p $out/weights
     cp bin/AddUBDTBranchRun2 $out/bin
     cp bin/AddUBDTBranchRun2PidCalib $out/bin
-    cp weights/weights_run2_no_cut_ubdt.xml $out/weights/ubdt_run2.xml
+    cp weights/weights_run2_all_cuts_ubdt.xml $out/weights/ubdt_run2.xml
   '';
 }

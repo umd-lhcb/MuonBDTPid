@@ -1,3 +1,7 @@
 pyTuplingUtils
 pyyaml
 uproot
+<<<<<<< HEAD
+=======
+awkward
+>>>>>>> 1febb6a51d383f961ffd3737ff9a81b5f1e702bb
