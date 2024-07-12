@@ -221,7 +221,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName, TString particle,
     ntpOut->cd(treeDir);
   }
 
-  auto treeOut = new TTree(treeBase, treeBase);
+  // auto treeOut = new TTree(treeBase, treeBase);
 
   // Define variables to be loaded in the tree
   auto treeFormulae = map<TString, TTreeFormula>{};
@@ -255,7 +255,7 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName, TString particle,
 
   // Output branch
   float signalResponse;
-  treeOut->Branch(particle + "_" + outputBrName, &signalResponse);
+  TBranch *br = treeIn->Branch(particle + "_" + outputBrName, &signalResponse);
 
   // run and event Numbers
 #ifdef PIDCALIB
@@ -265,10 +265,10 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName, TString particle,
   UInt_t    runNumber;
   ULong64_t eventNumber;
 #endif
-  treeIn->SetBranchAddress("runNumber", &runNumber);
-  treeIn->SetBranchAddress("eventNumber", &eventNumber);
-  treeOut->Branch("runNumber", &runNumber);
-  treeOut->Branch("eventNumber", &eventNumber);
+  // treeIn->SetBranchAddress("runNumber", &runNumber);
+  // treeIn->SetBranchAddress("eventNumber", &eventNumber);
+  // treeOut->Branch("runNumber", &runNumber);
+  // treeOut->Branch("eventNumber", &eventNumber);
 
   // Start processing
   cout << treeName << " has " << numEntries << " entries" << endl;
@@ -285,13 +285,15 @@ void addMuBDT(TFile *ntpIn, TFile *ntpOut, string treeName, TString particle,
     }
 
     signalResponse = reader->EvaluateMVA("UBDT method");
-    treeOut->Fill();
+    br->Fill();
+    // treeOut->Fill();
   }
 
-  ntpOut->Write("", TObject::kOverwrite);  // Keep latest cycle only
+  ntpIn->Write("", TObject::kOverwrite);
+  // ntpOut->Write("", TObject::kOverwrite);  // Keep latest cycle only
   delete reader;
   delete treeIn;
-  delete treeOut;
+  // delete treeOut;
   delete progress;
 }
 
@@ -326,7 +328,7 @@ int main(int argc, char **argv) {
   auto ubdtBrName     = TString(parsedArgs["ubdtBrName"].as<string>());
   auto trees          = parsedArgs["trees"].as<vector<string>>();
 
-  auto ntpIn  = new TFile(inputFilename, "read");
+  auto ntpIn  = new TFile(inputFilename, "update");
   auto ntpOut = new TFile(outputFilename, "recreate");
 
   for (auto t : trees)

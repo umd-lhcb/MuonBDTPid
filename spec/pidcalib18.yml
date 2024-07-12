@@ -1,0 +1,27 @@
+data:
+    Mu_nopt:
+        2018-MagDown: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision18/PIDCALIB.ROOT/00227905/0000
+        2018-MagUp: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision18/PIDCALIB.ROOT/00227902/0000
+
+    KPiMu:
+        2018-MagDown: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision18/PIDCALIB.ROOT/00227921/0000
+        2018-MagUp: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision18/PIDCALIB.ROOT/00227915/0000
+
+    P:
+        2018-MagDown: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision18/PIDCALIB.ROOT/00227917/0000
+        2018-MagUp: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision18/PIDCALIB.ROOT/00227909/0000
+    # e:
+    #     2018-MagDown: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision18/PIDCALIB.ROOT/00108862/0000
+    #     2018-MagUp: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision18/PIDCALIB.ROOT/00108864/0000
+
+local_ntuple_folders:
+    remote: /home/public/pidcalib_ntuples/remote
+    friends: /home/public/pidcalib_ntuples/friends
+    merged: /home/public/pidcalib_ntuples/merged
+# this only works on 'glacier', our server!
+# The remote ntuples will be downloaded to the root folder above.
+# say we are downloading 'Mu_nopt, 2016-MagDown', then the raw ntuples should be placed in:
+#   /home/public/pidcalib_ntuples/remote/Mu_nopt-2016-MagDown
+#
+# when downloading, make sure to check number of files and the sha256sum (a
+# hash algorithm) of every single file
