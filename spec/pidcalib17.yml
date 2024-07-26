@@ -5,7 +5,7 @@ data:
 
     KPiMu:
         2017-MagDown: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision17/PIDCALIB.ROOT/00227913/0000
-       	2017-MagUp: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision17/PIDCALIB.ROOT/00227919/0000
+        2017-MagUp: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision17/PIDCALIB.ROOT/00227919/0000
 
     P:
         2017-MagDown: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision17/PIDCALIB.ROOT/00227911/0000
