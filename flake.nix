@@ -37,6 +37,8 @@
             virtualenvwrapper
             numpy
             pylint
+            pyyaml
+            uproot
           ]);
 
           FONTCONFIG_FILE = pkgs.makeFontsConf {
