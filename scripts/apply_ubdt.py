@@ -70,7 +70,8 @@ if __name__ == '__main__':
                     trees = []
                     for tname in rootFile:
                         if 'DecayTree' not in tname: continue
-                        trees.append(tname.split(';')[0]) # Remove the ";#" after the tree name
+                        newtree = tname.split(';')[0] # Remove the ";#" after the tree name  
+                        if newtree not in trees: trees.append(newtree)
                     trees = ",".join(trees)
     
                     # Call UBDT
