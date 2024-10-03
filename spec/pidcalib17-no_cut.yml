@@ -15,8 +15,8 @@ data:
     #     2017-MagUp: /eos/lhcb/grid/prod/lhcb/anaprod/lhcb/LHCb/Collision17/PIDCALIB.ROOT/00108864/0000
 
 local_ntuple_folders:
-    remote: /home/public/pidcalib_ntuples/remote
-    friends: /home/public/pidcalib_ntuples/friends
+    remote: /home/public/pidcalib_ntuples/remote/resaved_kWriteDelete
+    friends: /home/public/pidcalib_ntuples/friends-no_cut
     merged: /home/public/pidcalib_ntuples/merged
 # this only works on 'glacier', our server!
 # The remote ntuples will be downloaded to the root folder above.
