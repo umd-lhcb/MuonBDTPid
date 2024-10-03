@@ -76,7 +76,7 @@ if __name__ == '__main__':
     
                     # Call UBDT
                     cmd = f'./bin/AddUBDTBranchRun2PidCalib -i {fInput} -o {fOutput} -p probe -b UBDT '
-                    cmd += f'-t {trees} -x weights/weights_run2_no_cut_ubdt.xml'
+                    cmd += f'-t {trees} -x weights/weights_run2_all_cuts_ubdt.xml'
     
                     if not args.dryRun:
                         print(cTerm(cmd,'magenta'))
