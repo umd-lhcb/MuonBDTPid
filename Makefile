@@ -9,7 +9,8 @@ VPATH	:=	test:src:$(VPATH)
 COMPILER	:=	$(shell root-config --cxx)
 CXXFLAGS	:=	$(shell root-config --cflags)
 LINKFLAGS	:=	$(shell root-config --libs)
-ADDCXXFLAGS	:=	-g -O1
+ADDCXXFLAGS_OPT	:=	-O3
+ADDCXXFLAGS_DBG	:=	-g -Og
 ADDLINKFLAGS	:=	-lTreePlayer -lMinuit -lFoam -lXMLIO -lTMVA
 
 CASTELAO_VERSION=Castelao-v3r4
@@ -120,7 +121,7 @@ test-merge-ntp:
 ####################
 
 %.dbg: %.cpp
-	$(COMPILER) $(CXXFLAGS) $(ADDCXXFLAGS) -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
+	$(COMPILER) $(CXXFLAGS) $(ADDCXXFLAGS_DBG) -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
 
 %: %.cpp
-	$(COMPILER) $(CXXFLAGS) -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
+	$(COMPILER) $(CXXFLAGS) $(ADDCXXFLAGS_OPT) -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
