@@ -54,12 +54,12 @@ test-apply: \
 	bin/AddUBDTBranchRun2 \
 		-i samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
 		-o gen/pidcalib_old.root \
-		-p probe -x weights/weights_run2_no_cut_ubdt.xml -b UBDT \
+		-p probe -x weights -w weights_run2_no_cut_ubdt.xml -b UBDT \
 		-t "Jpsinopt_MuMTuple/DecayTree","Jpsinopt_MuPTuple/DecayTree"
 	bin/AddUBDTBranchRun2PidCalib \
 		-i samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
 		-o gen/pidcalib_new.root \
-		-p probe -x weights/weights_run2_no_cut_ubdt.xml -b UBDT \
+		-p probe -x weights -w weights_run2_no_cut_ubdt.xml -b UBDT \
 		-t "Jpsinopt_MuMTuple/DecayTree","Jpsinopt_MuPTuple/DecayTree"
 	plotbr \
 		-o ./gen/mu_bdt_mu_MuM_comp_norm.png \

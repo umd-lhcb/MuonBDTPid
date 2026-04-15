@@ -16,6 +16,7 @@ stdenv.mkDerivation {
     mkdir -p $out/weights
     cp bin/AddUBDTBranchRun2 $out/bin
     cp bin/AddUBDTBranchRun2PidCalib $out/bin
-    cp weights/weights_run2_no_cut_ubdt.xml $out/weights/ubdt_run2.xml
+    cp weights/weights_run2_no_cut_ubdt.xml $out/weights/ubdt_run2_no_cut.xml
+    cp weights/weights_run2_all_cuts_ubdt.xml $out/weights/ubdt_run2_all_cuts.xml
   '';
 }
