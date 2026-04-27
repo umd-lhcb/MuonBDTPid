@@ -9,7 +9,8 @@ VPATH	:=	test:src:$(VPATH)
 COMPILER	:=	$(shell root-config --cxx)
 CXXFLAGS	:=	$(shell root-config --cflags)
 LINKFLAGS	:=	$(shell root-config --libs)
-ADDCXXFLAGS	:=	-g -O1
+ADDCXXFLAGS_OPT	:=	-O3
+ADDCXXFLAGS_DBG	:=	-g -Og
 ADDLINKFLAGS	:=	-lTreePlayer -lMinuit -lFoam -lXMLIO -lTMVA
 
 CASTELAO_VERSION=Castelao-v3r4
@@ -53,12 +54,12 @@ test-apply: \
 	bin/AddUBDTBranchRun2 \
 		-i samples/Jpsi--21_02_05--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
 		-o gen/pidcalib_old.root \
-		-p probe -x weights/weights_run2_no_cut_ubdt.xml -b UBDT \
+		-p probe -x weights -w weights_run2_no_cut_ubdt.xml -b UBDT \
 		-t "Jpsinopt_MuMTuple/DecayTree","Jpsinopt_MuPTuple/DecayTree"
 	bin/AddUBDTBranchRun2PidCalib \
 		-i samples/Jpsi--21_11_30--pidcalib--data_turbo--2016--mu--Mu_nopt-subset.root \
 		-o gen/pidcalib_new.root \
-		-p probe -x weights/weights_run2_no_cut_ubdt.xml -b UBDT \
+		-p probe -x weights -w weights_run2_no_cut_ubdt.xml -b UBDT \
 		-t "Jpsinopt_MuMTuple/DecayTree","Jpsinopt_MuPTuple/DecayTree"
 	plotbr \
 		-o ./gen/mu_bdt_mu_MuM_comp_norm.png \
@@ -120,7 +121,7 @@ test-merge-ntp:
 ####################
 
 %.dbg: %.cpp
-	$(COMPILER) $(CXXFLAGS) $(ADDCXXFLAGS) -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
+	$(COMPILER) $(CXXFLAGS) $(ADDCXXFLAGS_DBG) -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
 
 %: %.cpp
-	$(COMPILER) $(CXXFLAGS) -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)
+	$(COMPILER) $(CXXFLAGS) $(ADDCXXFLAGS_OPT) -o $(BINPATH)/$@ $< $(LINKFLAGS) $(ADDLINKFLAGS)

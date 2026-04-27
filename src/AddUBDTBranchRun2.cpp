@@ -305,6 +305,7 @@ int main(int argc, char **argv) {
     ("i,input", "input ntuple", cxxopts::value<string>())
     ("o,output", "output ntuple", cxxopts::value<string>())
     ("x,xml", "BDT XML export file", cxxopts::value<string>())
+    ("w,xmlPath", "BDT XML export file", cxxopts::value<string>())
     ("b,ubdtBrName", "UBDT branch name",
      cxxopts::value<string>()->default_value("bdt_mu"))
     ("p,particle", "particle name",
@@ -321,10 +322,13 @@ int main(int argc, char **argv) {
 
   auto inputFilename  = TString(parsedArgs["input"].as<string>());
   auto outputFilename = TString(parsedArgs["output"].as<string>());
-  auto xmlFilename    = TString(parsedArgs["xml"].as<string>());
+  auto xmlFile        = TString(parsedArgs["xml"].as<string>());
+  auto xmlPath        = TString(parsedArgs["xmlPath"].as<string>());
   auto particle       = TString(parsedArgs["particle"].as<string>());
   auto ubdtBrName     = TString(parsedArgs["ubdtBrName"].as<string>());
   auto trees          = parsedArgs["trees"].as<vector<string>>();
+
+  TString xmlFilename = xmlPath + "/" + xmlFile;
 
   auto ntpIn  = new TFile(inputFilename, "read");
   auto ntpOut = new TFile(outputFilename, "recreate");

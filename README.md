@@ -7,6 +7,24 @@ Below we list some related links:
 - PIDCalib package [twiki](https://twiki.cern.ch/twiki/bin/view/LHCb/PIDCalibPackage)
 - PIDCalib sample modes and cuts [option file](https://gitlab.cern.ch/lhcb/Castelao/-/blob/master/PIDCalib/PidCalibProduction/options/Run-2/makeTuples.py)
 
+## `git-annex` setup
+
+If you haven't cloned this project, do these steps first:
+
+```shell
+git clone git@github.com:umd-lhcb/MuonBDTPid
+cd MuonBDTPid
+```
+
+Now add our `git-annex` repository:
+
+```shell
+git remote add julian git@lhcb.physics.umd.edu:MuonBDTPid
+git annex init --version=7
+# Before proceeding, make sure you do not have uncommitted/unstashed changes in the repo,
+# because 'git annex sync' commits and then pushes everything
+git annex sync
+```
 
 ## Add Greg's run 2 Mu BDT branch
 
